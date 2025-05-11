@@ -17,8 +17,8 @@ void Camera::SetPosition(const Math::Vector3& position)
 
 void Camera::SetDirection(const Math::Vector3& direction)
 {
-	Math::Vector3 dir = Math::Normalize(direction);
-	if (Math::Abs(Math::Dot(dir, Math::Vector3::YAxis)) < 0.995f)
+	Math::Vector3 dir = Math::Normalize(direction); // Sanity Check to be safe
+	if (Math::Abs(Math::Dot(dir, Math::Vector3::YAxis)) < 0.995f) // Basically we aren't looking straight up
 	{
 		mDirection = dir;
 	}
@@ -32,12 +32,14 @@ void Camera::SetLookAt(const Math::Vector3& target)
 void Camera::SetFOV(float fov)
 {
 	constexpr float kMinFov = 10.0f * Math::Constants::DegToRad;
-	constexpr float kMaxFov=
+	constexpr float kMaxFov = 170.0f * Math::Constants::DegToRad;
+	
+	mFov = Math::Clamp(fov, kMinFov, kMaxFov);
 }
 
 void Camera::SetAspectRatio(float ratio)
 {
-	mAspectRatio = 
+	mAspectRatio = ratio;
 }
 
 void Camera::SetSize(float width, float height)
@@ -46,7 +48,7 @@ void Camera::SetSize(float width, float height)
 	mHeight = height;
 }
 
-void Camera::GetSize() const
+float Camera::GetSize() const
 {
 	return mWidth;
 }
@@ -79,8 +81,9 @@ void Camera::Rise(float distance)
 
 void Camera::Yaw(float radians)
 {
-	Math::Matrix4 matRotate = Math::Matrix4::RotationY(radians);
-	mDirection = Math::TransformNormal(mDirection, matRotate);
+	const Math::Matrix4 matRotate = Math::Matrix4::RotationY(radians);
+	const Math::Vector3 newLook = Math::TransformNormal(mDirection, matRotate);
+	SetDirection(newLook);
 }
 
 void Camera::Pitch(float radians)
@@ -138,9 +141,9 @@ Math::Matrix4 Camera::GetPerspectiveMatrix() const
 	const float q = zf / (zf - zn);
 
 	return {
-		w, 0.0f, 0.0f, 0.0f,
-		0.0f, d, 0.0f, 0.0f,
-		0.0f, 0.0f, q, 1.0f,
+		   w, 0.0f,    0.0f, 0.0f,
+		0.0f,    d,    0.0f, 0.0f,
+		0.0f, 0.0f,       q, 1.0f,
 		0.0f, 0.0f, -zn * q, 0.0f
 	};
 }
@@ -153,8 +156,9 @@ Math::Matrix4 Camera::GetOrthographicMatrix() const
 	const float n = mNearPlane;
 
 	return {
-		2.0f/w, 0.0f, 0.0f, 0.0f,
-		0.0f, 2.0f/h, 0.0f, 0.0f,
-		0.0f, 0.0f, 
-	}
+		2.0f / w,     0.0f,           0.0f, 0.0f,
+		    0.0f, 2.0f / h,           0.0f, 0.0f,
+		    0.0f,     0.0f, 1.0f / (f - n), 0.0f,
+		    0.0f,     0.0f,    n / (n - f), 1.0f
+	};
 }

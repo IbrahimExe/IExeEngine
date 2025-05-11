@@ -25,7 +25,7 @@ namespace IExeEngine::Graphics
 
 		// Orthographic Params
 		void SetSize(float width, float height);
-		void GetSize() const;
+		float GetSize() const;
 
 		// Shared Internal
 		void SetNearPlane(float nearPlane);
@@ -58,6 +58,13 @@ namespace IExeEngine::Graphics
 		Math::Vector3 mPosition = Math::Vector3::Zero;
 		Math::Vector3 mDirection = Math::Vector3::ZAxis;
 
-		float mFov = 60.0f * Math::Constants
+		float mFov = 60.0f * Math::Constants::DegToRad;
+		float mAspectRatio = 0.0f;
+
+		float mWidth = 0.0f;
+		float mHeight = 0.0f;
+
+		float mNearPlane = 0.01f;
+		float mFarPlane = 1000.0f;
 	};
 }
