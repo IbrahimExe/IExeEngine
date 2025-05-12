@@ -15,7 +15,7 @@ void ShapeState::Initialize()
 
 	// Creates a shape out of the vertices
 	CreateShape();
-	mMeshbuffer.Initialize(mVertices.data(), sizeof(VertexPC), mVertices.size());
+	mMeshbuffer.Initialize(mMesh);
 
 	std::filesystem::path shaderFilePath = L"../../Assets/Shaders/DoTransformColor.fx";
 	mVertexShader.Initialize<VertexPC>(shaderFilePath);
@@ -24,7 +24,6 @@ void ShapeState::Initialize()
 
 void ShapeState::Terminate()
 {
-	mVertices.clear();
 	mTransformBuffer.Terminate();
 	mPixelShader.Terminate();
 	mVertexShader.Terminate();
@@ -79,59 +78,5 @@ void ShapeState::Render()
 
 void ShapeState::CreateShape()
 {
-	const float hs = 0.5f;
-
-	// Front
-	mVertices.push_back({ { -hs, -hs, -hs }, Colors::Red });
-	mVertices.push_back({ { -hs,  hs, -hs }, Colors::Orange });
-	mVertices.push_back({ {  hs,  hs, -hs }, Colors::Gold });
-
-	mVertices.push_back({ { -hs, -hs, -hs }, Colors::Red });
-	mVertices.push_back({ {  hs,  hs, -hs }, Colors::Orange });
-	mVertices.push_back({ {  hs, -hs, -hs }, Colors::Gold });
-
-	// Back
-	mVertices.push_back({ { -hs,  hs, -hs }, Colors::Red });
-	mVertices.push_back({ { -hs, -hs, -hs }, Colors::Orange });
-	mVertices.push_back({ {  hs,  hs, -hs }, Colors::Gold });
-
-	mVertices.push_back({ { -hs, -hs, -hs }, Colors::Red });
-	mVertices.push_back({ {  hs, -hs, -hs }, Colors::Orange });
-	mVertices.push_back({ {  hs,  hs, -hs }, Colors::Gold });
-
-	// Right
-	mVertices.push_back({ {  hs, -hs, -hs }, Colors::Red });
-	mVertices.push_back({ {  hs,  hs, -hs }, Colors::Orange });
-	mVertices.push_back({ {  hs,  hs,  hs }, Colors::Gold });
-
-	mVertices.push_back({ {  hs, -hs, -hs }, Colors::Red });
-	mVertices.push_back({ {  hs,  hs,  hs }, Colors::Orange });
-	mVertices.push_back({ {  hs, -hs,  hs }, Colors::Gold });
-
-	// Left
-	mVertices.push_back({ { -hs, -hs,  hs }, Colors::Red });
-	mVertices.push_back({ { -hs,  hs,  hs }, Colors::Orange });
-	mVertices.push_back({ {  hs,  hs, -hs }, Colors::Gold });
-
-	mVertices.push_back({ { -hs, -hs,  hs }, Colors::Red });
-	mVertices.push_back({ {  hs,  hs, -hs }, Colors::Orange });
-	mVertices.push_back({ { -hs, -hs,  hs }, Colors::Gold });
-
-	// Top
-	mVertices.push_back({ { -hs,  hs, -hs }, Colors::Red });
-	mVertices.push_back({ { -hs,  hs,  hs }, Colors::Orange });
-	mVertices.push_back({ {  hs,  hs,  hs }, Colors::Gold });
-
-	mVertices.push_back({ { -hs,  hs, -hs }, Colors::Red });
-	mVertices.push_back({ {  hs,  hs,  hs }, Colors::Orange });
-	mVertices.push_back({ {  hs,  hs, -hs }, Colors::Gold });
-
-	// Bottom
-	mVertices.push_back({ { -hs, -hs, -hs }, Colors::Red });
-	mVertices.push_back({ {  hs, -hs,  hs }, Colors::Orange });
-	mVertices.push_back({ { -hs, -hs,  hs }, Colors::Gold });
-
-	mVertices.push_back({ { -hs, -hs, -hs }, Colors::Red });
-	mVertices.push_back({ {  hs, -hs, -hs }, Colors::Orange });
-	mVertices.push_back({ {  hs, -hs,  hs }, Colors::Gold });
+	mMesh = MeshBuilder::CreateCubePC(1.0f, Colors::Gold);
 }

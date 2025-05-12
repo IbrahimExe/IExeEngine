@@ -17,3 +17,7 @@
 #include "Camera.h"
 
 #include "ConstantBuffer.h"
+
+#include "MeshTypes.h"
+
+#include "MeshBuilder.h"
