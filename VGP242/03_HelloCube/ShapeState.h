@@ -20,3 +20,27 @@ protected:
 	IExeEngine::Graphics::VertexShader mVertexShader;
 	IExeEngine::Graphics::PixelShader mPixelShader;
 };
+
+class CubeState : public ShapeState
+{
+public:
+	void Update(float deltaTime) override;
+protected:
+	void CreateShape() override;
+};
+
+class PyramidState : public ShapeState
+{
+public:
+	void Update(float deltaTime) override;
+protected:
+	void CreateShape() override;
+};
+
+class RectangleState : public ShapeState
+{
+public:
+	void Update(float deltaTime) override;
+protected:
+	void CreateShape() override;
+};

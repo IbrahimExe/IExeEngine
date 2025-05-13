@@ -9,6 +9,9 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int)
     IExeEngine::App& myApp = IExeEngine::MainApp();
 
     myApp.AddState<ShapeState>("ShapeState");
+    myApp.AddState<CubeState>("Cube");
+    myApp.AddState<PyramidState>("Pyramid");
+    myApp.AddState<RectangleState>("Rectangle");
 
     myApp.Run(config);
 
