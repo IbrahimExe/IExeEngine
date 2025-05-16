@@ -95,9 +95,12 @@ void ShapeState::Render()
 
 void ShapeState::CreateShape()
 {
-	mMesh = MeshBuilder::CreateRectanglePC(2.0f, 1.0f, 2.0f);
-	mMesh = MeshBuilder::CreateCubePC(4.0f);
-	mMesh = MeshBuilder::CreatePyramid(5.0f);
+	// mMesh = MeshBuilder::CreateRectanglePC(2.0f, 1.0f, 2.0f);
+	// mMesh = MeshBuilder::CreateCubePC(4.0f);
+	// mMesh = MeshBuilder::CreatePyramidPC(5.0f);
+	// mMesh = MeshBuilder::CreatePlanePC(10.f, 10.f, 1);
+	// mMesh = MeshBuilder::CreateCylinderPC(25.0f, 5.0f);
+	mMesh = MeshBuilder::CreateSpherePC(30, 30, 1.0f);
 }
 
 void CubeState::Update(float deltaTime)
@@ -191,7 +194,7 @@ void PyramidState::Update(float deltaTime)
 }
 void PyramidState::CreateShape()
 {
-	mMesh = MeshBuilder::CreatePyramid(1.0f);
+	mMesh = MeshBuilder::CreatePyramidPC(1.0f);
 }
 
 void RectangleState::Update(float deltaTime)
