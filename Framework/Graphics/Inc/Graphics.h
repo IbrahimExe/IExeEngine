@@ -23,3 +23,5 @@
 #include "MeshBuilder.h"
 
 #include "Texture.h"
+
+#include "Sampler.h"

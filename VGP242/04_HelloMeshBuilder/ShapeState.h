@@ -13,12 +13,16 @@ public:
 protected:
 	virtual void CreateShape();
 
-	IExeEngine::Graphics::MeshPC mMesh;
+	IExeEngine::Graphics::MeshPX mMesh;
 	IExeEngine::Graphics::Camera mCamera;
 	IExeEngine::Graphics::ConstantBuffer mTransformBuffer;
 	IExeEngine::Graphics::MeshBuffer mMeshbuffer;
 	IExeEngine::Graphics::VertexShader mVertexShader;
 	IExeEngine::Graphics::PixelShader mPixelShader;
+
+	// New Texture Items
+	IExeEngine::Graphics::Texture mTexture;
+	IExeEngine::Graphics::Sampler mSampler;
 };
 
 class CubeState : public ShapeState
