@@ -145,6 +145,7 @@
     <ClInclude Include="Inc\MeshBuilder.h" />
     <ClInclude Include="Inc\MeshTypes.h" />
     <ClInclude Include="Inc\PixelShader.h" />
+    <ClInclude Include="Inc\Texture.h" />
     <ClInclude Include="Inc\VertexShader.h" />
     <ClInclude Include="Inc\VertexTypes.h" />
     <ClInclude Include="Src\Precompiled.h" />
@@ -159,6 +160,7 @@
     <ClCompile Include="Src\Precompiled.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Src\Texture.cpp" />
     <ClCompile Include="Src\VertexShader.cpp" />
   </ItemGroup>
   <ItemGroup>

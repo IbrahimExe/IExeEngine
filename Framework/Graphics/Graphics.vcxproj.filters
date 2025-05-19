@@ -48,6 +48,9 @@
     <ClInclude Include="Inc\MeshBuilder.h">
       <Filter>Inc</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\Texture.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Precompiled.cpp">
@@ -72,6 +75,9 @@
       <Filter>Src</Filter>
     </ClCompile>
     <ClCompile Include="Src\MeshBuilder.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Texture.cpp">
       <Filter>Src</Filter>
     </ClCompile>
   </ItemGroup>
