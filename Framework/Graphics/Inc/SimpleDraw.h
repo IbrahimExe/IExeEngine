@@ -15,5 +15,21 @@ namespace IExeEngine::Graphics
 		void AddLine(const Math::Vector3& v0, const Math::Vector3& v1, const Color& color);
 
 		void AddFace(const Math::Vector3& v0, const Math::Vector3& v1, const Math::Vector3& v2, const Color& color);
+
+		void AddAABB(const Vector3& min, const Vector3& max, const Color& color);
+		void AddAABB(float minX, float minY, float minZ, float maxX, float maxY, float maxZ);
+
+		void AddFilledAABB(const Vector3& min, const Vector3& max, const Color& color);
+		void AddFilledAABB(float minX, float minY, float minZ, float maxX, float maxY, float maxZ);
+
+		void AddSphere(uint32_t slices, uint32_t rings, float radius, const Color& color, const Math::Vector3& origin);
+
+		void AddGroundPlane(float size, const Color& color);
+
+		void AddGroundCircle(uint32_t slices, float radius, const Color& color, const Math::Vector3& origin);
+
+		void AddTransform(const Matrix4& );
+
+		void Render(const Camera& camera);
 	}
 }
