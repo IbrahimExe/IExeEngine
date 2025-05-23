@@ -59,14 +59,16 @@ void MeshBuffer::CreateVertexBuffer(const void* vertices, uint32_t vertexSize, u
 
 	auto device = GraphicsSystem::Get()->GetDevice();
 
+	const bool isDynamic = (vertices == nullptr);
 	// Need to create a buffer to store the vertices
 	// STORES DATA FOR THE OBJECT
 	D3D11_BUFFER_DESC bufferDesc{};
 	bufferDesc.ByteWidth = vertexSize * vertexCount;
-	bufferDesc.Usage = D3D11_USAGE_DEFAULT;
+	bufferDesc.Usage = (isDynamic)? D3D11_USAGE_DYNAMIC : D3D11_USAGE_DEFAULT;
 	bufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 	bufferDesc.MiscFlags = 0;
 	bufferDesc.StructureByteStride = 0;
+	bufferDesc.CPUAccessFlags = (isDynamic) ? D3D11_CPU_ACCESS_WRITE;
 
 	D3D11_SUBRESOURCE_DATA initData = {};
 	initData.pSysMem = vertices;
