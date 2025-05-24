@@ -113,6 +113,7 @@ void GameState::DebugUI()
 	}
 
 	ImGui::End();
+	SimpleDraw::Render(mCamera);
 }
 
 void GameState::UpdateCamera(float deltaTime)
