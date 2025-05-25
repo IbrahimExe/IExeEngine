@@ -31,6 +31,12 @@ Math::Vector3 gV0 = Math::Vector3::Zero;
 Math::Vector3 gV1 = Math::Vector3::One;
 Math::Vector3 gV2 = Math::Vector3::XAxis;
 Color gColor = Colors::White;
+// Sphere & Circle Variables:
+int sphereSlices = 60;
+int sphereRings = 60;
+float sphereRadius = 1.0f;
+Color sphereColor = Colors::White;
+Math::Vector3 sphereOrigin = Math::Vector3::Zero;
 
 enum class Shape
 {
@@ -56,7 +62,7 @@ Shape gCurrentShape = Shape::None;
 
 void GameState::DebugUI()
 {
-	ImGui::Begin("Debug_01", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
+	ImGui::Begin("Debug", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
 
 	ImGui::Text("Im Skylar White, YO!");
 	ImGui::Checkbox("My husband is Walter White, YO?", &gCheckValue);
@@ -78,30 +84,57 @@ void GameState::DebugUI()
 
 	case Shape::AABB:
 	{
+		ImGui::Text("Non-Filled AABB Menu:");
+		ImGui::DragFloat3("V0", &gV0.x, 0.1);
+		ImGui::DragFloat3("V1", &gV1.x, 0.1);
+		ImGui::ColorEdit4("Color", &gColor.r);
+
 		SimpleDraw::AddAABB(gV0, gV1, gColor);
 		break;
 	}
 
 	case Shape::AABBFilled:
 	{
+		ImGui::Text("Filled AABB Menu:");
+		ImGui::DragFloat3("V0", &gV0.x, 0.1);
+		ImGui::DragFloat3("V1", &gV1.x, 0.1);
+		ImGui::ColorEdit4("Color", &gColor.r);
+
 		SimpleDraw::AddFilledAABB(gV0, gV1, gColor);
 		break;
 	}
 
 	case Shape::Sphere:
 	{
-		SimpleDraw::AddSphere(60, 60, gFloatVal, gColor, gV0);
+		ImGui::Text("Sphere Menu:");
+		ImGui::DragInt("Slices", &sphereSlices, 1, 3, 100);
+		ImGui::DragInt("Rings", &sphereRings, 1, 3, 100);
+		ImGui::DragFloat("Radius", &sphereRadius, 0.1f, 0.1f, 100.0f);
+		ImGui::ColorEdit4("Color", &sphereColor.r);
+		ImGui::DragFloat3("Origin", &sphereOrigin.x, 0.1f);
+
+		SimpleDraw::AddSphere(sphereSlices, sphereRings, sphereRadius, sphereColor, sphereOrigin);
 		break;
 	}
 	case Shape::GroundPlane:
 	{
+		ImGui::Text("Ground Plane Menu:");
+		ImGui::DragFloat("Size", &gFloatVal, 1, 1, 100);
+		ImGui::ColorEdit4("Color", &gColor.r);
+
 		SimpleDraw::AddGroundPlane(gFloatVal, gColor);
 		break;
 	}
 
 	case Shape::GroundCircle:
 	{
-		SimpleDraw::AddGroundCircle(40, gFloatVal, gColor, gV0);
+		ImGui::Text("Ground Circle Menu:");
+		ImGui::DragInt("Slices", &sphereSlices, 1, 3, 100);
+		ImGui::DragFloat("Radius", &sphereRadius, 0.1f, 0.1f, 100.0f);
+		ImGui::ColorEdit4("Color", &sphereColor.r);
+		ImGui::DragFloat3("Origin", &sphereOrigin.x, 0.1f);
+
+		SimpleDraw::AddGroundCircle(sphereSlices, sphereRadius, sphereColor, sphereOrigin);
 		break;
 	}
 
