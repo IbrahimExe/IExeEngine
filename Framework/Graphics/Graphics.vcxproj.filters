@@ -60,6 +60,9 @@
     <ClInclude Include="Inc\SimpleDraw.h">
       <Filter>Inc</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\BlendState.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Precompiled.cpp">
@@ -96,6 +99,9 @@
       <Filter>Src</Filter>
     </ClCompile>
     <ClCompile Include="Src\SimpleDraw.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\BlendState.cpp">
       <Filter>Src</Filter>
     </ClCompile>
   </ItemGroup>

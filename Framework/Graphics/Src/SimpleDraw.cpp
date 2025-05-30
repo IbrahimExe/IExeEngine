@@ -87,6 +87,7 @@ namespace
 
 		mVertexShader.Bind();
 		mPixelShader.Bind();
+		mBlendState.Set();
 
 		mMeshBuffer.SetTopology(MeshBuffer::Topology::Triangles);
 		mMeshBuffer.Update(mFaceVertices.get(), mFaceVertexCount);

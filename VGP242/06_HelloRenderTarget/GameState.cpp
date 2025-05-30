@@ -8,11 +8,27 @@ void GameState::Initialize()
 {
 	mCamera.SetPosition({ 0.0f, 1.0f, -3.0f });
 	mCamera.SetLookAt({ 0.0f, 0.0f, 0.0f });
+
+	mTransformBuffer.Initialize(sizeof(Math::Matrix4));
+
+	std::filesystem::path shaderFile = L"../../Assets/Shaders/DoTexture.fx";
+	mVertexShader.Initialize<VertexPX>(shaderFile);
+	mPixelShader.Initialize(shaderFile);
+	mSampler.Initialize(Sampler::Filter::Linear, Sampler::AddressMode::Wrap);
+
+	MeshPX sphere = MeshBuilder::CreateSpherePX(60, 60, 1.0f);
+	mObject.Initialize(sphere);
+	mTexture.Initialize(L"../../Assets/Textures/sun.jpg");
 }
 
 void GameState::Terminate()
 {
-
+	mTexture.Terminate();
+	mObject.Terminate();
+	mTransformBuffer.Terminate();
+	mSampler.Terminate();
+	mPixelShader.Terminate();
+	mVertexShader.Terminate();
 }
 
 void GameState::Update(float deltaTime)
@@ -22,7 +38,10 @@ void GameState::Update(float deltaTime)
 
 void GameState::Render()
 {
-
+	const Math::Matrix4 matView = mCamera.GetViewMatrix();
+	const Math::Matrix4 matProj = mCamera.GetProjectionMatrix();
+	const Math::Matrix4 matFinal = mWorldMat * matView * matProj;
+	const Math::Matrix4 wvp = Math::
 }
 
 bool gCheckValue = false;
