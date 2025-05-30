@@ -31,3 +31,5 @@
 #include "SimpleDraw.h"
 
 #include "BlendState.h"
+
+#include "TextureManager.h"
