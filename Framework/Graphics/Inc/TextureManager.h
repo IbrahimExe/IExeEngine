@@ -11,12 +11,12 @@ namespace IExeEngine::Graphics
 	public:
 		static void StaticInitialize(const std::filesystem::path& root);
 		static void StaticTerminate();
-		static TextureManger* Get();
+		static TextureManager* Get();
 
 		TextureManager() = default;
 		~TextureManager();
 
-		TextureManager(const TextureManger&) = delete;
+		TextureManager(const TextureManager&) = delete;
 		TextureManager(const TextureManager&&) = delete;
 		TextureManager& operator=(const TextureManager&) = delete;
 		TextureManager& operator=(const TextureManager&&) = delete;

@@ -12,10 +12,10 @@ namespace
 	{
 		switch (mode)
 		{
-		case BlendState::Mode::Opaque: return D3D11_BLEND_SRC1_ALPHA;
-		case BlendState::Mode::AlphaBlend: return D3D11_BLEND_SRC1_ALPHA;
-		case BlendState::Mode::AlphaPremultiplied: return D3D11_BLEND_ONE;
-		case BlendState::Mode::Additive: return D3D11_BLEND_ONE;
+		case BlendState::Mode::Opaque:              return D3D11_BLEND_SRC1_ALPHA;
+		case BlendState::Mode::AlphaBlend:          return D3D11_BLEND_SRC1_ALPHA;
+		case BlendState::Mode::AlphaPremultiplied:  return D3D11_BLEND_ONE;
+		case BlendState::Mode::Additive:            return D3D11_BLEND_ONE;
 
 		default:
 			ASSERT(false, "BlendState: Blend mode not found");
@@ -27,10 +27,10 @@ namespace
 	{
 		switch (mode)
 		{
-		case BlendState::Mode::Opaque: return D3D11_BLEND_ONE;
-		case BlendState::Mode::AlphaBlend: return D3D11_BLEND_INV_SRC_ALPHA;
-		case BlendState::Mode::AlphaPremultiplied: return D3D11_BLEND_INV_SRC_ALPHA;
-		case BlendState::Mode::Additive: return D3D11_BLEND_ZERO;
+		case BlendState::Mode::Opaque:              return D3D11_BLEND_ONE;
+		case BlendState::Mode::AlphaBlend:          return D3D11_BLEND_INV_SRC_ALPHA;
+		case BlendState::Mode::AlphaPremultiplied:  return D3D11_BLEND_INV_SRC_ALPHA;
+		case BlendState::Mode::Additive:            return D3D11_BLEND_ZERO;
 
 		default:
 			ASSERT(false, "BlendState: Blend mode not found");
@@ -79,5 +79,6 @@ void BlendState::Terminate()
 
 void BlendState::Set()
 {
-
+	auto context = GraphicsSystem::Get()->GetContext();
+	context->OMSetBlendState(mBlendState, nullptr, UINT_MAX);
 }
