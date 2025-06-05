@@ -29,5 +29,5 @@ private:
 	// Render Object
 	IExeEngine::Math::Matrix4 mWorldMat = IExeEngine::Math::Matrix4::Identity;
 	IExeEngine::Graphics::MeshBuffer mObject;
-	IExeEngine::Graphics::Texture mTexture;
+	IExeEngine::Graphics::TextureId mTextureId;
 };

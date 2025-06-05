@@ -24,6 +24,7 @@ void App::Run(const AppConfig& config)
 	InputSystem::StaticInitialize(handle);
 	DebugUI::StaticInitialize(handle, false, true);
 	SimpleDraw::StaticInitialize(config.maxVertexCount);
+	TextureManager::StaticInitialize(L"../../Assets/Textures");
 
 	// Last Step Before Running
 	ASSERT(mCurrentState != nullptr, "App: Need an app state to run");
@@ -78,6 +79,7 @@ void App::Run(const AppConfig& config)
 	SimpleDraw::StaticTerminate();
 	GraphicsSystem::StaticTerminate();
 	InputSystem::StaticTerminate();
+	TextureManager::StaticTerminate();
 
 	myWindow.Terminate();
 }

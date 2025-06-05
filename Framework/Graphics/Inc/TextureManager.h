@@ -32,7 +32,11 @@ namespace IExeEngine::Graphics
 	private:
 		struct Entry
 		{
-
+			std::unique_ptr<Texture> texture;
+			uint32_t refCount = 0;
 		};
+		using Inventory = std::unordered_map<TextureId, Entry>;
+		Inventory mInventory;
+		std::filesystem::path mRootDirectory;
 	};
 }

@@ -146,6 +146,7 @@ void GameState::DebugUI()
 	}
 
 	ImGui::End();
+
 	SimpleDraw::Render(mCamera);
 }
 

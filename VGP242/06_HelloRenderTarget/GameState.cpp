@@ -11,19 +11,24 @@ void GameState::Initialize()
 
 	mTransformBuffer.Initialize(sizeof(Math::Matrix4));
 
+	// Initialize GPU Communication
 	std::filesystem::path shaderFile = L"../../Assets/Shaders/DoTexture.fx";
 	mVertexShader.Initialize<VertexPX>(shaderFile);
 	mPixelShader.Initialize(shaderFile);
 	mSampler.Initialize(Sampler::Filter::Linear, Sampler::AddressMode::Wrap);
+	mTransformBuffer.Initialize(sizeof(Math::Matrix4));
 
+	// Initialize Render Object
 	MeshPX sphere = MeshBuilder::CreateSpherePX(60, 60, 1.0f);
 	mObject.Initialize(sphere);
-	mTexture.Initialize(L"../../Assets/Textures/sun.jpg");
+
+	mTextureId = TextureManager::Get()->LoadTexture(L"sun.jpg");
+	// mTexture.Initialize(L"../../Assets/Textures/sun.jpg");
 }
 
 void GameState::Terminate()
 {
-	mTexture.Terminate();
+	TextureManager::Get()->ReleaseTexture(mTextureId);
 	mObject.Terminate();
 	mTransformBuffer.Terminate();
 	mSampler.Terminate();
@@ -41,7 +46,16 @@ void GameState::Render()
 	const Math::Matrix4 matView = mCamera.GetViewMatrix();
 	const Math::Matrix4 matProj = mCamera.GetProjectionMatrix();
 	const Math::Matrix4 matFinal = mWorldMat * matView * matProj;
-	const Math::Matrix4 wvp = Math::
+	const Math::Matrix4 wvp = Math::Transpose(matFinal);
+	mTransformBuffer.Update(&wvp);
+
+	mVertexShader.Bind();
+	mPixelShader.Bind();
+	mSampler.BindPS(0);
+	mTransformBuffer.BindVS(0);
+
+    TextureManager::Get()->BindPS(mTextureId, 0);
+	mObject.Render();
 }
 
 bool gCheckValue = false;
@@ -165,6 +179,9 @@ void GameState::DebugUI()
 	}
 
 	ImGui::End();
+
+	SimpleDraw::AddGroundPlane(20.0f, Colors::White);
+
 	SimpleDraw::Render(mCamera);
 }
 
