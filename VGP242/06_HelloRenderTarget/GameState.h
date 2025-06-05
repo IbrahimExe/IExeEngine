@@ -16,9 +16,19 @@ public:
 	void DebugUI() override;
 
 private:
+	struct Object
+	{
+		IExeEngine::Math::Matrix4 worldMat = IExeEngine::Math::Matrix4::Identity;
+		IExeEngine::Graphics::MeshBuffer meshBuffer;
+		IExeEngine::Graphics::TextureId textureId = 0;
+	};
+
 	void UpdateCamera(float deltaTime);
 
+    void RenderObject(const Object& object, const IExeEngine::Graphics::Camera& camera);
+
 	IExeEngine::Graphics::Camera mCamera;
+	IExeEngine::Graphics::Camera mRenderTargetCamera;
 
 	// GPU Communication
 	IExeEngine::Graphics::ConstantBuffer mTransformBuffer;
@@ -27,7 +37,10 @@ private:
 	IExeEngine::Graphics::Sampler mSampler;
 
 	// Render Object
-	IExeEngine::Math::Matrix4 mWorldMat = IExeEngine::Math::Matrix4::Identity;
-	IExeEngine::Graphics::MeshBuffer mObject;
-	IExeEngine::Graphics::TextureId mTextureId;
+	Object mSpace;
+	Object mEarth;
+	Object mSun;
+
+	// Render Target
+    IExeEngine::Graphics::RenderTarget mRenderTarget;
 };

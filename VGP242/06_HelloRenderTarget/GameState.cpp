@@ -9,7 +9,9 @@ void GameState::Initialize()
 	mCamera.SetPosition({ 0.0f, 1.0f, -3.0f });
 	mCamera.SetLookAt({ 0.0f, 0.0f, 0.0f });
 
-	mTransformBuffer.Initialize(sizeof(Math::Matrix4));
+	mRenderTargetCamera.SetPosition({ 0.0f, 1.0f, -3.0f });
+	mRenderTargetCamera.SetLookAt({ 0.0f, 0.0f, 0.0f });
+    mRenderTargetCamera.SetAspectRatio(1.0f);
 
 	// Initialize GPU Communication
 	std::filesystem::path shaderFile = L"../../Assets/Shaders/DoTexture.fx";
@@ -20,20 +22,37 @@ void GameState::Initialize()
 
 	// Initialize Render Object
 	MeshPX sphere = MeshBuilder::CreateSpherePX(60, 60, 1.0f);
-	mObject.Initialize(sphere);
+	mEarth.meshBuffer.Initialize(sphere);
+	mSun.meshBuffer.Initialize(sphere);
+	MeshPX skySphere = MeshBuilder::CreateSkySpherePX(30, 30, 250.0f);
+	mSpace.meshBuffer.Initialize(skySphere);
 
-	mTextureId = TextureManager::Get()->LoadTexture(L"sun.jpg");
-	// mTexture.Initialize(L"../../Assets/Textures/sun.jpg");
+	mSpace.textureId = TextureManager::Get()->LoadTexture(L"space.jpg");
+    mEarth.textureId = TextureManager::Get()->LoadTexture(L"earth.jpg");
+    mSun.textureId = TextureManager::Get()->LoadTexture(L"sun.jpg");
+
+    // Moving other objects to the right positions
+    mSun.worldMat = Math::Matrix4::Translation(0.0f, 0.0f, 0.0f);
+    mEarth.worldMat = Math::Matrix4::Translation(3.0f, 0.0f, 0.0f);
+    mSpace.worldMat = Math::Matrix4::Translation(-3.0f, 0.0f, 0.0f);
+
+    constexpr uint32_t size = 512;
+    mRenderTarget.Initialize(size, size, RenderTarget::Format::RGBA_U32);
 }
 
 void GameState::Terminate()
 {
-	TextureManager::Get()->ReleaseTexture(mTextureId);
-	mObject.Terminate();
+	TextureManager::Get()->ReleaseTexture(mSpace.textureId);
+	TextureManager::Get()->ReleaseTexture(mEarth.textureId);
+	TextureManager::Get()->ReleaseTexture(mSun.textureId);
+    mSpace.meshBuffer.Terminate();
+    mEarth.meshBuffer.Terminate();
+    mSun.meshBuffer.Terminate();
 	mTransformBuffer.Terminate();
 	mSampler.Terminate();
 	mPixelShader.Terminate();
 	mVertexShader.Terminate();
+    mRenderTarget.Terminate();
 }
 
 void GameState::Update(float deltaTime)
@@ -43,9 +62,27 @@ void GameState::Update(float deltaTime)
 
 void GameState::Render()
 {
+	SimpleDraw::AddGroundPlane(20.0f, Colors::Wheat);
+	SimpleDraw::Render(mCamera);
+
+    // Render to Render Target Image
+    mRenderTarget.BeginRender();
+		RenderObject(mSpace, mRenderTargetCamera);
+		RenderObject(mEarth, mRenderTargetCamera);
+		RenderObject(mSun, mRenderTargetCamera);
+    mRenderTarget.EndRender();
+
+	// Render to Scene
+    RenderObject(mSpace, mCamera);
+	RenderObject(mEarth, mCamera);
+	RenderObject(mSun, mCamera);
+}
+
+void GameState::RenderObject(const Object& object, const IExeEngine::Graphics::Camera& camera)
+{
 	const Math::Matrix4 matView = mCamera.GetViewMatrix();
 	const Math::Matrix4 matProj = mCamera.GetProjectionMatrix();
-	const Math::Matrix4 matFinal = mWorldMat * matView * matProj;
+	const Math::Matrix4 matFinal = object.worldMat * matView * matProj;
 	const Math::Matrix4 wvp = Math::Transpose(matFinal);
 	mTransformBuffer.Update(&wvp);
 
@@ -54,8 +91,8 @@ void GameState::Render()
 	mSampler.BindPS(0);
 	mTransformBuffer.BindVS(0);
 
-    TextureManager::Get()->BindPS(mTextureId, 0);
-	mObject.Render();
+	TextureManager::Get()->BindPS(object.textureId, 0);
+	object.meshBuffer.Render();
 }
 
 bool gCheckValue = false;
@@ -178,11 +215,17 @@ void GameState::DebugUI()
 	}
 	}
 
+	ImGui::Separator();
+    ImGui::Text("RenderTarget");
+	ImGui::Image(
+		mRenderTarget.GetRawData(),
+		{ 128, 128 },
+		{ 0, 0 },
+		{ 1, 1 },
+		{ 1, 1, 1, 1 },
+		{ 1, 1, 1, 1 });
+
 	ImGui::End();
-
-	SimpleDraw::AddGroundPlane(20.0f, Colors::White);
-
-	SimpleDraw::Render(mCamera);
 }
 
 void GameState::UpdateCamera(float deltaTime)

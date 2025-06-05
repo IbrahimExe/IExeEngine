@@ -79,7 +79,6 @@ void App::Run(const AppConfig& config)
 	SimpleDraw::StaticTerminate();
 	GraphicsSystem::StaticTerminate();
 	InputSystem::StaticTerminate();
-	TextureManager::StaticTerminate();
 
 	myWindow.Terminate();
 }
