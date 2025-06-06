@@ -35,3 +35,5 @@
 #include "TextureManager.h"
 
 #include "RenderTarget.h"
+
+#include "SimpleTextureEffect.h"
