@@ -23,7 +23,7 @@ namespace
 
 RenderTarget::~RenderTarget()
 {
-	ASSERT(mRenderTargetView == nullptr && mDepthStencilView == nullptr, "RenderTarget: must call Terminate ");
+	ASSERT(mRenderTargetView == nullptr && mDepthStencilView == nullptr, "RenderTarget: Must call Terminate!");
 }
 
 void RenderTarget::Initialize(const std::filesystem::path& fileName)
