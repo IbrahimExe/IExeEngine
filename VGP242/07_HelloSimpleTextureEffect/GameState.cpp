@@ -20,17 +20,33 @@ void GameState::Initialize()
 	MeshPX sphere = MeshBuilder::CreateSpherePX(60, 60, 1.0f);
 	mEarth.mesh.Initialize(sphere);
 	mSun.mesh.Initialize(sphere);
+
 	MeshPX spaceSphere = MeshBuilder::CreateSkySpherePX(30, 30, 250.0f);
 	mSpace.mesh.Initialize(spaceSphere);
+
+    //MeshPX asteroid_1 = MeshBuilder::CreateOBJPX(L"../../Assets/Models/Asteroid1/Asteroid1.obj", 0.1f);
+    //mAsteroid_1.mesh.Initialize(asteroid_1);
+
+    //MeshPX asteroid_2 = MeshBuilder::CreateOBJPX(L"../../Assets/Models/Asteroid2/Asteroid2.obj", 0.25f);
+    //mAsteroid_2.mesh.Initialize(asteroid_2);
+
+    MeshPX sword = MeshBuilder::CreateOBJPX(L"../../Assets/Models/Sword/Sword.obj", 0.25f);
+    mSword.mesh.Initialize(sword);
 
 	mSpace.textureId = TextureManager::Get()->LoadTexture(L"space.jpg");
     mEarth.textureId = TextureManager::Get()->LoadTexture(L"earth.jpg");
     mSun.textureId = TextureManager::Get()->LoadTexture(L"sun.jpg");
+    //mAsteroid_1.textureId = TextureManager::Get()->LoadTexture(L"../../Assets/Models/Asteroid/Asteroid1/Asteroid1_BaseColor.jpg, false");
+    //mAsteroid_2.textureId = TextureManager::Get()->LoadTexture(L"../../Assets/Models/Asteroid/Asteroid1/Asteroid1_BaseColor.jpg", false);
+    mSword.textureId = TextureManager::Get()->LoadTexture(L"../../Assets/Models/Sword/Sword_BaseColor.jpg", false);
 
     // Moving other objects to the right positions
     mSun.matWorld = Math::Matrix4::Translation(0.0f, 0.0f, 0.0f);
     mEarth.matWorld = Math::Matrix4::Translation(3.0f, 0.0f, 0.0f);
     mSpace.matWorld = Math::Matrix4::Translation(0.0f, 0.0f, 0.0f);
+    //mAsteroid_1.matWorld = Math::Matrix4::Translation(5.0f, 0.0f, 0.0f);
+    //mAsteroid_2.matWorld = Math::Matrix4::Translation(10.0f, 0.0f, 0.0f);
+    mSword.matWorld = Math::Matrix4::Translation(0.0f, 10.0f, 5.0f);
 
     constexpr uint32_t size = 512;
     mRenderTarget.Initialize(size, size, RenderTarget::Format::RGBA_U32);
@@ -107,6 +123,9 @@ void GameState::Render()
 		 mSimpleTextureEffect.Render(mSpace);
 		 mSimpleTextureEffect.Render(mEarth);
 		 mSimpleTextureEffect.Render(mSun);
+         //mSimpleTextureEffect.Render(mAsteroid_1);
+		 //mSimpleTextureEffect.Render(mAsteroid_2);
+         mSimpleTextureEffect.Render(mSword);
     mSimpleTextureEffect.End();
 }
 
