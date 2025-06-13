@@ -29,7 +29,7 @@ private:
 	IExeEngine::Graphics::SimpleTextureEffect::RenderData mEarth;
 	IExeEngine::Graphics::SimpleTextureEffect::RenderData mSun;
     IExeEngine::Graphics::SimpleTextureEffect::RenderData mAsteroid_1;
-    IExeEngine::Graphics::SimpleTextureEffect::RenderData mAsteroid_2;
+    IExeEngine::Graphics::SimpleTextureEffect::RenderData mSaturn;
     IExeEngine::Graphics::SimpleTextureEffect::RenderData mSword;
 
 	// Render Target
