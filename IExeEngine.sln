@@ -50,6 +50,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "06_HelloRenderTarget", "VGP
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "07_HelloSimpleTextureEffect", "VGP242\07_HelloSimpleTextureEffect\07_HelloSimpleTextureEffect.vcxproj", "{574E0471-35F5-40DF-891F-A413ACB501FF}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "08_HelloSolarSystem", "VGP242\08_HelloSolarSystem\08_HelloSolarSystem.vcxproj", "{AC6F5A7D-58DC-4613-A3DA-85F07B9FABE4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -170,6 +172,14 @@ Global
 		{574E0471-35F5-40DF-891F-A413ACB501FF}.Release|x64.Build.0 = Release|x64
 		{574E0471-35F5-40DF-891F-A413ACB501FF}.Release|x86.ActiveCfg = Release|Win32
 		{574E0471-35F5-40DF-891F-A413ACB501FF}.Release|x86.Build.0 = Release|Win32
+		{AC6F5A7D-58DC-4613-A3DA-85F07B9FABE4}.Debug|x64.ActiveCfg = Debug|x64
+		{AC6F5A7D-58DC-4613-A3DA-85F07B9FABE4}.Debug|x64.Build.0 = Debug|x64
+		{AC6F5A7D-58DC-4613-A3DA-85F07B9FABE4}.Debug|x86.ActiveCfg = Debug|Win32
+		{AC6F5A7D-58DC-4613-A3DA-85F07B9FABE4}.Debug|x86.Build.0 = Debug|Win32
+		{AC6F5A7D-58DC-4613-A3DA-85F07B9FABE4}.Release|x64.ActiveCfg = Release|x64
+		{AC6F5A7D-58DC-4613-A3DA-85F07B9FABE4}.Release|x64.Build.0 = Release|x64
+		{AC6F5A7D-58DC-4613-A3DA-85F07B9FABE4}.Release|x86.ActiveCfg = Release|Win32
+		{AC6F5A7D-58DC-4613-A3DA-85F07B9FABE4}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -190,6 +200,7 @@ Global
 		{1B769CA5-77EA-4963-A6BD-587070D94438} = {56EF5666-6D9D-4656-95E9-9BCCDDCD726E}
 		{64C4F9E1-CCC8-4B57-B80D-DC2B5D4E509F} = {56EF5666-6D9D-4656-95E9-9BCCDDCD726E}
 		{574E0471-35F5-40DF-891F-A413ACB501FF} = {56EF5666-6D9D-4656-95E9-9BCCDDCD726E}
+		{AC6F5A7D-58DC-4613-A3DA-85F07B9FABE4} = {56EF5666-6D9D-4656-95E9-9BCCDDCD726E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C84562D2-23AD-4C29-92D2-1A4C470BECEF}
