@@ -30,10 +30,10 @@ private:
 
 	struct Asteroid
 	{
-        float size;
         IExeEngine::Math::Matrix4 centerObject;
         float distanceFromCenter;
         float orbitTranslation;
+		float rotationOnAxis;
         float selfRotationAngle = 0.0f;
         IExeEngine::Graphics::SimpleTextureEffect::RenderData renderData;
 	};
@@ -66,6 +66,19 @@ private:
 	Planet mUranus;
 	Planet mNeptune;
 	Planet mPluto;
+
+    // Render Asteroid
+    Asteroid mAsteroid_01;
+	Asteroid mAsteroid_02;
+	Asteroid mAsteroid_03;
+	Asteroid mAsteroid_04;
+	Asteroid mAsteroid_05;
+	Asteroid mAsteroid_06;
+	Asteroid mAsteroid_07;
+	Asteroid mAsteroid_08;
+	Asteroid mAsteroid_09;
+	Asteroid mAsteroid_10;
+
 
 	// Render Target
 	IExeEngine::Graphics::RenderTarget mRenderTarget;
