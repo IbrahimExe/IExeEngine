@@ -32,9 +32,6 @@ private:
 	{
         IExeEngine::Math::Matrix4 centerObject;
         float distanceFromCenter;
-        float orbitTranslation;
-		float rotationOnAxis;
-        float selfRotationAngle = 0.0f;
         IExeEngine::Graphics::SimpleTextureEffect::RenderData renderData;
 	};
 
@@ -78,7 +75,7 @@ private:
 	Asteroid mAsteroid_08;
 	Asteroid mAsteroid_09;
 	Asteroid mAsteroid_10;
-
+	Asteroid mAsteroid_11;
 
 	// Render Target
 	IExeEngine::Graphics::RenderTarget mRenderTarget;

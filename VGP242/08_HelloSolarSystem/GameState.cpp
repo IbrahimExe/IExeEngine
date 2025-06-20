@@ -42,7 +42,7 @@ void GameState::Initialize()
 	// Space
 	MeshPX spaceSphere = MeshBuilder::CreateSkySpherePX(60, 60, 250.0f);
 	mSpace.mesh.Initialize(spaceSphere);
-	mSpace.textureId = TextureManager::Get()->LoadTexture(L"space.jpg");
+	mSpace.textureId = TextureManager::Get()->LoadTexture(L"darkerSpace.jpg");
 
 	// Sun
 	MeshPX sunSphere = MeshBuilder::CreateSpherePX(60, 60, 5.0f);
@@ -161,24 +161,81 @@ void GameState::Initialize()
 
 	// Asteroids
     mAsteroid_01.centerObject = mSun.matWorld;
-    mAsteroid_01.distanceFromCenter = 36.0f;
-    mAsteroid_01.orbitTranslation = 0.2f;
-    mAsteroid_01.rotationOnAxis = 1.0f;
-    mAsteroid_01.selfRotationAngle = 1.0f; 
-	MeshPX asteroid1Obj = MeshBuilder::CreateOBJPX(L"../../Assets/Models/Asteroid/Asteroid.obj", 0.01f);
-    mAsteroid_01.renderData.mesh.Initialize(asteroid1Obj);
+    mAsteroid_01.distanceFromCenter = 36.0f; 
+	MeshPX asteroidObj_01 = MeshBuilder::CreateOBJPX(L"../../Assets/Models/Asteroid/Asteroid.obj", 0.0078f);
+    mAsteroid_01.renderData.mesh.Initialize(asteroidObj_01);
     mAsteroid_01.renderData.textureId = TextureManager::Get()->LoadTexture(L"Asteroid/Asteroid.jpg");
-    mAsteroid_01.renderData.matWorld = Math::Matrix4::Translation(mAsteroid_01.distanceFromCenter, 0, 0);
+    mAsteroid_01.renderData.matWorld = Math::Matrix4::Translation(mAsteroid_01.distanceFromCenter, -30.54, -6.68);
 
 	mAsteroid_02.centerObject = mSun.matWorld;
-	mAsteroid_02.distanceFromCenter = 25.0f;
-	mAsteroid_02.orbitTranslation = 2.0f;
-	mAsteroid_02.rotationOnAxis = 360.0f;
-	mAsteroid_02.selfRotationAngle = -180.0f;
-	MeshPX asteroid2Obj = MeshBuilder::CreateOBJPX(L"../../Assets/Models/Asteroid/Asteroid.obj", 0.05f);
-	mAsteroid_02.renderData.mesh.Initialize(asteroid2Obj);
+	mAsteroid_02.distanceFromCenter = -22.0f;
+	MeshPX asteroidObj_02 = MeshBuilder::CreateOBJPX(L"../../Assets/Models/Asteroid/Asteroid.obj", 0.0098f);
+	mAsteroid_02.renderData.mesh.Initialize(asteroidObj_02);
 	mAsteroid_02.renderData.textureId = TextureManager::Get()->LoadTexture(L"Asteroid/Asteroid.jpg");
-	mAsteroid_02.renderData.matWorld = Math::Matrix4::Translation(mAsteroid_02.distanceFromCenter, 0, 0);
+	mAsteroid_02.renderData.matWorld = Math::Matrix4::Translation(mAsteroid_02.distanceFromCenter, 90.42, 64.56);
+
+	mAsteroid_03.centerObject = mSun.matWorld;
+	mAsteroid_03.distanceFromCenter = 26.0f;
+	MeshPX asteroidObj_03 = MeshBuilder::CreateOBJPX(L"../../Assets/Models/Asteroid/Asteroid.obj", 0.012f);
+	mAsteroid_03.renderData.mesh.Initialize(asteroidObj_03);
+	mAsteroid_03.renderData.textureId = TextureManager::Get()->LoadTexture(L"Asteroid/Asteroid.jpg");
+	mAsteroid_03.renderData.matWorld = Math::Matrix4::Translation(mAsteroid_03.distanceFromCenter, 110.08, -142.66);
+
+	mAsteroid_04.centerObject = mSun.matWorld;
+	mAsteroid_04.distanceFromCenter = -38.0f;
+	MeshPX asteroidObj_04 = MeshBuilder::CreateOBJPX(L"../../Assets/Models/Asteroid/Asteroid.obj", 0.0048f);
+	mAsteroid_04.renderData.mesh.Initialize(asteroidObj_04);
+	mAsteroid_04.renderData.textureId = TextureManager::Get()->LoadTexture(L"Asteroid/Asteroid.jpg");
+	mAsteroid_04.renderData.matWorld = Math::Matrix4::Translation(mAsteroid_04.distanceFromCenter, -66.98, 122.51);
+
+	mAsteroid_05.centerObject = mSun.matWorld;
+	mAsteroid_05.distanceFromCenter = -38.0f;
+	MeshPX asteroidObj_05 = MeshBuilder::CreateOBJPX(L"../../Assets/Models/Asteroid/Asteroid.obj", 0.0078f);
+	mAsteroid_05.renderData.mesh.Initialize(asteroidObj_05);
+	mAsteroid_05.renderData.textureId = TextureManager::Get()->LoadTexture(L"Asteroid/Asteroid.jpg");
+	mAsteroid_05.renderData.matWorld = Math::Matrix4::Translation(mAsteroid_05.distanceFromCenter, 30.54, 6.68);
+
+	mAsteroid_06.centerObject = mSun.matWorld;
+	mAsteroid_06.distanceFromCenter = 22.0f;
+	MeshPX asteroidObj_06 = MeshBuilder::CreateOBJPX(L"../../Assets/Models/Asteroid/Asteroid.obj", 0.0098f);
+	mAsteroid_06.renderData.mesh.Initialize(asteroidObj_06);
+	mAsteroid_06.renderData.textureId = TextureManager::Get()->LoadTexture(L"Asteroid/Asteroid.jpg");
+	mAsteroid_06.renderData.matWorld = Math::Matrix4::Translation(mAsteroid_06.distanceFromCenter, 90.42, 64.56);
+
+	mAsteroid_07.centerObject = mSun.matWorld;
+	mAsteroid_07.distanceFromCenter = -46.0f;
+	MeshPX asteroidObj_07 = MeshBuilder::CreateOBJPX(L"../../Assets/Models/Asteroid/Asteroid.obj", 0.012f);
+	mAsteroid_07.renderData.mesh.Initialize(asteroidObj_07);
+	mAsteroid_07.renderData.textureId = TextureManager::Get()->LoadTexture(L"Asteroid/Asteroid.jpg");
+	mAsteroid_07.renderData.matWorld = Math::Matrix4::Translation(mAsteroid_07.distanceFromCenter, 110.08, -142.66);
+
+	mAsteroid_08.centerObject = mSun.matWorld;
+	mAsteroid_08.distanceFromCenter = 38.0f;
+	MeshPX asteroidObj_08 = MeshBuilder::CreateOBJPX(L"../../Assets/Models/Asteroid/Asteroid.obj", 0.042f);
+	mAsteroid_08.renderData.mesh.Initialize(asteroidObj_08);
+	mAsteroid_08.renderData.textureId = TextureManager::Get()->LoadTexture(L"Asteroid/Asteroid.jpg");
+	mAsteroid_08.renderData.matWorld = Math::Matrix4::Translation(mAsteroid_08.distanceFromCenter, -90.08, 22.80);
+
+	mAsteroid_09.centerObject = mSun.matWorld;
+	mAsteroid_09.distanceFromCenter = -80.0f;
+	MeshPX asteroidObj_09 = MeshBuilder::CreateOBJPX(L"../../Assets/Models/Asteroid/Asteroid.obj", 0.0078f);
+	mAsteroid_09.renderData.mesh.Initialize(asteroidObj_09);
+	mAsteroid_09.renderData.textureId = TextureManager::Get()->LoadTexture(L"Asteroid/Asteroid.jpg");
+	mAsteroid_09.renderData.matWorld = Math::Matrix4::Translation(mAsteroid_09.distanceFromCenter, 26.98, 22.0);
+
+	mAsteroid_10.centerObject = mSun.matWorld;
+	mAsteroid_10.distanceFromCenter = 100.0f;
+	MeshPX asteroidObj_10 = MeshBuilder::CreateOBJPX(L"../../Assets/Models/Asteroid/Asteroid.obj", 0.01f);
+	mAsteroid_10.renderData.mesh.Initialize(asteroidObj_10);
+	mAsteroid_10.renderData.textureId = TextureManager::Get()->LoadTexture(L"Asteroid/Asteroid.jpg");
+	mAsteroid_10.renderData.matWorld = Math::Matrix4::Translation(mAsteroid_10.distanceFromCenter, -82.0, -72.22);
+
+	mAsteroid_11.centerObject = mSun.matWorld;
+	mAsteroid_11.distanceFromCenter = -168.0f;
+	MeshPX asteroidObj_11 = MeshBuilder::CreateOBJPX(L"../../Assets/Models/Asteroid/Asteroid.obj", 0.0048f);
+	mAsteroid_11.renderData.mesh.Initialize(asteroidObj_11);
+	mAsteroid_11.renderData.textureId = TextureManager::Get()->LoadTexture(L"Asteroid/Asteroid.jpg");
+	mAsteroid_11.renderData.matWorld = Math::Matrix4::Translation(mAsteroid_11.distanceFromCenter, -66.98, 122.51);
 
 	constexpr uint32_t size = 512;
 	mRenderTarget.Initialize(size, size, RenderTarget::Format::RGBA_U32);
@@ -201,6 +258,16 @@ void GameState::Terminate()
 	TextureManager::Get()->ReleaseTexture(mPluto.renderData.textureId);
     TextureManager::Get()->ReleaseTexture(mAsteroid_01.renderData.textureId);
     TextureManager::Get()->ReleaseTexture(mAsteroid_02.renderData.textureId);
+	TextureManager::Get()->ReleaseTexture(mAsteroid_03.renderData.textureId);
+	TextureManager::Get()->ReleaseTexture(mAsteroid_04.renderData.textureId);
+	TextureManager::Get()->ReleaseTexture(mAsteroid_05.renderData.textureId);
+	TextureManager::Get()->ReleaseTexture(mAsteroid_06.renderData.textureId);
+	TextureManager::Get()->ReleaseTexture(mAsteroid_07.renderData.textureId);
+	TextureManager::Get()->ReleaseTexture(mAsteroid_08.renderData.textureId);
+	TextureManager::Get()->ReleaseTexture(mAsteroid_09.renderData.textureId);
+	TextureManager::Get()->ReleaseTexture(mAsteroid_10.renderData.textureId);
+	TextureManager::Get()->ReleaseTexture(mAsteroid_11.renderData.textureId);
+
 
 	mSpace.mesh.Terminate();
 	mSun.mesh.Terminate();
@@ -217,6 +284,15 @@ void GameState::Terminate()
 
     mAsteroid_01.renderData.mesh.Terminate();
     mAsteroid_02.renderData.mesh.Terminate();
+	mAsteroid_03.renderData.mesh.Terminate();
+	mAsteroid_04.renderData.mesh.Terminate();
+	mAsteroid_05.renderData.mesh.Terminate();
+	mAsteroid_06.renderData.mesh.Terminate();
+	mAsteroid_07.renderData.mesh.Terminate();
+	mAsteroid_08.renderData.mesh.Terminate();
+	mAsteroid_09.renderData.mesh.Terminate();
+	mAsteroid_10.renderData.mesh.Terminate();
+	mAsteroid_11.renderData.mesh.Terminate();
 
 	mSimpleTextureEffect.Terminate();
 }
@@ -252,43 +328,53 @@ void GameState::Update(float deltaTime)
 	}
 	else if (gCurrentPlanet == PlanetRenderTarget::Mercury)
 	{
-		UpdateRenderTargetCamera(deltaTime, GetObjectPosition(mMercury.renderData.matWorld), mMercury.radius + 1.0f);
+		UpdateRenderTargetCamera(deltaTime, GetObjectPosition
+		(mMercury.renderData.matWorld), mMercury.radius + 1.0f);
 	}
 	else if (gCurrentPlanet == PlanetRenderTarget::Venus)
 	{
-		UpdateRenderTargetCamera(deltaTime, GetObjectPosition(mVenus.renderData.matWorld), mVenus.radius + 1.0f);
+		UpdateRenderTargetCamera(deltaTime, GetObjectPosition
+		(mVenus.renderData.matWorld), mVenus.radius + 1.0f);
 	}
 	else if (gCurrentPlanet == PlanetRenderTarget::Earth)
 	{
-		UpdateRenderTargetCamera(deltaTime, GetObjectPosition(mEarth.renderData.matWorld), mEarth.radius + 1.0f);
+		UpdateRenderTargetCamera(deltaTime, GetObjectPosition
+		(mEarth.renderData.matWorld), mEarth.radius + 1.0f);
 	}
 	else if (gCurrentPlanet == PlanetRenderTarget::Moon)
 	{
-		UpdateRenderTargetCamera(deltaTime, GetObjectPosition(mMoon.renderData.matWorld), mMoon.radius + 1.0f);
+		UpdateRenderTargetCamera(deltaTime, GetObjectPosition
+		(mMoon.renderData.matWorld), mMoon.radius + 1.0f);
 	}
 	else if (gCurrentPlanet == PlanetRenderTarget::Mars)
 	{
-		UpdateRenderTargetCamera(deltaTime, GetObjectPosition(mMars.renderData.matWorld), mMars.radius + 1.0f);
+		UpdateRenderTargetCamera(deltaTime, GetObjectPosition
+		(mMars.renderData.matWorld), mMars.radius + 1.0f);
 	}
 	else if (gCurrentPlanet == PlanetRenderTarget::Jupiter)
 	{
-		UpdateRenderTargetCamera(deltaTime, GetObjectPosition(mJupiter.renderData.matWorld), mJupiter.radius + 2.0f);
+		UpdateRenderTargetCamera(deltaTime, GetObjectPosition
+		(mJupiter.renderData.matWorld), mJupiter.radius + 2.0f);
 	}
 	else if (gCurrentPlanet == PlanetRenderTarget::Saturn)
 	{
-		UpdateRenderTargetCamera(deltaTime, GetObjectPosition(mSaturn.renderData.matWorld), mSaturn.radius + 2.0f);
+		UpdateRenderTargetCamera(deltaTime, GetObjectPosition
+		(mSaturn.renderData.matWorld), mSaturn.radius + 2.0f);
 	}
 	else if (gCurrentPlanet == PlanetRenderTarget::Uranus)
 	{
-		UpdateRenderTargetCamera(deltaTime, GetObjectPosition(mUranus.renderData.matWorld), mUranus.radius + 1.0f);
+		UpdateRenderTargetCamera(deltaTime, GetObjectPosition
+		(mUranus.renderData.matWorld), mUranus.radius + 1.0f);
 	}
 	else if (gCurrentPlanet == PlanetRenderTarget::Neptune)
 	{
-		UpdateRenderTargetCamera(deltaTime, GetObjectPosition(mNeptune.renderData.matWorld), mNeptune.radius + 1.0f);
+		UpdateRenderTargetCamera(deltaTime, GetObjectPosition
+		(mNeptune.renderData.matWorld), mNeptune.radius + 1.0f);
 	}
 	else if (gCurrentPlanet == PlanetRenderTarget::Pluto)
 	{
-		UpdateRenderTargetCamera(deltaTime, GetObjectPosition(mPluto.renderData.matWorld), mPluto.radius + 1.0f);
+		UpdateRenderTargetCamera(deltaTime, GetObjectPosition
+		(mPluto.renderData.matWorld), mPluto.radius + 1.0f);
 	}
 }
 
@@ -366,6 +452,15 @@ void GameState::Render()
 
     mSimpleTextureEffect.Render(mAsteroid_01.renderData);
     mSimpleTextureEffect.Render(mAsteroid_02.renderData);
+	mSimpleTextureEffect.Render(mAsteroid_03.renderData);
+	mSimpleTextureEffect.Render(mAsteroid_04.renderData);
+	mSimpleTextureEffect.Render(mAsteroid_05.renderData);
+	mSimpleTextureEffect.Render(mAsteroid_06.renderData);
+	mSimpleTextureEffect.Render(mAsteroid_07.renderData);
+	mSimpleTextureEffect.Render(mAsteroid_08.renderData);
+	mSimpleTextureEffect.Render(mAsteroid_09.renderData);
+	mSimpleTextureEffect.Render(mAsteroid_10.renderData);
+	mSimpleTextureEffect.Render(mAsteroid_11.renderData);
 
 	mSimpleTextureEffect.End();
 }
@@ -450,7 +545,7 @@ void GameState::DebugUI()
 	ImGui::Text("Render Target Camera");
 	ImGui::Image(
 		mRenderTarget.GetRawData(),
-		{ 400, 400 },
+		{ 512, 512 },
 		{ 0, 0 },
 		{ 1, 1 },
 		{ 1, 1, 1, 1 },
@@ -462,7 +557,7 @@ void GameState::DebugUI()
 void GameState::UpdateCamera(float deltaTime)
 {
 	Input::InputSystem* input = Input::InputSystem::Get();
-	const float moveSpeed = input->IsKeyDown(Input::KeyCode::LSHIFT) ? 10.0f : 1.0f;
+	const float moveSpeed = input->IsKeyDown(Input::KeyCode::LSHIFT) ? 20.0f : 2.0f;
 	const float turnSpeed = 1.0f;
 
 	if (input->IsKeyDown(Input::KeyCode::W)) mCamera.Walk(moveSpeed * deltaTime);

@@ -7,8 +7,8 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int)
 	AppConfig config;
 	config.appName = L"Hello Solar System";
 
-	config.winWidth = 1920;
-	config.winHeight = 1080;
+	config.winWidth = 3840;
+	config.winHeight = 2160;
 
 	App& myApp = MainApp();
 
