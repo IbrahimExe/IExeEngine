@@ -42,7 +42,7 @@ void GameState::Initialize()
 	// Space
 	MeshPX spaceSphere = MeshBuilder::CreateSkySpherePX(60, 60, 250.0f);
 	mSpace.mesh.Initialize(spaceSphere);
-	mSpace.textureId = TextureManager::Get()->LoadTexture(L"darkerSpace.jpg");
+	mSpace.textureId = TextureManager::Get()->LoadTexture(L"paper.jpg");
 
 	// Sun
 	MeshPX sunSphere = MeshBuilder::CreateSpherePX(60, 60, 5.0f);
@@ -77,7 +77,7 @@ void GameState::Initialize()
 	mEarth.distanceFromCenter = 12.0f;
 	mEarth.orbitTranslation = 0.8f;
 	mEarth.rotationOnAxis = 1.0f;
-	MeshPX earthSphere = MeshBuilder::CreateSpherePX(60, 60, mEarth.radius);
+	MeshPC earthSphere = MeshBuilder::CreateCylinderPC(2, 5);
 	mEarth.renderData.mesh.Initialize(earthSphere);
 	mEarth.renderData.textureId = TextureManager::Get()->LoadTexture(L"planets/earth.jpg");
 	mEarth.renderData.matWorld = Math::Matrix4::Translation(mEarth.distanceFromCenter, 0, 0);

@@ -30,9 +30,6 @@ void GameState::Initialize()
     MeshPX saturn = MeshBuilder::CreateOBJPX(L"../../Assets/Models/Planets/Saturn/Saturn.obj", 2.0f);
     mSaturn.mesh.Initialize(saturn);
 
-    //MeshPX sword = MeshBuilder::CreateOBJPX(L"../../Assets/Models/Sword/Sword.obj", 0.25f);
-    //mSword.mesh.Initialize(sword);
-
 	// Textures:
 	mSpace.textureId = TextureManager::Get()->LoadTexture(L"space.jpg");
     mEarth.textureId = TextureManager::Get()->LoadTexture(L"earth.jpg");
