@@ -30,14 +30,14 @@ private:
 
 	struct Asteroid
 	{
-        IExeEngine::Math::Matrix4 centerObject;
-        float distanceFromCenter;
-        IExeEngine::Graphics::SimpleTextureEffect::RenderData renderData;
+		IExeEngine::Math::Matrix4 centerObject;
+		float distanceFromCenter;
+		IExeEngine::Graphics::SimpleTextureEffect::RenderData renderData;
 	};
 
 	void UpdateCamera(float deltaTime);
 
-    // Functions for Animating Planets & Moon
+	// Functions for Animating Planets & Moon
 	void UpdateRenderTargetCamera(float deltaTime, Math::Vector3 targetPosition, float objectRadius);
 	void UpdatePlanet(Planet& planet, float deltaTime);
 	void UpdateMoon(Planet& planet, const Planet& earth, float deltaTime);
@@ -64,8 +64,8 @@ private:
 	Planet mNeptune;
 	Planet mPluto;
 
-    // Render Asteroid
-    Asteroid mAsteroid_01;
+	// Render Asteroid
+	Asteroid mAsteroid_01;
 	Asteroid mAsteroid_02;
 	Asteroid mAsteroid_03;
 	Asteroid mAsteroid_04;
