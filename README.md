@@ -197,8 +197,7 @@ Through this process, I developed a deep appreciation for how low-level graphics
 
 <div align="center">
 
-### 🖥️ Created by Ibrahim I.  
-*Graphics Programming | Engine Development | DirectX Enthusiast*  
+### 🖥️ GitHub Link
 [🔗 View Repository on GitHub](https://github.com/IbrahimExe/IExeEngine)
 
 </div>
