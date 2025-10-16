@@ -3,6 +3,7 @@
 #include "MeshBuffer.h"
 #include "Transform.h"
 #include "Material.h"
+#include "TextureManager.h"
 
 namespace IExeEngine::Graphics
 {
@@ -15,5 +16,8 @@ namespace IExeEngine::Graphics
         MeshBuffer meshBuffer; // Shape
 
         Material material;    // Light data
+
+        TextureId diffuseMapId;  // Diffuse texture for an object
+        TextureId specMapId;   // Specular map for an object
     };
 }

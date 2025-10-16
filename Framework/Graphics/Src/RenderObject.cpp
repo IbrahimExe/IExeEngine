@@ -7,4 +7,7 @@ using namespace IExeEngine::Graphics;
 void RenderObject::Terminate()
 {
     meshBuffer.Terminate();
+    TextureManager* tm = TextureManager::Get();
+    tm->ReleaseTexture(diffuseMapId);
+    tm->ReleaseTexture(specMapId);
 }
