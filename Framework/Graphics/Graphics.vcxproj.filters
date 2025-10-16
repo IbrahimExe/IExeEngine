@@ -84,6 +84,9 @@
     <ClInclude Include="Inc\DirectionalLight.h">
       <Filter>Inc</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\Material.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Precompiled.cpp">

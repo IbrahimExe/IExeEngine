@@ -2,6 +2,7 @@
 
 #include "MeshBuffer.h"
 #include "Transform.h"
+#include "Material.h"
 
 namespace IExeEngine::Graphics
 {
@@ -10,7 +11,9 @@ namespace IExeEngine::Graphics
     public:
         void Terminate();
 
-        Transform transform;
-        MeshBuffer meshBuffer;
+        Transform transform;   // Location/ Orientation
+        MeshBuffer meshBuffer; // Shape
+
+        Material material;    // Light data
     };
 }

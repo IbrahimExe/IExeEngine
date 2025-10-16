@@ -62,6 +62,15 @@ void GameState::DebugUI()
 		ImGui::ColorEdit4("Specular#Light", &mDirectionalLight.specular.r);
 	}
 
+	if (ImGui::CollapsingHeader("Material", ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		ImGui::ColorEdit4("Emissive#Material", &mRenderObject.material.emissive.r);
+		ImGui::ColorEdit4("Ambient#Material", &mRenderObject.material.ambient.r);
+		ImGui::ColorEdit4("Diffuse#Material", &mRenderObject.material.diffuse.r);
+		ImGui::ColorEdit4("Specular#Material", &mRenderObject.material.specular.r);
+        ImGui::DragFloat("Shininess#Material", &mRenderObject.material.shininess, 0.01f, 0.0f, 10000.0f);
+	}
+
 	ImGui::End();
 }
 

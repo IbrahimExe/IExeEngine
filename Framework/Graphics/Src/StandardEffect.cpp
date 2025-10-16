@@ -12,6 +12,7 @@ void StandardEffect::Initialize(const std::filesystem::path& path)
 {
 	mTransformBuffer.Initialize();
 	mLightBuffer.Initialize();
+    mMaterialBuffer.Initialize();
 
 	mVertexShader.Initialize<Vertex>(path);
 	mPixelShader.Initialize(path);
@@ -22,7 +23,8 @@ void StandardEffect::Terminate()
 	mPixelShader.Terminate();
 	mVertexShader.Terminate();
 	mLightBuffer.Terminate();
-	mTransformBuffer.Terminate();
+    mTransformBuffer.Terminate();
+    mMaterialBuffer.Terminate();
 }
 
 void StandardEffect::Begin()
@@ -33,6 +35,7 @@ void StandardEffect::Begin()
 	mTransformBuffer.BindVS(0);
 	mLightBuffer.BindVS(1);
 	mLightBuffer.BindPS(1);
+    mMaterialBuffer.BindPS(2);
 }
 
 void StandardEffect::End()
@@ -54,6 +57,8 @@ void StandardEffect::Render(const RenderObject& renderObject)
 	mTransformBuffer.Update(data);
 
 	mLightBuffer.Update(*mDirectionalLight);
+
+    mMaterialBuffer.Update(renderObject.material);
 
 	renderObject.meshBuffer.Render();
 }

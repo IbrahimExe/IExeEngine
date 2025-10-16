@@ -4,6 +4,7 @@
 #include "PixelShader.h"
 #include "VertexShader.h"
 #include "DirectionalLight.h"
+#include "Material.h"
 
 namespace IExeEngine::Graphics
 {
@@ -42,6 +43,9 @@ namespace IExeEngine::Graphics
 
         using LightBuffer = TypedConstantBuffer<DirectionalLight>;
         LightBuffer mLightBuffer;
+
+        using MaterialBuffer = TypedConstantBuffer<Material>;
+        MaterialBuffer mMaterialBuffer;
 
         VertexShader mVertexShader;
         PixelShader mPixelShader;

@@ -45,3 +45,5 @@
 #include "StandardEffect.h"
 
 #include "DirectionalLight.h"
+
+#include "Material.h"

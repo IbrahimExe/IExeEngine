@@ -15,6 +15,15 @@ cbuffer LightBuffer : register(b1)
     float3 lightDirection;
 }
 
+cbuffer MaterialBuffer : register(b2)
+{
+    float4 materialEmissive;
+    float4 materialAmbient;
+    float4 materialDiffuse;
+    float4 materialSpecular;
+    float materialShininess;
+}
+
 struct VS_INPUT
 {
     float3 position : POSITION;
@@ -55,20 +64,20 @@ float4 PS(VS_OUTPUT input) : SV_Target
     float3 view = normalize(input.dirToView);
     
     // Emissive
-    float4 emissive = 0.0f;
+    float4 emissive = materialEmissive;
     
     // Ambient 
-    float4 ambient = lightAmbient;
+    float4 ambient = lightAmbient * materialAmbient;
     
     // Diffuse
     float d = saturate(dot(light, n));
-    float4 diffuse = d * lightDiffuse;
+    float4 diffuse = d * lightDiffuse * materialDiffuse;
     
     // Specular 
     float3 r = reflect(-light, n);
     float base = saturate(dot(r, view));
-    float s = pow(base, 10.0f);
-    float4 specular = s * lightSpecular;
+    float s = pow(base, materialShininess);
+    float4 specular = s * lightSpecular * materialSpecular;
     
     float4 finalColor = (emissive + ambient + diffuse + specular);
     
