@@ -28,6 +28,7 @@ SamplerState textureSampler : register(s0);
 
 Texture2D diffuseMap : register(t0);
 Texture2D specMap : register(t1);
+Texture2D normalMap : register(t2);
 
 
 struct VS_INPUT
@@ -68,6 +69,14 @@ float4 PS(VS_OUTPUT input) : SV_Target
     float3 n = normalize(input.worldNormal);
     float3 light = normalize(input.dirToLight);
     float3 view = normalize(input.dirToView);
+    
+    // Update Normal Value
+    float3 t = normalize(input.worldTangent);
+    float3 b = normalize(cross(n, t));
+    float3x3 tbnw = float3x3(t, b, n);
+    float4 normalMapColor = normalMap.Sample(textureSampler, input.texCoord);
+    float3 unpackedNormalMap = normalize(float3((normalMapColor.xy * 2.0f) - 1.0f, normalMapColor.z));
+    n = normalize(mul(unpackedNormalMap, tbnw));
     
     // Emissive
     float4 emissive = materialEmissive;

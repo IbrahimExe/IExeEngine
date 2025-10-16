@@ -20,6 +20,7 @@ void GameState::Initialize()
     TextureManager* tm = TextureManager::Get();
     mRenderObject.diffuseMapId = tm->LoadTexture(L"../../Assets/Textures/earth.jpg");
     mRenderObject.specMapId = tm->LoadTexture(L"../../Assets/Textures/earth_spec.jpg");
+    mRenderObject.normalMapId = tm->LoadTexture(L"../../Assets/Textures/earth_normal.jpg");
 
     std::filesystem::path shaderFile = L"../../Assets/Shaders/Standard.fx";
     mStandardEffect.Initialize(shaderFile);

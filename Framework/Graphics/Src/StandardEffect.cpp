@@ -66,6 +66,7 @@ void StandardEffect::Render(const RenderObject& renderObject)
     TextureManager* tm = TextureManager::Get();
     tm->BindPS(renderObject.diffuseMapId, 0);
     tm->BindPS(renderObject.specMapId, 1);
+    tm->BindPS(renderObject.normalMapId, 2);
 
 	renderObject.meshBuffer.Render();
 }
