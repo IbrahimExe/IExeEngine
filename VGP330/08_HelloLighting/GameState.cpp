@@ -14,13 +14,14 @@ void GameState::Initialize()
     mDirectionalLight.diffuse = { 0.8f, 0.8f, 0.8f, 1.0f };
     mDirectionalLight.specular = { 0.9f, 0.9f, 0.9f, 1.0f };
 
-	Mesh mesh = MeshBuilder::CreateSphere(64, 64, 1.0f);
-	mRenderObject.meshBuffer.Initialize(mesh);
+	Mesh earth = MeshBuilder::CreateSphere(100, 100, 1.0f);
+	mRenderObject.meshBuffer.Initialize(earth);
 
     TextureManager* tm = TextureManager::Get();
     mRenderObject.diffuseMapId = tm->LoadTexture(L"../../Assets/Textures/earth.jpg");
     mRenderObject.specMapId = tm->LoadTexture(L"../../Assets/Textures/earth_spec.jpg");
     mRenderObject.normalMapId = tm->LoadTexture(L"../../Assets/Textures/earth_normal.jpg");
+    mRenderObject.bumpMapId = tm->LoadTexture(L"../../Assets/Textures/earth_bump.jpg");
 
     std::filesystem::path shaderFile = L"../../Assets/Shaders/Standard.fx";
     mStandardEffect.Initialize(shaderFile);
@@ -76,6 +77,7 @@ void GameState::DebugUI()
         ImGui::DragFloat("Shininess#Material", &mRenderObject.material.shininess, 0.01f, 0.0f, 10000.0f);
 	}
 
+	mStandardEffect.DebugUI();
 	ImGui::End();
 }
 

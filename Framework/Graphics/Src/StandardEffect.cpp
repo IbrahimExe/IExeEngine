@@ -10,10 +10,13 @@ using namespace IExeEngine::Graphics;
 
 void StandardEffect::Initialize(const std::filesystem::path& path)
 {
+	// Buffers
 	mTransformBuffer.Initialize();
 	mLightBuffer.Initialize();
     mMaterialBuffer.Initialize();
+    mSettingsBuffer.Initialize();
 
+	// Other Stuff
 	mVertexShader.Initialize<Vertex>(path);
 	mPixelShader.Initialize(path);
     mSampler.Initialize(Sampler::Filter::Linear, Sampler::AddressMode::Wrap);
@@ -24,6 +27,7 @@ void StandardEffect::Terminate()
     mSampler.Terminate();
 	mPixelShader.Terminate();
 	mVertexShader.Terminate();
+    mSettingsBuffer.Terminate();
 	mLightBuffer.Terminate();
     mTransformBuffer.Terminate();
     mMaterialBuffer.Terminate();
@@ -34,11 +38,17 @@ void StandardEffect::Begin()
 	mVertexShader.Bind();
 	mPixelShader.Bind();
     mSampler.BindPS(0);
+    mSampler.BindVS(0);
 
 	mTransformBuffer.BindVS(0);
+
 	mLightBuffer.BindVS(1);
 	mLightBuffer.BindPS(1);
+
     mMaterialBuffer.BindPS(2);
+
+    mSettingsBuffer.BindVS(3);
+    mSettingsBuffer.BindPS(3);
 }
 
 void StandardEffect::End()
@@ -59,6 +69,14 @@ void StandardEffect::Render(const RenderObject& renderObject)
 	data.viewPosition = mCamera->GetPosition();
 	mTransformBuffer.Update(data);
 
+    SettingsData settings;
+    settings.useDiffuseMap = (renderObject.diffuseMapId > 0 && mSettingsData.useDiffuseMap > 0) ? 1 : 0;
+    settings.useSpecMap = (renderObject.specMapId > 0 && mSettingsData.useSpecMap > 0) ? 1 : 0;
+    settings.useNormalMap = (renderObject.normalMapId > 0 && mSettingsData.useNormalMap > 0) ? 1 : 0;
+    settings.useBumpMap = (renderObject.bumpMapId > 0 && mSettingsData.useBumpMap > 0) ? 1 : 0;
+    settings.bumpIntensity = mSettingsData.bumpIntensity;
+    mSettingsBuffer.Update(settings);
+
 	mLightBuffer.Update(*mDirectionalLight);
 
     mMaterialBuffer.Update(renderObject.material);
@@ -67,6 +85,7 @@ void StandardEffect::Render(const RenderObject& renderObject)
     tm->BindPS(renderObject.diffuseMapId, 0);
     tm->BindPS(renderObject.specMapId, 1);
     tm->BindPS(renderObject.normalMapId, 2);
+    tm->BindVS(renderObject.bumpMapId, 3);
 
 	renderObject.meshBuffer.Render();
 }
@@ -83,5 +102,28 @@ void StandardEffect::SetDirectionalLight(const DirectionalLight& directionalLigh
 
 void StandardEffect::DebugUI()
 {
-
+    if (ImGui::CollapsingHeader("StandardEffect"))
+    {
+        bool useDiffuseMap = mSettingsData.useDiffuseMap > 0;
+        if (ImGui::Checkbox("UseDiffuseMap", &useDiffuseMap))
+        {
+            mSettingsData.useDiffuseMap = (useDiffuseMap) ? 1 : 0;
+        }
+        bool useSpecMap = mSettingsData.useSpecMap > 0;
+        if (ImGui::Checkbox("UseSpecMap", &useSpecMap))
+        {
+            mSettingsData.useSpecMap = (useSpecMap) ? 1 : 0;
+        }
+        bool useNormalMap = mSettingsData.useNormalMap > 0;
+        if (ImGui::Checkbox("UseNormalMap", &useNormalMap))
+        {
+            mSettingsData.useNormalMap = (useNormalMap) ? 1 : 0;
+        }
+        bool useBumpMap = mSettingsData.useBumpMap > 0;
+        if (ImGui::Checkbox("UseBumpMap", &useBumpMap))
+        {
+            mSettingsData.useBumpMap = (useBumpMap) ? 1 : 0;
+        }
+        ImGui::DragFloat("BumpIntensity", &mSettingsData.bumpIntensity, 0.1f, 0.0f, 100.0f);
+    }
 }
