@@ -45,7 +45,7 @@ namespace IExeEngine::Graphics
             int useSpecMap = 1;
             int useNormalMap = 1;
             int useBumpMap = 1;
-            float bumpIntensity = 0.025f;
+            float bumpIntensity = -0.02f;
             float padding[3] = { 0.0f }; // Padding to make the structure 16-byte aligned
         };
 
