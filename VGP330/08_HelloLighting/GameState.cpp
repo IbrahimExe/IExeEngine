@@ -35,6 +35,15 @@ void GameState::Initialize()
     mRenderObject_Metal.bumpMapId = tm2->LoadTexture(L"../../Assets/Textures/metal/bump.jpg");
 
     // Object 3 - Wood
+    Mesh wood = MeshBuilder::CreatePlane(5, 5, 5.0f);
+    mRenderObject_Wood.meshBuffer.Initialize(wood);
+
+    TextureManager* tm3 = TextureManager::Get();
+    mRenderObject_Wood.diffuseMapId = tm3->LoadTexture(L"../../Assets/Textures/wood/diffuse.jpg");
+    mRenderObject_Wood.specMapId = tm3->LoadTexture(L"../../Assets/Textures/wood/spec.jpg");
+    mRenderObject_Wood.normalMapId = tm3->LoadTexture(L"../../Assets/Textures/wood/normal.jpg");
+    mRenderObject_Wood.bumpMapId = tm3->LoadTexture(L"../../Assets/Textures/wood/bump.jpg");
+
 
     std::filesystem::path shaderFile = L"../../Assets/Shaders/Standard.fx";
     mStandardEffect.Initialize(shaderFile);
@@ -63,8 +72,8 @@ void GameState::Render()
     mStandardEffect.Begin();
 
 		//mStandardEffect.Render(mRenderObject_Earth);
-        mStandardEffect.Render(mRenderObject_Metal);
-        //mStandardEffect.Render(mRenderObject_Wood);
+        //mStandardEffect.Render(mRenderObject_Metal);
+        mStandardEffect.Render(mRenderObject_Wood);
 
     mStandardEffect.End();
 
@@ -87,11 +96,23 @@ void GameState::DebugUI()
 
 	if (ImGui::CollapsingHeader("Material", ImGuiTreeNodeFlags_DefaultOpen))
 	{
+		ImGui::ColorEdit4("Emissive#Material", &mRenderObject_Earth.material.emissive.r);
+		ImGui::ColorEdit4("Ambient#Material", &mRenderObject_Earth.material.ambient.r);
+		ImGui::ColorEdit4("Diffuse#Material", &mRenderObject_Earth.material.diffuse.r);
+		ImGui::ColorEdit4("Specular#Material", &mRenderObject_Earth.material.specular.r);
+        ImGui::DragFloat("Shininess#Material", &mRenderObject_Earth.material.shininess, 0.01f, 0.0f, 10000.0f);
+
 		ImGui::ColorEdit4("Emissive#Material", &mRenderObject_Metal.material.emissive.r);
 		ImGui::ColorEdit4("Ambient#Material", &mRenderObject_Metal.material.ambient.r);
 		ImGui::ColorEdit4("Diffuse#Material", &mRenderObject_Metal.material.diffuse.r);
 		ImGui::ColorEdit4("Specular#Material", &mRenderObject_Metal.material.specular.r);
-        ImGui::DragFloat("Shininess#Material", &mRenderObject_Metal.material.shininess, 0.01f, 0.0f, 10000.0f);
+		ImGui::DragFloat("Shininess#Material", &mRenderObject_Metal.material.shininess, 0.01f, 0.0f, 10000.0f);
+
+		ImGui::ColorEdit4("Emissive#Material", &mRenderObject_Wood.material.emissive.r);
+		ImGui::ColorEdit4("Ambient#Material", &mRenderObject_Wood.material.ambient.r);
+		ImGui::ColorEdit4("Diffuse#Material", &mRenderObject_Wood.material.diffuse.r);
+		ImGui::ColorEdit4("Specular#Material", &mRenderObject_Wood.material.specular.r);
+		ImGui::DragFloat("Shininess#Material", &mRenderObject_Wood.material.shininess, 0.01f, 0.0f, 10000.0f);
 	}
 
 	mStandardEffect.DebugUI();
