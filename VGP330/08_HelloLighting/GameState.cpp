@@ -4,6 +4,17 @@ using namespace IExeEngine;
 using namespace IExeEngine::Graphics;
 using namespace IExeEngine::Input;
 
+enum class CurrentObject
+{
+    Earth,
+    Metal,
+    Wood
+};
+
+const char* gObjectNames[] = { "Earth", "Metal", "Wood" };
+
+CurrentObject gCurrentObject = CurrentObject::Earth;
+
 void GameState::Initialize()
 {
 	mCamera.SetPosition({ 0.0f, 1.0f, -3.0f });
@@ -14,7 +25,7 @@ void GameState::Initialize()
     mDirectionalLight.diffuse = { 0.8f, 0.8f, 0.8f, 1.0f };
     mDirectionalLight.specular = { 0.9f, 0.9f, 0.9f, 1.0f };
 
-    // Object 1 - Earth
+    // Object 1 - Earth Sphere
 	Mesh earth = MeshBuilder::CreateSphere(100, 100, 1.0f);
 	mRenderObject_Earth.meshBuffer.Initialize(earth);
 
@@ -24,7 +35,7 @@ void GameState::Initialize()
 	mRenderObject_Earth.normalMapId = tm->LoadTexture(L"../../Assets/Textures/earth_normal.jpg");
 	mRenderObject_Earth.bumpMapId = tm->LoadTexture(L"../../Assets/Textures/earth_bump.jpg");
 
-    // Object 2 - Metal
+    // Object 2 - Metal Sphere
     Mesh metal = MeshBuilder::CreateSphere(100, 100, 1.0f);
     mRenderObject_Metal.meshBuffer.Initialize(metal);
 
@@ -34,7 +45,7 @@ void GameState::Initialize()
     mRenderObject_Metal.normalMapId = tm2->LoadTexture(L"../../Assets/Textures/metal/normal.jpg");
     mRenderObject_Metal.bumpMapId = tm2->LoadTexture(L"../../Assets/Textures/metal/bump.jpg");
 
-    // Object 3 - Wood
+    // Object 3 - Wood Plane
     Mesh wood = MeshBuilder::CreatePlane(5, 5, 5.0f);
     mRenderObject_Wood.meshBuffer.Initialize(wood);
 
@@ -71,9 +82,18 @@ void GameState::Render()
 
     mStandardEffect.Begin();
 
-		//mStandardEffect.Render(mRenderObject_Earth);
-        //mStandardEffect.Render(mRenderObject_Metal);
-        mStandardEffect.Render(mRenderObject_Wood);
+		if (gCurrentObject == CurrentObject::Earth)
+		{
+			mStandardEffect.Render(mRenderObject_Earth);
+		}
+		else if (gCurrentObject == CurrentObject::Metal)
+		{
+		    mStandardEffect.Render(mRenderObject_Metal);
+		}
+		else if (gCurrentObject == CurrentObject::Wood)
+		{
+			mStandardEffect.Render(mRenderObject_Wood);
+		}
 
     mStandardEffect.End();
 
@@ -94,6 +114,54 @@ void GameState::DebugUI()
 		ImGui::ColorEdit4("Specular#Light", &mDirectionalLight.specular.r);
 	}
 
+	ImGui::Separator();
+
+    int currentObject = static_cast<int>(gCurrentObject);
+    if (ImGui::Combo("Current Object", &currentObject, gObjectNames, std::size(gObjectNames)))
+    {
+        gCurrentObject = static_cast<CurrentObject>(currentObject);
+    }
+
+    switch (gCurrentObject)
+    {
+    case CurrentObject::Earth:
+        ImGui::Text("Current Object: Earth");
+		if (ImGui::CollapsingHeader("Earth#Material", ImGuiTreeNodeFlags_DefaultOpen))
+        {
+            ImGui::ColorEdit4("Emissive#MaterialOfEarth", &mRenderObject_Earth.material.emissive.r);
+            ImGui::ColorEdit4("Ambient#MaterialOfEarth", &mRenderObject_Earth.material.ambient.r);
+            ImGui::ColorEdit4("Diffuse#MaterialOfEarth", &mRenderObject_Earth.material.diffuse.r);
+            ImGui::ColorEdit4("Specular#MaterialOfEarth", &mRenderObject_Earth.material.specular.r);
+            ImGui::DragFloat("Shininess#MaterialOfEarth", &mRenderObject_Earth.material.shininess, 0.001f, 0.0f, 10000.0f);
+        }
+		break;
+    case CurrentObject::Metal:
+        ImGui::Text("Current Object: Metal");
+        if (ImGui::CollapsingHeader("Metal#Material", ImGuiTreeNodeFlags_DefaultOpen))
+        {
+            ImGui::ColorEdit4("Emissive#MaterialOfMetal", &mRenderObject_Metal.material.emissive.r);
+            ImGui::ColorEdit4("Ambient#MaterialOfMetal", &mRenderObject_Metal.material.ambient.r);
+            ImGui::ColorEdit4("Diffuse#MaterialOfMetal", &mRenderObject_Metal.material.diffuse.r);
+            ImGui::ColorEdit4("Specular#MaterialOfMetal", &mRenderObject_Metal.material.specular.r);
+            ImGui::DragFloat("Shininess#MaterialOfMetal", &mRenderObject_Metal.material.shininess, 0.001f, 0.0f, 10000.0f);
+        }
+        break;
+    case CurrentObject::Wood:
+		ImGui::Text("Current Object: Wood");
+        if (ImGui::CollapsingHeader("Wood#Material", ImGuiTreeNodeFlags_DefaultOpen))
+        {
+            ImGui::ColorEdit4("Emissive#MaterialOfWood", &mRenderObject_Wood.material.emissive.r);
+            ImGui::ColorEdit4("Ambient#MaterialOfWood", &mRenderObject_Wood.material.ambient.r);
+            ImGui::ColorEdit4("Diffuse#MaterialOfWood", &mRenderObject_Wood.material.diffuse.r);
+            ImGui::ColorEdit4("Specular#MaterialOfWood", &mRenderObject_Wood.material.specular.r);
+            ImGui::DragFloat("Shininess#MaterialOfWood", &mRenderObject_Wood.material.shininess, 0.001f, 0.0f, 10000.0f);
+        }
+        break;
+    default:
+        break;
+    }
+
+    /*
 	if (ImGui::CollapsingHeader("Material", ImGuiTreeNodeFlags_DefaultOpen))
 	{
 		ImGui::ColorEdit4("Emissive#Material", &mRenderObject_Earth.material.emissive.r);
@@ -114,6 +182,7 @@ void GameState::DebugUI()
 		ImGui::ColorEdit4("Specular#Material", &mRenderObject_Wood.material.specular.r);
 		ImGui::DragFloat("Shininess#Material", &mRenderObject_Wood.material.shininess, 0.01f, 0.0f, 10000.0f);
 	}
+    */
 
 	mStandardEffect.DebugUI();
 	ImGui::End();
