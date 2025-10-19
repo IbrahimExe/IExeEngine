@@ -21,6 +21,10 @@ private:
 
 	IExeEngine::Graphics::Camera mCamera;
     IExeEngine::Graphics::DirectionalLight mDirectionalLight;
-    IExeEngine::Graphics::RenderObject mRenderObject;
+
+    IExeEngine::Graphics::RenderObject mRenderObject_Earth;
+    IExeEngine::Graphics::RenderObject mRenderObject_Metal;
+    IExeEngine::Graphics::RenderObject mRenderObject_Wood;
+
     IExeEngine::Graphics::StandardEffect mStandardEffect;
 };
