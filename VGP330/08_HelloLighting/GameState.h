@@ -25,6 +25,7 @@ private:
     IExeEngine::Graphics::RenderObject mRenderObject_Earth;
     IExeEngine::Graphics::RenderObject mRenderObject_Metal;
     IExeEngine::Graphics::RenderObject mRenderObject_Wood;
+    IExeEngine::Graphics::RenderObject mRenderObject_Water;
 
     IExeEngine::Graphics::StandardEffect mStandardEffect;
 };

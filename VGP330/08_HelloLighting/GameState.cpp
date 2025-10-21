@@ -8,10 +8,11 @@ enum class CurrentObject
 {
     Earth,
     Metal,
-    Wood
+    Wood,
+    Water
 };
 
-const char* gObjectNames[] = { "Earth", "Metal", "Wood" };
+const char* gObjectNames[] = { "Earth", "Metal", "Wood", "Water"};
 
 CurrentObject gCurrentObject = CurrentObject::Earth;
 
@@ -55,6 +56,16 @@ void GameState::Initialize()
     mRenderObject_Wood.normalMapId = tm3->LoadTexture(L"../../Assets/Textures/wood/normal.jpg");
     mRenderObject_Wood.bumpMapId = tm3->LoadTexture(L"../../Assets/Textures/wood/bump.jpg");
 
+    // Object 4 - Water Ball
+    Mesh water = MeshBuilder::CreateSphere(100, 100, 1.0f);
+    mRenderObject_Water.meshBuffer.Initialize(water);
+
+    TextureManager* tm4 = TextureManager::Get();
+    mRenderObject_Water.diffuseMapId = tm4->LoadTexture(L"../../Assets/Textures/water/water_texture.jpg");
+    mRenderObject_Water.specMapId = tm4->LoadTexture(L"../../Assets/Textures/water/water_spec.jpg");
+    mRenderObject_Water.normalMapId = tm4->LoadTexture(L"../../Assets/Textures/water/water_normal.jpg");
+    mRenderObject_Water.bumpMapId = tm4->LoadTexture(L"../../Assets/Textures/water/water_height.jpg");
+
 
     std::filesystem::path shaderFile = L"../../Assets/Shaders/Standard.fx";
     mStandardEffect.Initialize(shaderFile);
@@ -67,6 +78,7 @@ void GameState::Terminate()
 	mRenderObject_Earth.Terminate();
     mRenderObject_Metal.Terminate();
     mRenderObject_Wood.Terminate();
+    mRenderObject_Water.Terminate();
     mStandardEffect.Terminate();
 }
 
@@ -94,6 +106,10 @@ void GameState::Render()
 		{
 			mStandardEffect.Render(mRenderObject_Wood);
 		}
+        else if (gCurrentObject == CurrentObject::Water)
+        {
+            mStandardEffect.Render(mRenderObject_Water);
+        }
 
     mStandardEffect.End();
 
@@ -155,6 +171,17 @@ void GameState::DebugUI()
             ImGui::ColorEdit4("Diffuse#MaterialOfWood", &mRenderObject_Wood.material.diffuse.r);
             ImGui::ColorEdit4("Specular#MaterialOfWood", &mRenderObject_Wood.material.specular.r);
             ImGui::DragFloat("Shininess#MaterialOfWood", &mRenderObject_Wood.material.shininess, 0.001f, 0.0f, 10000.0f);
+        }
+        break;
+    case CurrentObject::Water:
+        ImGui::Text("Current Object: Water");
+        if (ImGui::CollapsingHeader("Water#Material", ImGuiTreeNodeFlags_DefaultOpen))
+        {
+            ImGui::ColorEdit4("Emissive#MaterialOfWater", &mRenderObject_Water.material.emissive.r);
+            ImGui::ColorEdit4("Ambient#MaterialOfWater", &mRenderObject_Water.material.ambient.r);
+            ImGui::ColorEdit4("Diffuse#MaterialOfWater", &mRenderObject_Water.material.diffuse.r);
+            ImGui::ColorEdit4("Specular#MaterialOfWater", &mRenderObject_Water.material.specular.r);
+            ImGui::DragFloat("Shininess#MaterialOfWater", &mRenderObject_Water.material.shininess, 0.001f, 0.0f, 10000.0f);
         }
         break;
     default:
