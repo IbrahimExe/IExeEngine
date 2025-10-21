@@ -47,3 +47,5 @@
 #include "DirectionalLight.h"
 
 #include "Material.h"
+
+#include "Model.h"
