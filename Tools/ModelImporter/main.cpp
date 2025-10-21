@@ -111,7 +111,7 @@ int main(int argc, char* argv[])
             printf("Reading Material Index for Mesh...\n");
             meshData.materialIndex = aiMesh->mMaterialIndex;
 
-            printf("Reading Vertices for Mesh...");
+            printf("Reading Vertices for Mesh...\n");
             Mesh& mesh = meshData.mesh;
             mesh.vertices.reserve(numVertices);
 
