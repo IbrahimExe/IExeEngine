@@ -108,7 +108,7 @@ int main(int argc, char* argv[])
 
             Model::MeshData& meshData = model.meshData.emplace_back();
 
-            printf("Reading Material Index for Mesh %s: %d\n");
+            printf("Reading Material Index for Mesh...\n");
             meshData.materialIndex = aiMesh->mMaterialIndex;
 
             printf("Reading Vertices for Mesh...");
