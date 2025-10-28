@@ -143,5 +143,10 @@ int main(int argc, char* argv[])
         }
     }
 
+    printf("Saving Model...\n");
+    ModelIO::SaveModel(args.outputFileName, model);
+
+    printf("Import Complete!\n");
+
     return 0;
 }
