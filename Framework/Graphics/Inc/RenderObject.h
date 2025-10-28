@@ -4,6 +4,7 @@
 #include "Transform.h"
 #include "Material.h"
 #include "TextureManager.h"
+#include "ModelManager.h"
 
 namespace IExeEngine::Graphics
 {
@@ -21,5 +22,16 @@ namespace IExeEngine::Graphics
         TextureId specMapId;   // Specular map for an object
         TextureId normalMapId;   // Normal texture for an object
         TextureId bumpMapId;   // Height texture for an object
+    };
+
+    class RenderGroup
+    {
+    public:
+        void Initialize(const std::filesystem::path& modelFilePath);
+        void Terminate();
+
+        ModelId modelId; // Model Identifier
+        Transform transform; // Root Transform (Other objects may have other transforms)
+        std::vector<RenderObject> renderObjects; // All objects to render
     };
 }

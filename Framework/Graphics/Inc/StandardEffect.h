@@ -11,6 +11,7 @@ namespace IExeEngine::Graphics
 {
     class Camera;
     class RenderObject;
+    class RenderGroup;
 
     class StandardEffect final
     {
@@ -22,6 +23,7 @@ namespace IExeEngine::Graphics
         void End();
 
         void Render(const RenderObject& renderObject);
+        void Render(const RenderGroup& renderGroup);
 
         void SetCamera(const Camera& camera);
 
