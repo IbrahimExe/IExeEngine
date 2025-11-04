@@ -27,7 +27,8 @@ void RenderGroup::Initialize(const std::filesystem::path& modelFilePath)
         if (meshData.materialIndex < model->materialData.size())
         {
             // Add Material Data
-            
+            const Model::MaterialData& materialData = model->materialData[meshData.materialIndex];
+            renderObject.material = materialData.material;
         }
     }
 }

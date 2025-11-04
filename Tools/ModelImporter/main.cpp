@@ -59,6 +59,23 @@ Vector2 ToTexCoord(const aiVector3D& v)
     };
 }
 
+Color ToColor(const aiColor3D& c)
+{
+    return
+    {
+        static_cast<float>(c.r),
+        static_cast<float>(c.g),
+        static_cast<float>(c.b),
+        static_cast<float>(1.0f)
+    };
+}
+
+std::string FindTexture(const aiScene* scene, const aiMaterial* aiMaterial,
+    aiTextureType textureType, const Arguments& args, const std::string& suffix,
+    uint32_t materealIndex)
+{
+    return "";
+}
 
 int main(int argc, char* argv[])
 {
@@ -143,8 +160,51 @@ int main(int argc, char* argv[])
         }
     }
 
+    if (scene->HasMaterials())
+    {
+        printf("Reading Material Data...\n");
+        for (uint32_t materialIndex = 0; materialIndex < scene->mNumMaterials; ++materialIndex)
+        {
+            const uint32_t numMaterials = scene->mNumMaterials;
+            model.materialData.reserve(numMaterials);
+
+            for (uint32_t materialIndex = 0; materialIndex < numMaterials; ++materialIndex)
+            {
+                const auto& aiMaterial = scene->mMaterials[materialIndex];
+                aiColor3D emissive, ambient, diffuse, specular;
+                ai_real specularPower = 10.0f;
+
+                aiMaterial->Get(AI_MATKEY_COLOR_EMISSIVE, emissive);
+                aiMaterial->Get(AI_MATKEY_COLOR_AMBIENT, ambient);
+                aiMaterial->Get(AI_MATKEY_COLOR_DIFFUSE, diffuse);
+                aiMaterial->Get(AI_MATKEY_COLOR_SPECULAR, specular);
+                aiMaterial->Get(AI_MATKEY_SHININESS, specularPower);
+
+                Model::MaterialData& materialData = model.materialData.emplace_back();
+                materialData.material.emissive = ToColor(emissive);
+                materialData.material.ambient = ToColor(ambient);
+                materialData.material.diffuse = ToColor(diffuse);
+                materialData.material.specular = ToColor(specular);
+                materialData.material.shininess = static_cast<float>(specularPower);
+
+                materialData.diffuseMapName = FindTexture(scene, aiMaterial,
+                    aiTextureType_DIFFUSE, args, "_diff", materialIndex);
+                materialData.specMapName = FindTexture(scene, aiMaterial,
+                    aiTextureType_SPECULAR, args, "_spec", materialIndex);
+                materialData.normalMapName = FindTexture(scene, aiMaterial,
+                    aiTextureType_NORMALS, args, "_norm", materialIndex);
+                materialData.bumpMapName = FindTexture(scene, aiMaterial,
+                    aiTextureType_DISPLACEMENT, args, "_bump", materialIndex);
+
+            }
+        }
+    }
+
     printf("Saving Model...\n");
     ModelIO::SaveModel(args.outputFileName, model);
+
+    printf("Saving Material...\n");
+    ModelIO::SaveMaterial(args.outputFileName, model);
 
     printf("Import Complete!\n");
 
