@@ -132,7 +132,13 @@ void ModelIO::SaveMaterial(std::filesystem::path filePath, const Model& model)
         fprintf_s(file, "%f %f %f %f\n", m.diffuse.r, m.diffuse.g, m.diffuse.b, m.diffuse.a);
         fprintf_s(file, "%f %f %f %f\n", m.specular.r, m.specular.g, m.specular.b, m.specular.a);
         fprintf_s(file, "Shininess: %f\n", m.shininess);
+
+        fprintf_s(file, "%s\n", materialData.diffuseMapName.empty() ? "<NONE>" : materialData.diffuseMapName.c_str());
+        fprintf_s(file, "%s\n", materialData.specMapName.empty() ? "<NONE>" : materialData.specMapName.c_str());
+        fprintf_s(file, "%s\n", materialData.normalMapName.empty() ? "<NONE>" : materialData.normalMapName.c_str());
+        fprintf_s(file, "%s\n", materialData.bumpMapName.empty() ? "<NONE>" : materialData.bumpMapName.c_str());
     }
+
     fclose(file);
 }
 
@@ -149,6 +155,16 @@ void ModelIO::LoadMaterial(std::filesystem::path filePath, Model& model)
         return;
     }
 
+    auto TryReadTextureName = [&](auto& fileName)
+        {
+            char buffer[MAX_PATH];
+            fscanf_s(file, "%s\n", &buffer, (uint32_t)sizeof(buffer));
+            if (strcmp(buffer, "<NONE>") != 0)
+            {
+                fileName = filePath.replace_filename(buffer).string();
+            }
+        };
+
     uint32_t materialCount = 0;
 
     fscanf_s(file, "MaterialCount: %d\n", &materialCount);
@@ -161,6 +177,12 @@ void ModelIO::LoadMaterial(std::filesystem::path filePath, Model& model)
         fscanf_s(file, "%f %f %f %f\n", &m.diffuse.r, &m.diffuse.g, &m.diffuse.b, &m.diffuse.a);
         fscanf_s(file, "%f %f %f %f\n", &m.specular.r, &m.specular.g, &m.specular.b, &m.specular.a);
         fscanf_s(file, "Shininess: %f\n", &m.shininess);
+
+        TryReadTextureName(materialData.diffuseMapName);
+        TryReadTextureName(materialData.specMapName);
+        TryReadTextureName(materialData.normalMapName);
+        TryReadTextureName(materialData.bumpMapName);
     }
+
     fclose(file);
 }

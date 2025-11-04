@@ -70,12 +70,101 @@ Color ToColor(const aiColor3D& c)
     };
 }
 
+void ExportEmbeddedTexture(const aiTexture* texture, const Arguments& args,
+    const std::filesystem::path& fileName)
+{
+    printf("Exporting Embedded Texture: %s\n", fileName.u8string().c_str());
+
+    std::string fullFileName = args.outputFileName.u8string();
+
+    fullFileName = fullFileName.substr(0, fullFileName.rfind('/') + 1);
+    fullFileName += fileName.filename().u8string();
+
+    FILE* file = nullptr;
+    auto err = fopen_s(&file, fullFileName.c_str(), "wb");
+    if (err != 0 || file == nullptr)
+    {
+        printf("Error: Failed to create texture file: %s\n", fullFileName.c_str());
+        return;
+    }
+
+    size_t written = fwrite(texture->pcData, 1, texture->mWidth, file);
+    ASSERT(written == texture->mWidth, "Error: Failed to extract embedded texture data!");
+    fclose(file);
+}
+
 std::string FindTexture(const aiScene* scene, const aiMaterial* aiMaterial,
     aiTextureType textureType, const Arguments& args, const std::string& suffix,
     uint32_t materealIndex)
 {
-    return "";
+    const uint32_t textureCount = aiMaterial->GetTextureCount(textureType);
+    if (textureCount == 0)
+    {
+        return "";
+    }
+    
+    std::filesystem::path textureName;
+    aiString texturePath;
+    if (aiMaterial->GetTexture(textureType, 0, &texturePath) == aiReturn_SUCCESS)
+    {
+        if (texturePath.C_Str()[0] == '*')
+        {
+            std::string fileName = args.inputFileName.u8string();
+            fileName.erase(fileName.length() - 4); // remove .fbx
+            fileName += suffix;
+            fileName += texturePath.C_Str()[1]; // get the index number
+
+            ASSERT(scene->HasTextures(), "Error: Model has no embedded textures!");
+
+            int textureIndex = atoi(texturePath.C_Str() + 1);
+            ASSERT(textureIndex < scene->mNumTextures, "Error: Texture index out of bounds!");
+
+            const aiTexture* embeddedTexture = scene->mTextures[textureIndex];
+            ASSERT(embeddedTexture->mHeight == 0, "Error: Compressed texture expected!");
+
+            if (embeddedTexture->CheckFormat("jpg"))
+            {
+                fileName += ".jpg";
+            }
+            else if (embeddedTexture->CheckFormat("png"))
+            {
+                fileName += ".png";
+            }
+            else
+            {
+                ASSERT(false, "Error: Unsupported texture format!");
+            }
+
+            printf("Adding Texture: %s\n", fileName.c_str());
+            ExportEmbeddedTexture(embeddedTexture, args, fileName);
+            textureName = fileName;
+        }
+        else if (auto embeddedTexture = scene->GetEmbeddedTexture(texturePath.C_Str()); embeddedTexture)
+        {
+            std::filesystem::path embeddedFilePath = texturePath.C_Str();
+            std::string fileName = args.inputFileName.u8string();
+            fileName.erase(fileName.length() - 4); // remove .fbx
+            fileName += suffix;
+            fileName += "_" + std::to_string(materealIndex);
+            fileName += embeddedFilePath.extension().u8string();
+
+            printf("Adding Texture: %s\n", fileName.c_str());
+            ExportEmbeddedTexture(embeddedTexture, args, fileName);
+            textureName = fileName;
+        }
+        else
+        {
+            std::filesystem::path filePath = texturePath.C_Str();
+            std::string fileName = filePath.u8string();
+
+            printf("Adding Texture: %s\n", fileName.c_str());
+            textureName = fileName;
+        }
+    }
+
+    return textureName.filename().u8string();
 }
+
 
 int main(int argc, char* argv[])
 {
