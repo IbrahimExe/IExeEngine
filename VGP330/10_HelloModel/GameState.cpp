@@ -15,9 +15,14 @@ void GameState::Initialize()
     mDirectionalLight.diffuse = { 0.8f, 0.8f, 0.8f, 1.0f };
     mDirectionalLight.specular = { 0.9f, 0.9f, 0.9f, 1.0f };
 
-    mCharacter.Initialize("Character_01/Character_01.model");
+	mCharacter.Initialize("Character_01/Character_01.model"); // Lil Timmy
+    mCharacter.transform.position = { 0.0f, 0.0f, 0.0f };
 
+    parasite.Initialize("parasite/parasite.model"); // Parasite
+    parasite.transform.position = { -0.5f, 0.0f, 0.9f };
 
+    zombie.Initialize("zombie/zombie.model"); // Zombie
+    zombie.transform.position = { 0.5f, 0.0f, 0.6f };
 
     std::filesystem::path shaderFile = L"../../Assets/Shaders/Standard.fx";
     mStandardEffect.Initialize(shaderFile);
@@ -28,6 +33,8 @@ void GameState::Initialize()
 void GameState::Terminate()
 {
 	mCharacter.Terminate();
+    parasite.Terminate();
+    zombie.Terminate();
     mStandardEffect.Terminate();
 }
 
@@ -44,6 +51,8 @@ void GameState::Render()
     mStandardEffect.Begin();
 
 		mStandardEffect.Render(mCharacter);
+		mStandardEffect.Render(parasite);
+		mStandardEffect.Render(zombie);
 
     mStandardEffect.End();
 

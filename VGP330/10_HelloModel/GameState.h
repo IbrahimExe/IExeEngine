@@ -23,6 +23,8 @@ private:
     IExeEngine::Graphics::DirectionalLight mDirectionalLight;
 
     IExeEngine::Graphics::RenderGroup mCharacter;
+	IExeEngine::Graphics::RenderGroup parasite;
+    IExeEngine::Graphics::RenderGroup zombie;
 
     IExeEngine::Graphics::StandardEffect mStandardEffect;
 };

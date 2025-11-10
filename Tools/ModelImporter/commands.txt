@@ -1,1 +1,3 @@
 -scale 0.01 ../../Assets/Models/Character_01/Character_01.fbx ../../Assets/Models/Character_01/Character_01.model
+-scale 0.01 ../../Assets/Models/parasite/parasite.fbx ../../Assets/Models/parasite/parasite.model
+-scale 0.01 ../../Assets/Models/zombie/zombie.fbx ../../Assets/Models/zombie/zombie.model
