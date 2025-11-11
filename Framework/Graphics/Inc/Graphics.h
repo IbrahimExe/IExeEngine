@@ -53,3 +53,5 @@
 #include "ModelIO.h"
 
 #include "ModelManager.h"
+
+#include "PostProcessingEffect.h"
