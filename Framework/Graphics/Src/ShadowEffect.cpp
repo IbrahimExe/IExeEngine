@@ -86,10 +86,10 @@ void ShadowEffect::DebugUI()
             { 144, 144 },
             { 0, 0 },
             { 1, 1 },
-            { 1,1,1,1 },
-            { 1,1,1,1 });
-        ImGui::DragFloat3("Size##ShadowEffect", &mSize, 1.0f, 1.0f, 1000.0f);
-        ImGui::DragFloat3("FocusPoint##ShadowEffect", &mFocusPoint.x, 1.0f);
+            { 1, 1, 1, 1 },
+            { 1, 1, 1, 1 });
+        ImGui::DragFloat("Size##ShadowEffect", &mSize, 0.1f, 1.0f, 1000.0f);
+        ImGui::DragFloat3("FocusPoint##ShadowEffect", &mFocusPoint.x, 0.1f);
     }
 }    
      

@@ -12,6 +12,7 @@ namespace IExeEngine::Graphics
     class Camera;
     class RenderObject;
     class RenderGroup;
+    class Texture;
 
     class StandardEffect final
     {
@@ -28,6 +29,9 @@ namespace IExeEngine::Graphics
         void SetCamera(const Camera& camera);
 
         void SetDirectionalLight(const DirectionalLight& directionalLight);
+        // Shadows
+        void SetLightCamera(const Camera& camera);
+        void SetShadowMap(const Texture& shadowMap);
 
         void DebugUI();
 
@@ -37,6 +41,7 @@ namespace IExeEngine::Graphics
         {
             Math::Matrix4 wvp; // World-View-Projection matrix
             Math::Matrix4 world; // World matrix
+            Math::Matrix4 lwvp; // Light World-View-Projection matrix (World Proj of light objects for shadows)
             Math::Vector3 viewPosition; // Camera position in world space
             float padding = 0.0f; // Padding to maintain the 16 byte alignment
         };
@@ -47,8 +52,10 @@ namespace IExeEngine::Graphics
             int useSpecMap = 1;
             int useNormalMap = 1;
             int useBumpMap = 1;
+            int useShadowMap = 1;
             float bumpIntensity = -0.02f;
-            float padding[3] = { 0.0f }; // Padding to make the structure 16-byte aligned
+            float depthBias = 0.000003f;
+            float padding = 0.0f; // Padding to make the structure 16-byte aligned (After ShadowMap only need one)
         };
 
         using TransformBuffer = TypedConstantBuffer<TransformData>;
@@ -67,9 +74,12 @@ namespace IExeEngine::Graphics
         PixelShader mPixelShader;
         Sampler mSampler;
 
+        SettingsData mSettingsData;
+
         const Camera* mCamera = nullptr;
         const DirectionalLight* mDirectionalLight = nullptr;
 
-        SettingsData mSettingsData;
+        const Camera* mLightCamera = nullptr;
+        const Texture* mShadowMap = nullptr;
     };
 }

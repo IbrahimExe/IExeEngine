@@ -36,8 +36,10 @@ void GameState::Initialize()
     mStandardEffect.Initialize(shaderFile);
     mStandardEffect.SetCamera(mCamera);
     mStandardEffect.SetDirectionalLight(mDirectionalLight);
+    mStandardEffect.SetLightCamera(mShadowEffect.GetLightCamera());
+    mStandardEffect.SetShadowMap(mShadowEffect.GetDepthMap());
 
-    shaderFile = L"../../Assets/Shaders/PostProcessing.fx";
+    shaderFile = L"../../Assets/Shaders/Shadow.fx";
     mShadowEffect.Initialize();
     mShadowEffect.SetDirectionalLight(mDirectionalLight);
 
