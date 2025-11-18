@@ -38,6 +38,8 @@ void GameState::Initialize()
     mStandardEffect.SetDirectionalLight(mDirectionalLight);
 
     shaderFile = L"../../Assets/Shaders/PostProcessing.fx";
+    mShadowEffect.Initialize();
+    mShadowEffect.SetDirectionalLight(mDirectionalLight);
 
     GraphicsSystem* gs = GraphicsSystem::Get();
     const uint32_t screenWidth = gs->GetBackBufferWidth();
@@ -46,6 +48,7 @@ void GameState::Initialize()
 
 void GameState::Terminate()
 {
+    mShadowEffect.Terminate();
     mScreenQuad.Terminate();
 	mCharacter.Terminate();
     parasite.Terminate();
@@ -61,17 +64,25 @@ void GameState::Update(float deltaTime)
 
 void GameState::Render()
 {
+    //----------------------------------------------------------
+  // First Pass: Render to Shadow Map [Have to do Shadow Pass first]
+  //----------------------------------------------------------
+    mShadowEffect.Begin();
+        mShadowEffect.Render(mCharacter);
+        mShadowEffect.Render(parasite);
+        mShadowEffect.Render(zombie);
+    mShadowEffect.End();
+    //----------------------------------------------------------
+    // Second Pass: Render Scene
 //----------------------------------------------------------
 	//SimpleDraw::AddGroundPlane(20.0f, Colors::White);
 	//SimpleDraw::Render(mCamera);
 
 	mStandardEffect.Begin();
-
         mStandardEffect.Render(mGround);
 		mStandardEffect.Render(mCharacter);
 		mStandardEffect.Render(parasite);
 		mStandardEffect.Render(zombie);
-
 	mStandardEffect.End();
 
 //----------------------------------------------------------
@@ -117,6 +128,8 @@ void GameState::DebugUI()
 	ImGui::Separator();
 
 	mStandardEffect.DebugUI();
+
+    mShadowEffect.DebugUI();
 
 	ImGui::End();
 }

@@ -30,4 +30,5 @@ private:
     IExeEngine::Graphics::RenderObject mScreenQuad;
 
     IExeEngine::Graphics::StandardEffect mStandardEffect;
+    IExeEngine::Graphics::ShadowEffect mShadowEffect;
 };
