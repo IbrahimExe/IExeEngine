@@ -15,18 +15,18 @@ void GameState::Initialize()
     mDirectionalLight.diffuse = { 0.8f, 0.8f, 0.8f, 1.0f };
     mDirectionalLight.specular = { 0.9f, 0.9f, 0.9f, 1.0f };
 
-    mTerrain.Initialize(L"../../Assets/Textures/terrain/heightmap_1024x1024.raw", 20.0f);
-    mGround.meshBuffer.Initialize(mTerrain.mesh);
-    mGround.diffuseMapId = TextureManager::Get()->LoadTexture(L"../../Assets/Textures/terrain/dirt_seamless.jpg");
-    mGround.specMapId = TextureManager::Get()->LoadTexture(L"../../Assets/Textures/terrain/grass_2048.jpg");
+    Mesh groundMesh = MeshBuilder::CreatePlane(25, 25, 1.0f);
+    mGround.meshBuffer.Initialize(groundMesh);
+    mGround.diffuseMapId = TextureManager::Get()->LoadTexture("HexGround/HexGround_Diff.jpg");
+    mGround.transform.position = { 0.0f, 0.0f, 0.0f };
 
 	mCharacter.Initialize("Character_01/Character_01.model"); // Lil Timmy
     mCharacter.transform.position = { 0.0f, 0.0f, 0.0f };
 
-    parasite.Initialize("parasite/parasite.model"); // Parasite Zombie Thing?
+    parasite.Initialize("parasite/parasite.model"); // Parasite
     parasite.transform.position = { -0.5f, 0.0f, 0.9f };
 
-    zombie.Initialize("zombie/zombie.model"); // PvZ Zombie
+    zombie.Initialize("zombie/zombie.model"); // Zombie
     zombie.transform.position = { 0.5f, 0.0f, 0.6f };
 
     MeshPX screenQuadMesh = MeshBuilder::CreateScreenQuadPX();
@@ -43,12 +43,6 @@ void GameState::Initialize()
     mShadowEffect.Initialize();
     mShadowEffect.SetDirectionalLight(mDirectionalLight);
 
-    mTerrainEffect.Initialize();
-    mTerrainEffect.SetCamera(mCamera);
-    mTerrainEffect.SetLightCamera(mShadowEffect.GetLightCamera());
-    mTerrainEffect.SetDirectionalLight(mDirectionalLight);
-    mTerrainEffect.SetShadowMap(mShadowEffect.GetDepthMap());
-
     GraphicsSystem* gs = GraphicsSystem::Get();
     const uint32_t screenWidth = gs->GetBackBufferWidth();
     const uint32_t screenHeight = gs->GetBackBufferHeight();
@@ -56,7 +50,6 @@ void GameState::Initialize()
 
 void GameState::Terminate()
 {
-    mTerrainEffect.Terminate();
     mShadowEffect.Terminate();
     mScreenQuad.Terminate();
 	mCharacter.Terminate();
@@ -81,10 +74,6 @@ void GameState::Render()
         mShadowEffect.Render(parasite);
         mShadowEffect.Render(zombie);
     mShadowEffect.End();
-
-    mTerrainEffect.Begin();
-        mTerrainEffect.Render(mGround);
-    mTerrainEffect.End();
     //----------------------------------------------------------
     // Second Pass: Render Scene
 //----------------------------------------------------------
@@ -92,7 +81,7 @@ void GameState::Render()
 	//SimpleDraw::Render(mCamera);
 
 	mStandardEffect.Begin();
-     // mStandardEffect.Render(mGround); As we already render it in the TerrainEffect
+        mStandardEffect.Render(mGround);
 		mStandardEffect.Render(mCharacter);
 		mStandardEffect.Render(parasite);
 		mStandardEffect.Render(zombie);
@@ -137,14 +126,12 @@ void GameState::DebugUI()
             ImGui::PopID();
         }
     }
-    ImGui::DragFloat3("CharacterPosition", &mCharacter.transform.position.x, 0.1f);
+
 	ImGui::Separator();
 
 	mStandardEffect.DebugUI();
 
     mShadowEffect.DebugUI();
-
-    mTerrainEffect.DebugUI();
 
 	ImGui::End();
 }
@@ -172,13 +159,5 @@ void GameState::UpdateCamera(float deltaTime)
 	{
 		mCamera.Yaw(input->GetMouseMoveX() * turnSpeed * deltaTime);
 		mCamera.Pitch(input->GetMouseMoveY() * turnSpeed * deltaTime);
-	}
-
-    Math::Vector3 cameraPosition = mCamera.GetPosition();
-    float height = mTerrain.GetHeight(cameraPosition);
-	if (height >= 0.0f)
-	{
-        cameraPosition.y = height + 2.0f;
-        mCamera.SetPosition(cameraPosition);
 	}
 }
