@@ -31,4 +31,6 @@ private:
 
     IExeEngine::Graphics::StandardEffect mStandardEffect;
     IExeEngine::Graphics::ShadowEffect mShadowEffect;
+
+    IExeEngine::Graphics::HalftoneEffect mHalftoneEffect;
 };

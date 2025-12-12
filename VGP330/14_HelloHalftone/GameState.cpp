@@ -43,6 +43,13 @@ void GameState::Initialize()
     mShadowEffect.Initialize();
     mShadowEffect.SetDirectionalLight(mDirectionalLight);
 
+    std::filesystem::path shaderFile = L"../../Assets/Shaders/Halftone.fx";
+    mHalftoneEffect.Initialize();
+    mHalftoneEffect.SetCamera(mCamera);
+    mHalftoneEffect.SetDirectionalLight(mDirectionalLight);
+    mHalftoneEffect.SetLightCamera(mShadowEffect.GetLightCamera());
+    mHalftoneEffect.SetShadowMap(mShadowEffect.GetDepthMap());
+
     GraphicsSystem* gs = GraphicsSystem::Get();
     const uint32_t screenWidth = gs->GetBackBufferWidth();
     const uint32_t screenHeight = gs->GetBackBufferHeight();
@@ -66,16 +73,22 @@ void GameState::Update(float deltaTime)
 
 void GameState::Render()
 {
-    //----------------------------------------------------------
+//----------------------------------------------------------
   // First Pass: Render to Shadow Map [Have to do Shadow Pass first]
-  //----------------------------------------------------------
+//----------------------------------------------------------
     mShadowEffect.Begin();
         mShadowEffect.Render(mCharacter);
         mShadowEffect.Render(parasite);
         mShadowEffect.Render(zombie);
     mShadowEffect.End();
-    //----------------------------------------------------------
-    // Second Pass: Render Scene
+//----------------------------------------------------------
+  // Second Pass: Texture with Halftone Effect
+//----------------------------------------------------------
+    mHalftoneEffect.Begin();
+        mHalftoneEffect.Render(mCharacter); // only objects you want stylized
+    mHalftoneEffect.End();
+//----------------------------------------------------------
+    // Third Pass: Render Scene
 //----------------------------------------------------------
 	//SimpleDraw::AddGroundPlane(20.0f, Colors::White);
 	//SimpleDraw::Render(mCamera);
@@ -86,7 +99,6 @@ void GameState::Render()
 		mStandardEffect.Render(parasite);
 		mStandardEffect.Render(zombie);
 	mStandardEffect.End();
-
 //----------------------------------------------------------
 }
 
@@ -132,6 +144,8 @@ void GameState::DebugUI()
 	mStandardEffect.DebugUI();
 
     mShadowEffect.DebugUI();
+
+    mHalftoneEffect.DebugUI();
 
 	ImGui::End();
 }
