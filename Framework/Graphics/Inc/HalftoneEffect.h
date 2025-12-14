@@ -38,12 +38,12 @@ namespace IExeEngine::Graphics
         {
             Math::Matrix4 wvp;   // register(b0)
             Math::Matrix4 world;
-            Math::Matrix4 lwvp;  // light world-view-proj for shadows
+            Math::Matrix4 lwvp;  // Light World View Proj for shadows
             Math::Vector3 viewPosition;
             float padding = 0.0f;
         };
 
-        // Duplicate SettingsData layout from StandardEffect (register b3)
+        // SettingsData (register b3)
         struct SettingsData
         {
             int useDiffuseMap = 1;
@@ -83,14 +83,14 @@ namespace IExeEngine::Graphics
         PixelShader mPixelShader;
         Sampler mSampler;
 
-        // pointers to external resources
+        // Pointers to external resources
         const DirectionalLight* mDirectionalLight = nullptr;
         const Camera* mCamera = nullptr;
         const Camera* mLightCamera = nullptr;
         const Texture* mShadowMap = nullptr;
 
-        // user-tweakable defaults
-        SettingsData mSettingsData; // controls defaults (mirror StandardEffect default values)
+
+        SettingsData mSettingsData;
         int mCellCountX = 40;
         int mCellCountY = 40;
         float mOpacity = 1.0f;

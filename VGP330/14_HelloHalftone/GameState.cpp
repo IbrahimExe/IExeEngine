@@ -43,7 +43,7 @@ void GameState::Initialize()
     mShadowEffect.Initialize();
     mShadowEffect.SetDirectionalLight(mDirectionalLight);
 
-    std::filesystem::path shaderFile = L"../../Assets/Shaders/Halftone.fx";
+    // std::filesystem::path shaderFile = L"../../Assets/Shaders/Halftone.fx";
     mHalftoneEffect.Initialize();
     mHalftoneEffect.SetCamera(mCamera);
     mHalftoneEffect.SetDirectionalLight(mDirectionalLight);
@@ -64,6 +64,7 @@ void GameState::Terminate()
     zombie.Terminate();
     mGround.Terminate();
     mStandardEffect.Terminate();
+    mHalftoneEffect.Terminate();
 }
 
 void GameState::Update(float deltaTime)
