@@ -50,6 +50,13 @@ void GameState::Initialize()
     mHalftoneEffect.SetLightCamera(mShadowEffect.GetLightCamera());
     mHalftoneEffect.SetShadowMap(mShadowEffect.GetDepthMap());
 
+    // std::filesystem::path shaderFile = L"../../Assets/Shaders/Hatching.fx";
+    mHatchingEffect.Initialize();
+    mHatchingEffect.SetCamera(mCamera);
+    mHatchingEffect.SetDirectionalLight(mDirectionalLight);
+    mHatchingEffect.SetLightCamera(mShadowEffect.GetLightCamera());
+    mHatchingEffect.SetShadowMap(mShadowEffect.GetDepthMap());
+
     GraphicsSystem* gs = GraphicsSystem::Get();
     const uint32_t screenWidth = gs->GetBackBufferWidth();
     const uint32_t screenHeight = gs->GetBackBufferHeight();
@@ -65,6 +72,7 @@ void GameState::Terminate()
     mGround.Terminate();
     mStandardEffect.Terminate();
     mHalftoneEffect.Terminate();
+    mHatchingEffect.Terminate();
 }
 
 void GameState::Update(float deltaTime)
@@ -90,18 +98,33 @@ void GameState::Render()
         mHalftoneEffect.Render(parasite);
         mHalftoneEffect.Render(zombie);
     mHalftoneEffect.End();
-//----------------------------------------------------------
-    // Third Pass: Render Scene
-//----------------------------------------------------------
-	//SimpleDraw::AddGroundPlane(20.0f, Colors::White);
-	//SimpleDraw::Render(mCamera);
 
-	mStandardEffect.Begin();
+   /* mHatchingEffect.Begin();
+        mHatchingEffect.Render(mCharacter);
+        mHatchingEffect.Render(parasite);
+        mHatchingEffect.Render(zombie);
+    mHatchingEffect.End(); */
+//----------------------------------------------------------
+    // Fourth Pass: Render Scene
+//----------------------------------------------------------
+    //SimpleDraw::AddGroundPlane(20.0f, Colors::White);
+    //SimpleDraw::Render(mCamera);
+
+    mStandardEffect.Begin();
         mStandardEffect.Render(mGround);
-		mStandardEffect.Render(mCharacter);
-		mStandardEffect.Render(parasite);
-		mStandardEffect.Render(zombie);
-	mStandardEffect.End();
+        mStandardEffect.Render(mCharacter);
+        mStandardEffect.Render(parasite);
+        mStandardEffect.Render(zombie);
+    mStandardEffect.End();
+//----------------------------------------------------------
+  // Third Pass: Texture with Hatching Effect
+//----------------------------------------------------------
+  /*  mHatchingEffect.Begin();
+        mHatchingEffect.Render(mCharacter);
+        mHatchingEffect.Render(parasite);
+        mHatchingEffect.Render(zombie);
+    mHatchingEffect.End();*/
+
 //----------------------------------------------------------
 }
 
@@ -151,6 +174,10 @@ void GameState::DebugUI()
     ImGui::Separator();
 
     mHalftoneEffect.DebugUI();
+
+    ImGui::Separator();
+
+    mHatchingEffect.DebugUI();
 
 	ImGui::End();
 }

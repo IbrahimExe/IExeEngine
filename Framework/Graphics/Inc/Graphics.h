@@ -63,3 +63,5 @@
 #include "TerrainEffect.h"
 
 #include "HalftoneEffect.h"
+
+#include "HatchingEffect.h"

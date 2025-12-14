@@ -111,6 +111,9 @@
     <ClInclude Include="Inc\HalftoneEffect.h">
       <Filter>Inc</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\HatchingEffect.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Precompiled.cpp">
@@ -186,6 +189,9 @@
       <Filter>Src</Filter>
     </ClCompile>
     <ClCompile Include="Src\HalftoneEffect.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\HatchingEffect.cpp">
       <Filter>Src</Filter>
     </ClCompile>
   </ItemGroup>

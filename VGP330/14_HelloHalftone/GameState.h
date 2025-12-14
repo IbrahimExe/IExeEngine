@@ -33,4 +33,5 @@ private:
     IExeEngine::Graphics::ShadowEffect mShadowEffect;
 
     IExeEngine::Graphics::HalftoneEffect mHalftoneEffect;
+    IExeEngine::Graphics::HatchingEffect mHatchingEffect;
 };
