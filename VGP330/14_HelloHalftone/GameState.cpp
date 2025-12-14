@@ -86,7 +86,9 @@ void GameState::Render()
   // Second Pass: Texture with Halftone Effect
 //----------------------------------------------------------
     mHalftoneEffect.Begin();
-        mHalftoneEffect.Render(mCharacter); // only objects you want stylized
+        mHalftoneEffect.Render(mCharacter);
+        mHalftoneEffect.Render(parasite);
+        mHalftoneEffect.Render(zombie);
     mHalftoneEffect.End();
 //----------------------------------------------------------
     // Third Pass: Render Scene
@@ -113,38 +115,40 @@ void GameState::DebugUI()
 			mDirectionalLight.direction = Math::Normalize(mDirectionalLight.direction);
 		}
 
-		ImGui::ColorEdit4("Ambient#Light", &mDirectionalLight.ambient.r);
-		ImGui::ColorEdit4("Diffuse#Light", &mDirectionalLight.diffuse.r);
-		ImGui::ColorEdit4("Specular#Light", &mDirectionalLight.specular.r);
+		// ImGui::ColorEdit4("Ambient#Light", &mDirectionalLight.ambient.r);
+		// ImGui::ColorEdit4("Diffuse#Light", &mDirectionalLight.diffuse.r);
+		// ImGui::ColorEdit4("Specular#Light", &mDirectionalLight.specular.r);
 	}
 
-	ImGui::Separator();
+	// ImGui::Separator();
 
-    if (ImGui::CollapsingHeader("Material", ImGuiTreeNodeFlags_DefaultOpen))
-    {
-        for (uint32_t i = 0; i < mCharacter.renderObjects.size(); ++i)
-        {
-            Material& material = mCharacter.renderObjects[i].material;
-            std::string renderObjectId = "RenderObject " + std::to_string(i);
-            ImGui::PushID(renderObjectId.c_str());
-			if (ImGui::CollapsingHeader(renderObjectId.c_str()))
-			{
-				ImGui::LabelText("label", "Material:");
-				ImGui::ColorEdit4("Emissive#Material", &material.emissive.r);
-				ImGui::ColorEdit4("Ambient#Material", &material.ambient.r);
-				ImGui::ColorEdit4("Diffuse#Material", &material.diffuse.r);
-				ImGui::ColorEdit4("Specular#Material", &material.specular.r);
-				ImGui::DragFloat("Shininess#Material", &material.shininess, 0.1f, 0.1f, 10000.0f);
-			}
-            ImGui::PopID();
-        }
-    }
+    // if (ImGui::CollapsingHeader("Material", ImGuiTreeNodeFlags_DefaultOpen))
+    // {
+    //     for (uint32_t i = 0; i < mCharacter.renderObjects.size(); ++i)
+    //     {
+    //         Material& material = mCharacter.renderObjects[i].material;
+    //         std::string renderObjectId = "RenderObject " + std::to_string(i);
+    //         ImGui::PushID(renderObjectId.c_str());
+	// 		if (ImGui::CollapsingHeader(renderObjectId.c_str()))
+	// 		{
+	// 			ImGui::LabelText("label", "Material:");
+	// 			ImGui::ColorEdit4("Emissive#Material", &material.emissive.r);
+	// 			ImGui::ColorEdit4("Ambient#Material", &material.ambient.r);
+	// 			ImGui::ColorEdit4("Diffuse#Material", &material.diffuse.r);
+	// 			ImGui::ColorEdit4("Specular#Material", &material.specular.r);
+	// 			ImGui::DragFloat("Shininess#Material", &material.shininess, 0.1f, 0.1f, 10000.0f);
+	// 		}
+    //         ImGui::PopID();
+    //     }
+    // }
 
 	ImGui::Separator();
 
 	mStandardEffect.DebugUI();
 
     mShadowEffect.DebugUI();
+
+    ImGui::Separator();
 
     mHalftoneEffect.DebugUI();
 

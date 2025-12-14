@@ -12,6 +12,7 @@ using namespace IExeEngine::Graphics;
 
 void HalftoneEffect::Initialize(const std::filesystem::path& path)
 {
+    // Initialize constant buffers
     mTransformBuffer.Initialize();
     mLightBuffer.Initialize();
     mMaterialBuffer.Initialize();
@@ -57,11 +58,11 @@ void HalftoneEffect::Begin()
     // register(b2)
     mMaterialBuffer.BindPS(2);
 
-    // register(b3) 
+    // register(b3)
     mSettingsBuffer.BindVS(3);
     mSettingsBuffer.BindPS(3);
 
-    // register(b4): Halftone-specific params
+    // register(b4)
     mHalftoneBuffer.BindPS(4);
 }
 
@@ -75,7 +76,7 @@ void HalftoneEffect::Render(const RenderObject& renderObject)
     ASSERT(mCamera != nullptr, "HalftoneEffect::Render - camera not set!");
     ASSERT(mDirectionalLight != nullptr, "HalftoneEffect::Render - directional light not set!");
 
-    // 1) Transform
+    // 1) Transform CB
     const Math::Matrix4 matWorld = renderObject.transform.GetMatrix4();
     const Math::Matrix4 matView = mCamera->GetViewMatrix();
     const Math::Matrix4 matProj = mCamera->GetProjectionMatrix();
@@ -86,19 +87,17 @@ void HalftoneEffect::Render(const RenderObject& renderObject)
     tData.world = Math::Transpose(matWorld);
     tData.viewPosition = mCamera->GetPosition();
 
-    // Shadows: compute light WVP if we have a light camera & shadow map
+    // Light WVP for shadows
     if (mLightCamera != nullptr && mShadowMap != nullptr)
     {
         const Math::Matrix4 matLightView = mLightCamera->GetViewMatrix();
         const Math::Matrix4 matLightProj = mLightCamera->GetProjectionMatrix();
         tData.lwvp = Math::Transpose(matWorld * matLightView * matLightProj);
-
-        // Bind shadow map (t4) same as StandardEffect
-        mShadowMap->BindPS(4);
+        mShadowMap->BindPS(4); // t4
     }
     mTransformBuffer.Update(tData);
 
-    // 2) Light buffer
+    // 2) Light buffer update
     if (mDirectionalLight)
         mLightBuffer.Update(*mDirectionalLight);
 
@@ -116,12 +115,12 @@ void HalftoneEffect::Render(const RenderObject& renderObject)
     settings.depthBias = mSettingsData.depthBias;
     mSettingsBuffer.Update(settings);
 
-    // 5) Halftone data
+    // 5) Halftone params
     HalftoneData hData;
     hData.cellCountX = static_cast<float>(mCellCountX);
     hData.cellCountY = static_cast<float>(mCellCountY);
     hData.opacity = mOpacity;
-    hData.threshold = mThreshold;
+    hData.brightnessCutoff = mBrightnessCutoff;
     mHalftoneBuffer.Update(hData);
 
     // 6) Bind textures
@@ -131,7 +130,7 @@ void HalftoneEffect::Render(const RenderObject& renderObject)
     tm->BindPS(renderObject.normalMapId, 2);
     tm->BindVS(renderObject.bumpMapId, 3);
 
-    // 7) Render object
+    // 7) Render
     renderObject.meshBuffer.Render();
 }
 
@@ -162,12 +161,12 @@ void HalftoneEffect::Render(const RenderGroup& renderGroup)
     if (mDirectionalLight)
         mLightBuffer.Update(*mDirectionalLight);
 
-    // Halftone params
+    // Halftone params (update once for group)
     HalftoneData hData;
     hData.cellCountX = static_cast<float>(mCellCountX);
     hData.cellCountY = static_cast<float>(mCellCountY);
     hData.opacity = mOpacity;
-    hData.threshold = mThreshold;
+    hData.brightnessCutoff = mBrightnessCutoff;
     mHalftoneBuffer.Update(hData);
 
     TextureManager* tm = TextureManager::Get();
@@ -200,11 +199,10 @@ void HalftoneEffect::DebugUI()
 {
     if (ImGui::CollapsingHeader("HalftoneEffect", ImGuiTreeNodeFlags_DefaultOpen))
     {
-        ImGui::DragInt("Cells X", &mCellCountX, 1, 1, 300);
-        ImGui::DragInt("Cells Y", &mCellCountY, 1, 1, 300);
+        ImGui::DragInt("Cells X", &mCellCountX, 1, 1, 1024);
+        ImGui::DragInt("Cells Y", &mCellCountY, 1, 1, 1024);
         ImGui::DragFloat("Opacity", &mOpacity, 0.01f, 0.0f, 1.0f);
-        ImGui::DragFloat("Threshold", &mThreshold, 0.001f, 0.0f, 0.2f);
-
+        ImGui::DragFloat("Brightness Cutoff", &mBrightnessCutoff, 0.01f, 0.0f, 1.0f);
 
         bool useDiffuse = mSettingsData.useDiffuseMap > 0;
         if (ImGui::Checkbox("UseDiffuseMap##Halftone", &useDiffuse)) mSettingsData.useDiffuseMap = useDiffuse ? 1 : 0;
@@ -218,9 +216,10 @@ void HalftoneEffect::DebugUI()
         bool useBump = mSettingsData.useBumpMap > 0;
         if (ImGui::Checkbox("UseBumpMap##Halftone", &useBump)) mSettingsData.useBumpMap = useBump ? 1 : 0;
 
-        ImGui::DragFloat("BumpIntensity##Halftone", &mSettingsData.bumpIntensity, 0.01f, -5.0f, 5.0f);
-        bool useShadow = mSettingsData.useShadowMap > 0;
-        if (ImGui::Checkbox("UseShadowMap##Halftone", &useShadow)) mSettingsData.useShadowMap = useShadow ? 1 : 0;
-        ImGui::DragFloat("DepthBias##Halftone", &mSettingsData.depthBias, 0.000001f, 0.0f, 1.0f, "%.6f");
+       // ImGui::DragFloat("BumpIntensity##Halftone", &mSettingsData.bumpIntensity, 0.01f, -5.0f, 5.0f);
+
+       // bool useShadow = mSettingsData.useShadowMap > 0;
+       // if (ImGui::Checkbox("UseShadowMap##Halftone", &useShadow)) mSettingsData.useShadowMap = useShadow ? 1 : 0;
+       // ImGui::DragFloat("DepthBias##Halftone", &mSettingsData.depthBias, 0.000001f, 0.0f, 1.0f, "%.6f");
     }
 }

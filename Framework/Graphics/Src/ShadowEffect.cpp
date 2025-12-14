@@ -78,7 +78,7 @@ void ShadowEffect::Render(const RenderGroup& renderGroup)
      
 void ShadowEffect::DebugUI()
 {   
-    if (ImGui::CollapsingHeader("ShadowEffect", ImGuiTreeNodeFlags_DefaultOpen))
+    if (ImGui::CollapsingHeader("ShadowEffect"))
     {
         ImGui::Text("DepthMap");
         ImGui::Image(

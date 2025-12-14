@@ -1,7 +1,6 @@
 // Halftone.fx
-// Halftone / Ben-Day dot overlay (composited inside pixel shader)
-// cbuffer register layout kept compatible with Standard.fx
-// Halftone params are in register(b4)
+// UV-anchored Ben-Day dots.
+// Halftone params are in register(b4): (cellCountX, cellCountY, opacity, brightnessThreshold)
 
 cbuffer TransformBuffer : register(b0)
 {
@@ -40,13 +39,13 @@ cbuffer SettingBuffer : register(b3)
     float padding0;
 };
 
-// Halftone-specific parameters (bound to b4 by your C++)
+// Halftone CB
 cbuffer HalftoneBuffer : register(b4)
 {
-    float cellCountX; // number of cells across screen X
-    float cellCountY; // number of cells across screen Y
-    float opacity; // [0..1] overall halftone strength
-    float edgeSoftness; // small value for smoothstep antialiasing
+    float cellCountX;
+    float cellCountY;
+    float opacity; // global strength 
+    float brightnessCutoff; // minimum brightness to start showing dots
 }
 
 SamplerState textureSampler : register(s0);
@@ -55,7 +54,7 @@ Texture2D diffuseMap : register(t0);
 Texture2D specMap : register(t1);
 Texture2D normalMap : register(t2);
 Texture2D bumpMap : register(t3);
-Texture2D shadowMap : register(t4); // shadow map saved by ShadowEffect
+Texture2D shadowMap : register(t4);
 
 struct VS_INPUT
 {
@@ -84,25 +83,20 @@ VS_OUTPUT VS(VS_INPUT input)
 
     if (useBumpMap)
     {
-        // Bump mapping like Standard.fx (displace along normal)
         float4 bumpColor = bumpMap.SampleLevel(textureSampler, input.texCoord, 0.0f);
         float bumpHeight = (bumpColor.r * 2.0f) - 1.0f;
         localPosition += (input.normal * bumpHeight * bumpMapIntensity);
     }
 
-    // Transform to clip space for camera
     output.position = mul(float4(localPosition, 1.0f), wvp);
-
-    // World-space normal & tangent
     output.worldNormal = mul(input.normal, (float3x3) world);
     output.worldTangent = mul(input.tangent, (float3x3) world);
     output.texCoord = input.texCoord;
-    output.dirToLight = -lightDirection; // Standard.fx uses -lightDirection
-    // Compute view direction for spec
+    output.dirToLight = -lightDirection;
+
     float4 worldPosition = mul(float4(localPosition, 1.0f), world);
     output.dirToView = normalize(viewPosition - worldPosition.xyz);
 
-    // Light-space position for shadow lookup (if used)
     output.lightNDCPosition = mul(float4(localPosition, 1.0f), lwvp);
 
     return output;
@@ -126,28 +120,28 @@ float4 PS(VS_OUTPUT input) : SV_Target
         n = normalize(mul(unpackedNormalMap, tbnw));
     }
 
-    // Emissive and ambient (match Standard.fx)
+    // Emissive + Ambient
     float4 emissive = materialEmissive;
     float4 ambient = lightAmbient * materialAmbient;
 
-    // Diffuse
+    // Diffuse (Lambert)
     float d = saturate(dot(light, n));
     float4 diffuse = d * lightDiffuse * materialDiffuse;
 
-    // Specular (we will ignore spec in brightness but compute for final color)
+    // Specular (kept for final composite but not used for halftone brightness)
     float3 r = reflect(-light, n);
     float base = saturate(dot(r, view));
     float s = pow(base, materialShininess);
     float4 specular = s * lightSpecular * materialSpecular;
 
-    // Sample maps
+    // Sample texture maps 
     float4 diffuseMapColor = (useDiffuseMap) ? diffuseMap.Sample(textureSampler, input.texCoord) : float4(1.0f, 1.0f, 1.0f, 1.0f);
-    float specMapValue = (useSpecMap) ? specMap.Sample(textureSampler, input.texCoord).r : 1.0f;
+    float specMapVal = (useSpecMap) ? specMap.Sample(textureSampler, input.texCoord).r : 1.0f;
 
     // Compose lit color (ambient + diffuse) * texture + specular
-    float3 litColor = (emissive.rgb + ambient.rgb + diffuse.rgb) * diffuseMapColor.rgb + (specular.rgb * specMapValue);
+    float3 litColor = (emissive.rgb + ambient.rgb + diffuse.rgb) * diffuseMapColor.rgb + (specular.rgb * specMapVal);
 
-    // Shadow mapping (optional) - same approach as Standard.fx
+    // Shadow mapping
     if (useShadowMap)
     {
         float actualDepth = 1.0f - (input.lightNDCPosition.z / input.lightNDCPosition.w);
@@ -157,43 +151,45 @@ float4 PS(VS_OUTPUT input) : SV_Target
         if (saturate(u) == u && saturate(v) == v)
         {
             float savedDepth = shadowMap.Sample(textureSampler, float2(u, v)).r;
-            if (savedDepth > actualDepth + depthBias) // If in shadow
+            if (savedDepth > actualDepth + depthBias)
             {
-                // reduce lit contribution (similar to Standard.fx: keep emissive + ambient only)
+                // In shadow -> only emissive + ambient remain
                 litColor = (emissive.rgb + ambient.rgb) * diffuseMapColor.rgb;
             }
         }
     }
 
-    // Compute luminance from litColor (perceptual weights)
+    // Compute luminance (perceptual)
     float lum = dot(litColor, float3(0.299, 0.587, 0.114));
 
-    // Convert clip-space position to screen-space uv in [0,1]
-    float2 screenPos = input.position.xy / input.position.w; // clip space [-1,1]
-    screenPos = screenPos * 0.5f + 0.5f;
 
-    // Build grid and local cell coords
-    float2 grid = screenPos * float2(cellCountX, cellCountY);
-    float2 cell = floor(grid) + 0.5f;
-    float2 local = grid - cell; // range [-0.5, 0.5]
-    float dist = length(local); // distance in cell-space units (0..~0.707)
+    // HALFTONE (UV-anchored)
+    float2 gridUV = input.texCoord * float2(cellCountX, cellCountY); // grid space
+    // Find cell center (in grid space)
+    float2 cell = floor(gridUV) + 0.5f;
+    // Local position inside the cell in [-0.5, 0.5]
+    float2 local = gridUV - cell;
+    float dist = length(local); // 0..~0.707 depending on cell
 
-    // Dot radius (in cell units). Scale this so that radius 0.5 fills cell.
-    // We'll map lum [0..1] to radius [0..0.5]
+    // Dot radius: map lum [0..1] to radius [0..0.5]
     float radius = saturate(lum) * 0.5f;
 
-    // Smooth mask (anti-aliased circle)
-    float mask = 1.0f - smoothstep(radius - edgeSoftness, radius + edgeSoftness, dist);
+    // Smooth edge for anti-aliasing. Use small softness relative to 1/cell-size.
+    float softness = 0.02;
+    float mask = 1.0f - smoothstep(radius - softness, radius + softness, dist);
 
-    // Prevent dots in very dark areas
-    if (lum <= 0.01f)
-        mask = 0.0f;
+    // Brightness gating: compute factor that ramps from 0 at brightnessCutoff to 1 at 1.0
+    float brightFactor = saturate((lum - brightnessCutoff) / max(0.0001, 1.0 - brightnessCutoff));
 
-    // Compose final color by darkening litColor where mask is high (blend towards black).
-    // strength is mask * opacity
-    float strength = mask * opacity;
-    float3 finalRGB = lerp(litColor, float3(0.0f, 0.0f, 0.0f), strength);
+    // Final dot alpha
+    float dotAlpha = mask * brightFactor * opacity;
 
-    // Return composited color with original alpha
+    // Avoid tiny artifacts in dark regions
+    if (lum <= 0.001f)
+        dotAlpha = 0.0f;
+
+    // Composite: darken the lit color by dotAlpha (blend towards black)
+    float3 finalRGB = lerp(litColor, float3(0.0f, 0.0f, 0.0f), dotAlpha);
+
     return float4(finalRGB, diffuseMapColor.a);
 }

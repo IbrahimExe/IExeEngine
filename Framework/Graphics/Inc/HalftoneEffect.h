@@ -38,12 +38,12 @@ namespace IExeEngine::Graphics
         {
             Math::Matrix4 wvp;   // register(b0)
             Math::Matrix4 world;
-            Math::Matrix4 lwvp;  // Light World View Proj for shadows
+            Math::Matrix4 lwvp;  // Light World View Projection for shadows
             Math::Vector3 viewPosition;
             float padding = 0.0f;
         };
 
-        // SettingsData (register b3)
+        // SettingsData(register b3)
         struct SettingsData
         {
             int useDiffuseMap = 1;
@@ -60,8 +60,8 @@ namespace IExeEngine::Graphics
         {
             float cellCountX;    // register(b4)
             float cellCountY;
-            float opacity;       // 0..1
-            float threshold;     // soft edge amount
+            float opacity;
+            float brightnessCutoff; // min brightness to begin dotting
         };
 
         using TransformBuffer = TypedConstantBuffer<TransformData>;
@@ -83,17 +83,17 @@ namespace IExeEngine::Graphics
         PixelShader mPixelShader;
         Sampler mSampler;
 
-        // Pointers to external resources
+        // External resources
         const DirectionalLight* mDirectionalLight = nullptr;
         const Camera* mCamera = nullptr;
         const Camera* mLightCamera = nullptr;
         const Texture* mShadowMap = nullptr;
 
-
+        // Halftone parameters
         SettingsData mSettingsData;
-        int mCellCountX = 40;
-        int mCellCountY = 40;
+        int mCellCountX = 120;
+        int mCellCountY = 120;
         float mOpacity = 1.0f;
-        float mThreshold = 0.02f; // small softness
+        float mBrightnessCutoff = 0.3f; // start showing dots at this brightness
     };
 }
