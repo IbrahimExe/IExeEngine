@@ -36,33 +36,46 @@ namespace IExeEngine::Graphics
     private:
         struct TransformData
         {
-            Math::Matrix4 wvp;   // register(b0) - matches StandardEffect
+            Math::Matrix4 wvp;   // register(b0)
             Math::Matrix4 world;
             Math::Matrix4 lwvp;  // light world-view-proj for shadows
             Math::Vector3 viewPosition;
             float padding = 0.0f;
         };
 
+        // Duplicate SettingsData layout from StandardEffect (register b3)
+        struct SettingsData
+        {
+            int useDiffuseMap = 1;
+            int useSpecMap = 1;
+            int useNormalMap = 1;
+            int useBumpMap = 1;
+            int useShadowMap = 1;
+            float bumpIntensity = -0.02f;
+            float depthBias = 0.000003f;
+            float padding = 0.0f;
+        };
+
         struct HalftoneData
         {
-            float cellCountX;    // we'll bind this to a separate CB (register chosen below)
+            float cellCountX;    // register(b4)
             float cellCountY;
             float opacity;       // 0..1
-            float threshold;     // brightness threshold / edge softness
+            float threshold;     // soft edge amount
         };
 
         using TransformBuffer = TypedConstantBuffer<TransformData>;
         TransformBuffer mTransformBuffer;
 
-        // Use same light buffer type as StandardEffect
         using LightBuffer = TypedConstantBuffer<DirectionalLight>;
         LightBuffer mLightBuffer;
 
-        // Use material buffer if we want access to material fields (not strictly necessary but kept for parity)
         using MaterialBuffer = TypedConstantBuffer<Material>;
         MaterialBuffer mMaterialBuffer;
 
-        // Halftone-specific params
+        using SettingsBuffer = TypedConstantBuffer<SettingsData>;
+        SettingsBuffer mSettingsBuffer;
+
         using HalftoneBuffer = TypedConstantBuffer<HalftoneData>;
         HalftoneBuffer mHalftoneBuffer;
 
@@ -70,15 +83,17 @@ namespace IExeEngine::Graphics
         PixelShader mPixelShader;
         Sampler mSampler;
 
+        // pointers to external resources
         const DirectionalLight* mDirectionalLight = nullptr;
         const Camera* mCamera = nullptr;
         const Camera* mLightCamera = nullptr;
         const Texture* mShadowMap = nullptr;
 
+        // user-tweakable defaults
+        SettingsData mSettingsData; // controls defaults (mirror StandardEffect default values)
         int mCellCountX = 40;
         int mCellCountY = 40;
         float mOpacity = 1.0f;
-        float mThreshold = 0.02f; // small soft-edge value
-
+        float mThreshold = 0.02f; // small softness
     };
 }
