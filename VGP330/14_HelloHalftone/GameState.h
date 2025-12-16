@@ -27,6 +27,7 @@ private:
     IExeEngine::Graphics::RenderGroup zombie;
 	IExeEngine::Graphics::RenderObject mGround;
 
+	IExeEngine::Graphics::RenderObject mSkyBox;
     IExeEngine::Graphics::RenderGroup spiderManMilesMorales;
 	IExeEngine::Graphics::RenderGroup spiderGwen;
 	IExeEngine::Graphics::RenderGroup spiderMan2099;
@@ -35,6 +36,9 @@ private:
 
     IExeEngine::Graphics::StandardEffect mStandardEffect;
     IExeEngine::Graphics::ShadowEffect mShadowEffect;
+
+	IExeEngine::Graphics::RenderTarget mRenderTarget;
+	IExeEngine::Graphics::PostProcessingEffect mPostProcessingEffect;
 
     IExeEngine::Graphics::HalftoneEffect mHalftoneEffect;
     IExeEngine::Graphics::HatchingEffect mHatchingEffect;

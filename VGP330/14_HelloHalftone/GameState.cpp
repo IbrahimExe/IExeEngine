@@ -15,6 +15,11 @@ void GameState::Initialize()
     mDirectionalLight.diffuse = { 0.8f, 0.8f, 0.8f, 1.0f };
     mDirectionalLight.specular = { 0.9f, 0.9f, 0.9f, 1.0f };
 
+    MeshPX skyBox = MeshBuilder::CreateSkySpherePX(50, 50, 900.0f);
+    mSkyBox.meshBuffer.Initialize(skyBox);
+    mSkyBox.diffuseMapId = TextureManager::Get()->LoadTexture(L"BlueBG.jpg");
+    mSkyBox.transform.position = { 0.0f, 0.0f, 0.0f };
+
     Mesh groundMesh = MeshBuilder::CreatePlane(25, 25, 1.0f);
     mGround.meshBuffer.Initialize(groundMesh);
     mGround.diffuseMapId = TextureManager::Get()->LoadTexture("HexGround/HexGround_Diff.jpg");
@@ -84,6 +89,7 @@ void GameState::Terminate()
     spiderManMilesMorales.Terminate();
     //spiderGwen.Terminate();
     spiderMan2099.Terminate();
+    mSkyBox.Terminate();
     mStandardEffect.Terminate();
     mHalftoneEffect.Terminate();
     mHatchingEffect.Terminate();
@@ -137,6 +143,7 @@ void GameState::Render()
     //SimpleDraw::Render(mCamera);
 
     mStandardEffect.Begin();
+        mStandardEffect.Render(mSkyBox);
         mStandardEffect.Render(mGround);
         mStandardEffect.Render(mCharacter);
         mStandardEffect.Render(parasite);
@@ -149,11 +156,7 @@ void GameState::Render()
 //----------------------------------------------------------
   // Third Pass: Texture with Hatching Effect
 //----------------------------------------------------------
-  /*  mHatchingEffect.Begin();
-        mHatchingEffect.Render(mCharacter);
-        mHatchingEffect.Render(parasite);
-        mHatchingEffect.Render(zombie);
-    mHatchingEffect.End();*/
+
 
 //----------------------------------------------------------
 }
@@ -217,7 +220,7 @@ void GameState::UpdateCamera(float deltaTime)
 	// Camera Controls:
 	InputSystem* input = InputSystem::Get();
 	const float moveSpeed = input->IsKeyDown(KeyCode::LSHIFT) ? 20.0f : 4.0f;
-	const float turnSpeed = 0.5f;
+	const float turnSpeed = 0.2f;
 
 	if (input->IsKeyDown(KeyCode::W)) { mCamera.Walk(moveSpeed * deltaTime); }
 
