@@ -1,3 +1,7 @@
 -scale 0.01 ../../Assets/Models/Character_01/Character_01.fbx ../../Assets/Models/Character_01/Character_01.model
 -scale 0.01 ../../Assets/Models/parasite/parasite.fbx ../../Assets/Models/parasite/parasite.model
 -scale 0.01 ../../Assets/Models/zombie/zombie.fbx ../../Assets/Models/zombie/zombie.model
+
+-scale 0.01 ../../Assets/Models/SpiderManMilesMorales/spmiles.fbx ../../Assets/Models/SpiderManMilesMorales/spmiles.model
+-scale 0.01 ../../Assets/Models/SpiderGwen/SpiderGwen.fbx ../../Assets/Models/SpiderGwen/SpiderGwen.model
+-scale 0.01 ../../Assets/Models/SpiderMan2099/SpiderMan2099.fbx ../../Assets/Models/SpiderMan2099/SpiderMan2099.model

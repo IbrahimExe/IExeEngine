@@ -29,6 +29,17 @@ void GameState::Initialize()
     zombie.Initialize("zombie/zombie.model"); // Zombie
     zombie.transform.position = { 0.5f, 0.0f, 0.6f };
 
+    spiderManMilesMorales.Initialize("SpiderManMilesMorales/spmiles.model");
+    spiderManMilesMorales.transform.position = { 0.0f, 5.0f, 0.0f };
+
+    //spiderGwen.Initialize("SpiderGwen/SpiderGwen.model");
+    //spiderGwen.transform.position = { 0.0f, 0.0f, 0.0f };
+
+    spiderMan2099.Initialize("SpiderMan2099/SpiderMan2099.model");
+    spiderMan2099.transform.position = { 0.0f, 5.0f, 0.0f };
+    spiderMan2099.transform.rotation = Math::Quaternion::Zero;
+
+
     MeshPX screenQuadMesh = MeshBuilder::CreateScreenQuadPX();
     mScreenQuad.meshBuffer.Initialize(screenQuadMesh);
 
@@ -70,6 +81,9 @@ void GameState::Terminate()
     parasite.Terminate();
     zombie.Terminate();
     mGround.Terminate();
+    spiderManMilesMorales.Terminate();
+    //spiderGwen.Terminate();
+    spiderMan2099.Terminate();
     mStandardEffect.Terminate();
     mHalftoneEffect.Terminate();
     mHatchingEffect.Terminate();
@@ -89,6 +103,10 @@ void GameState::Render()
         mShadowEffect.Render(mCharacter);
         mShadowEffect.Render(parasite);
         mShadowEffect.Render(zombie);
+
+        mShadowEffect.Render(spiderManMilesMorales);
+        //mShadowEffect.Render(spiderGwen);
+        mShadowEffect.Render(spiderMan2099);
     mShadowEffect.End();
 //----------------------------------------------------------
   // Second Pass: Texture with Halftone Effect
@@ -97,13 +115,21 @@ void GameState::Render()
         mHalftoneEffect.Render(mCharacter);
         mHalftoneEffect.Render(parasite);
         mHalftoneEffect.Render(zombie);
+
+        mHalftoneEffect.Render(spiderManMilesMorales);
+        //mHalftoneEffect.Render(spiderGwen);
+        mHalftoneEffect.Render(spiderMan2099);
     mHalftoneEffect.End();
 
-   /* mHatchingEffect.Begin();
-        mHatchingEffect.Render(mCharacter);
-        mHatchingEffect.Render(parasite);
-        mHatchingEffect.Render(zombie);
-    mHatchingEffect.End(); */
+    //mHatchingEffect.Begin();
+    //    mHatchingEffect.Render(mCharacter);
+    //    mHatchingEffect.Render(parasite);
+    //    mHatchingEffect.Render(zombie);
+
+    //    mHatchingEffect.Render(spiderManMilesMorales);
+    //    //mHatchingEffect.Render(spiderGwen);
+    //    mHatchingEffect.Render(spiderMan2099);
+    //mHatchingEffect.End(); 
 //----------------------------------------------------------
     // Fourth Pass: Render Scene
 //----------------------------------------------------------
@@ -115,6 +141,10 @@ void GameState::Render()
         mStandardEffect.Render(mCharacter);
         mStandardEffect.Render(parasite);
         mStandardEffect.Render(zombie);
+
+        mStandardEffect.Render(spiderManMilesMorales);
+        //mStandardEffect.Render(spiderGwen);
+        mStandardEffect.Render(spiderMan2099);
     mStandardEffect.End();
 //----------------------------------------------------------
   // Third Pass: Texture with Hatching Effect
@@ -186,7 +216,7 @@ void GameState::UpdateCamera(float deltaTime)
 {
 	// Camera Controls:
 	InputSystem* input = InputSystem::Get();
-	const float moveSpeed = input->IsKeyDown(KeyCode::LSHIFT) ? 10.0f : 4.0f;
+	const float moveSpeed = input->IsKeyDown(KeyCode::LSHIFT) ? 20.0f : 4.0f;
 	const float turnSpeed = 0.5f;
 
 	if (input->IsKeyDown(KeyCode::W)) { mCamera.Walk(moveSpeed * deltaTime); }

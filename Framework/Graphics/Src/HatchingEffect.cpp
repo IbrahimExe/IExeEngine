@@ -201,7 +201,7 @@ void HatchingEffect::Render(const RenderGroup& renderGroup)
 
 void HatchingEffect::DebugUI()
 {
-    if (ImGui::CollapsingHeader("HatchingEffect", ImGuiTreeNodeFlags_DefaultOpen))
+    if (ImGui::CollapsingHeader("HatchingEffect"))
     {
         ImGui::DragInt("Cells X", &mCellCountX, 1, 4, 2048);
         ImGui::DragInt("Cells Y", &mCellCountY, 1, 4, 2048);
@@ -211,18 +211,18 @@ void HatchingEffect::DebugUI()
         ImGui::DragFloat("Angle A (deg)", &mAngleA, 0.01f, -3.14159f, 3.14159f);
         ImGui::DragFloat("Angle B (deg)", &mAngleB, 0.01f, -3.14159f, 3.14159f);
 
-        bool useDiffuse = mSettingsData.useDiffuseMap > 0;
-        if (ImGui::Checkbox("UseDiffuseMap##Hatch", &useDiffuse)) mSettingsData.useDiffuseMap = useDiffuse ? 1 : 0;
+        //bool useDiffuse = mSettingsData.useDiffuseMap > 0;
+        //if (ImGui::Checkbox("UseDiffuseMap##Hatch", &useDiffuse)) mSettingsData.useDiffuseMap = useDiffuse ? 1 : 0;
 
-        bool useNormal = mSettingsData.useNormalMap > 0;
-        if (ImGui::Checkbox("UseNormalMap##Hatch", &useNormal)) mSettingsData.useNormalMap = useNormal ? 1 : 0;
+        //bool useNormal = mSettingsData.useNormalMap > 0;
+        //if (ImGui::Checkbox("UseNormalMap##Hatch", &useNormal)) mSettingsData.useNormalMap = useNormal ? 1 : 0;
 
-        bool useBump = mSettingsData.useBumpMap > 0;
-        if (ImGui::Checkbox("UseBumpMap##Hatch", &useBump)) mSettingsData.useBumpMap = useBump ? 1 : 0;
+        //bool useBump = mSettingsData.useBumpMap > 0;
+        //if (ImGui::Checkbox("UseBumpMap##Hatch", &useBump)) mSettingsData.useBumpMap = useBump ? 1 : 0;
 
-        ImGui::DragFloat("BumpIntensity##Hatch", &mSettingsData.bumpIntensity, 0.01f, -5.0f, 5.0f);
-        bool useShadow = mSettingsData.useShadowMap > 0;
-        if (ImGui::Checkbox("UseShadowMap##Hatch", &useShadow)) mSettingsData.useShadowMap = useShadow ? 1 : 0;
-        ImGui::DragFloat("DepthBias##Hatch", &mSettingsData.depthBias, 0.000001f, 0.0f, 1.0f, "%.6f");
+        //ImGui::DragFloat("BumpIntensity##Hatch", &mSettingsData.bumpIntensity, 0.01f, -5.0f, 5.0f);
+        //bool useShadow = mSettingsData.useShadowMap > 0;
+        //if (ImGui::Checkbox("UseShadowMap##Hatch", &useShadow)) mSettingsData.useShadowMap = useShadow ? 1 : 0;
+        //ImGui::DragFloat("DepthBias##Hatch", &mSettingsData.depthBias, 0.000001f, 0.0f, 1.0f, "%.6f");
     }
 }

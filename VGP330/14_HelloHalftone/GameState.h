@@ -27,6 +27,10 @@ private:
     IExeEngine::Graphics::RenderGroup zombie;
 	IExeEngine::Graphics::RenderObject mGround;
 
+    IExeEngine::Graphics::RenderGroup spiderManMilesMorales;
+	IExeEngine::Graphics::RenderGroup spiderGwen;
+	IExeEngine::Graphics::RenderGroup spiderMan2099;
+
     IExeEngine::Graphics::RenderObject mScreenQuad;
 
     IExeEngine::Graphics::StandardEffect mStandardEffect;
