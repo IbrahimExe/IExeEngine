@@ -67,3 +67,7 @@
 #include "HatchingEffect.h"
 
 #include "Keyframe.h"
+
+#include "Animation.h"
+
+#include "AnimationBuilder.h"
