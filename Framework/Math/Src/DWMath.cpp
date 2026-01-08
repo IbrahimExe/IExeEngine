@@ -33,23 +33,28 @@ void Quaternion::Conjugate() noexcept
     y = -y;
     z = -z;
 }
+
 void Quaternion::Inverse() noexcept
 {
     Conjugate();
     *this = *this / MagnitudeSqr();
 }
+
 float Quaternion::Magnitude() const noexcept
 {
     return std::sqrt(MagnitudeSqr());
 }
+
 float Quaternion::MagnitudeSqr() const noexcept
 {
     return(x * x + y * y + z * z + w * w);
 }
+
 void Quaternion::Normalize() noexcept
 {
     *this = *this / Magnitude();
 }
+
 float Quaternion::Dot(const Quaternion& q) const noexcept
 {
     return(x * q.x + y * q.y + z * q.z + w * q.w);
@@ -75,6 +80,7 @@ Quaternion Quaternion::CreateFromAxisAngle(const Vector3& axis, float angle) noe
     const Vector3 n = Math::Normalize(axis);
     return { n.x * s, n.y * s, n.z * s, c };
 }
+
 Quaternion Quaternion::CreateFromYawPitchRoll(float yaw, float pitch, float roll) noexcept
 {
     const float cy = cos(yaw * 0.5f);
@@ -91,13 +97,12 @@ Quaternion Quaternion::CreateFromYawPitchRoll(float yaw, float pitch, float roll
     };
 }
 
-
 Quaternion Quaternion::CreateFromRotationMatrix(const Matrix4& m) noexcept
 {
-    const float w = sqrt(m._11 + m._22 + m._33 + 1) * 0.5f;
-    const float x = sqrt(m._11 - m._22 - m._33 + 1) * 0.5f;
-    const float y = sqrt(m._11 + m._22 - m._33 + 1) * 0.5f;
-    const float z = sqrt(m._11 - m._22 + m._33 + 1) * 0.5f;
+    const float w = sqrt(m._11 + m._22 + m._33 + 1.0f) * 0.5f;
+    const float x = sqrt(m._11 - m._22 - m._33 + 1.0f) * 0.5f;
+    const float y = sqrt(m._11 + m._22 - m._33 + 1.0f) * 0.5f;
+    const float z = sqrt(m._11 - m._22 + m._33 + 1.0f) * 0.5f;
     Quaternion q;
     if (w >= x && w >= y && w >= z)
     {
@@ -135,6 +140,7 @@ Quaternion Quaternion::Lerp(const Quaternion& q0, const Quaternion& q1, float t)
 {
     return q0 * (1.0f - t) + (q1 * t);
 }
+
 Quaternion Quaternion::Slerp(const Quaternion& q0, const Quaternion& q1, float t)
 {
     float dot = q0.Dot(q1);
@@ -145,7 +151,7 @@ Quaternion Quaternion::Slerp(const Quaternion& q0, const Quaternion& q1, float t
         q1Scale = -1.0f;
     }
     
-    if (dot > 0.999999f)
+    if (dot > 0.9999f)
     {
         return Normalize(Lerp(q0, q1, t));
     }

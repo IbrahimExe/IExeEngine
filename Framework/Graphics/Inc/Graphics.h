@@ -65,3 +65,5 @@
 #include "HalftoneEffect.h"
 
 #include "HatchingEffect.h"
+
+#include "Keyframe.h"
