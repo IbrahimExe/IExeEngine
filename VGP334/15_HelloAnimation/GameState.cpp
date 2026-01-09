@@ -79,7 +79,7 @@ void GameState::Initialize()
         .AddPositionKey({ 0.0f,-2.0f, 0.0f }, 3.0f)
         .AddPositionKey({ 0.0f, 0.0f, 0.0f }, 5.0f)
         .AddRotationKey(Math::Quaternion::Identity, 0.0f)
-        .AddRotationKey(Math::Quaternion::CreateFromAxisAngle(Math::Vector3::YAxis, Math::Constants::HalfPi), 3.0f)
+        .AddRotationKey(Math::Quaternion::CreateFromAxisAngle(Math::Vector3::YAxis, 90.0f * Math::Constants::HalfPi), 3.0f)
         .AddRotationKey(Math::Quaternion::CreateFromAxisAngle(Math::Vector3::YAxis, Math::Constants::Pi * 1.1), 3.1f)
         .AddRotationKey(Math::Quaternion::CreateFromAxisAngle(Math::Vector3::YAxis, Math::Constants::TwoPi), 5.0f)
         .Build();
