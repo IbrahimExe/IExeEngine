@@ -223,6 +223,23 @@ Bone* BuildSkeleton(const aiNode* sceneNode, Bone* parent, Skeleton& skeleton, B
     return bone;
 }
 
+// Helper Function to get Indices of Bones
+uint32_t GetBoneIndex(const aiBone* nodeBone, const BoneIndexMap& boneIndexMap)
+{
+    std::string boneName = nodeBone->mName.C_Str();
+    ASSERT(!boneName.empty(), "Error: Bone has no name!");
+
+    auto iter = boneIndexMap.find(boneName);
+    ASSERT(iter != boneIndexMap.end(), "Error: aiBone not found in Bone Index Map!");
+    return iter->second;
+}
+
+void SetBoneOffsetTransform(const aiBone* nodeBone, Skeleton& skeleton, const BoneIndexMap& boneIndexMap)
+{
+    uint32_t boneIndex = GetBoneIndex(nodeBone, boneIndexMap);
+    Bone* bone = skeleton.bones[boneIndex].get();
+    bone->offsetTransform = ToMatrix4(nodeBone->mOffsetMatrix);
+}
 
 int main(int argc, char* argv[])
 {
@@ -260,6 +277,7 @@ int main(int argc, char* argv[])
         printf("Building Skeleton...\n");
         model.skeleton = std::make_unique<Skeleton>();
         // Build Skeleton:
+        BuildSkeleton(scene->mRootNode, nullptr, *model.skeleton, boneIndexMap);
 
         printf("Reading Mesh Data...\n");
         
