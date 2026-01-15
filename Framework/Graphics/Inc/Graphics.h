@@ -71,3 +71,7 @@
 #include "Animation.h"
 
 #include "AnimationBuilder.h"
+
+#include "Bone.h"
+
+#include "Skeleton.h"

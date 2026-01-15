@@ -126,7 +126,7 @@ void GameState::Render()
 
 		if (gCurrentObject == CurrentObject::Earth)
 		{
-			mStandardEffect.Render(mRenderObject_Earth);
+			mStandardEffect.Render(mBasketball);
 		}
 		else if (gCurrentObject == CurrentObject::Metal)
 		{
