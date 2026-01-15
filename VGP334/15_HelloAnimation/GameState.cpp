@@ -26,6 +26,15 @@ void GameState::Initialize()
     mDirectionalLight.diffuse = { 0.8f, 0.8f, 0.8f, 1.0f };
     mDirectionalLight.specular = { 0.9f, 0.9f, 0.9f, 1.0f };
 
+    // DragonBorn - Free Spline Animation Software
+
+    // Basketball
+    Mesh basketball = MeshBuilder::CreateSphere(50, 50, 0.5f);
+    mBasketball.meshBuffer.Initialize(basketball);
+
+    TextureManager* tm_basket = TextureManager::Get();
+    mBasketball.diffuseMapId = tm_basket->LoadTexture(L"../../Assets/Textures/misc/basketball.jpg");
+
     // Object 1 - Earth Sphere
 	Mesh earth = MeshBuilder::CreateSphere(30, 30, 0.25f);
 	mRenderObject_Earth.meshBuffer.Initialize(earth);
@@ -87,6 +96,7 @@ void GameState::Initialize()
 
 void GameState::Terminate()
 {
+    mBasketball.Terminate();
 	mRenderObject_Earth.Terminate();
     mRenderObject_Metal.Terminate();
     mRenderObject_Wood.Terminate();
@@ -107,7 +117,7 @@ void GameState::Update(float deltaTime)
 
 void GameState::Render()
 {
-    mRenderObject_Earth.transform = mAnimation.GetTransform(mAnimationTime);
+    mBasketball.transform = mAnimation.GetTransform(mAnimationTime);
 
 	SimpleDraw::AddGroundPlane(20.0f, Colors::Wheat);
 	SimpleDraw::Render(mCamera);
