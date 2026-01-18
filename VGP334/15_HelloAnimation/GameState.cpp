@@ -6,8 +6,8 @@ using namespace IExeEngine::Input;
 
 void GameState::Initialize()
 {
-	mCamera.SetPosition({ 0.0f, 1.0f, -3.0f });
-	mCamera.SetLookAt({ 0.0f, 0.0f, 0.0f });
+	mCamera.SetPosition({ 2.0f, 2.0f, -2.0f });
+	mCamera.SetLookAt({ 0.0f, 1.2f, 0.0f });
 
 	mDirectionalLight.direction = Math::Normalize({ 1.0f, -1.0f, 1.0f });
     mDirectionalLight.ambient = { 0.4f, 0.4f, 0.4f, 1.0f };
@@ -31,18 +31,21 @@ void GameState::Initialize()
     // Animation Constructor
     mAnimationTime = 0.0f;
     mAnimation = AnimationBuilder()
-        .AddPositionKey({ 0.0f, 0.0f, 0.0f }, 0.0f)
-        .AddPositionKey({ 0.0f,-2.0f, 0.0f }, 3.0f)
-        .AddPositionKey({ 0.0f, 0.0f, 0.0f }, 5.0f)
+        // Position Keyframes
+        .AddPositionKey({ 0.0f, 0.0f, 0.0f }, 0.0f)   
+        .AddPositionKey({ 0.0f, 2.0f, 0.0f }, 0.5f)   
+        .AddPositionKey({ 0.0f, 0.0f, 0.0f }, 1.0f)   
 
+        // Rotation Keyframes 
         .AddRotationKey(Math::Quaternion::Identity, 0.0f)
-        .AddRotationKey(Math::Quaternion::CreateFromAxisAngle(Math::Vector3::YAxis, 90.0f * Math::Constants::HalfPi), 3.0f)
-        .AddRotationKey(Math::Quaternion::CreateFromAxisAngle(Math::Vector3::YAxis, 90.0f * Math::Constants::Pi * 1.1), 3.1f)
-        .AddRotationKey(Math::Quaternion::CreateFromAxisAngle(Math::Vector3::YAxis, 90.0f * Math::Constants::TwoPi), 5.0f)
+        .AddRotationKey(Math::Quaternion::CreateFromAxisAngle(Math::Vector3::YAxis, Math::Constants::Pi), 1.0f)
 
-        .AddScaleKey({1.0f, 1.0f, 1.0f}, 0.0f)
-        .AddScaleKey({ 1.0f, 2.0f, 1.0f }, 3.0f)
-        .AddScaleKey({ 1.0f, 1.0f, 1.0f }, 5.0f)
+        // Scale Keyframes
+        .AddScaleKey({ 1.3f, 0.6f, 1.3f }, 0.0f)    
+        .AddScaleKey({ 0.9f, 1.15f, 0.9f }, 0.15f)  
+        .AddScaleKey({ 1.0f, 1.0f, 1.0f }, 0.5f)    
+        .AddScaleKey({ 0.9f, 1.15f, 0.9f }, 0.85f)  
+        .AddScaleKey({ 1.3f, 0.6f, 1.3f }, 1.0f)    
         .Build();
 }
 
