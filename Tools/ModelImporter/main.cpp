@@ -331,6 +331,17 @@ int main(int argc, char* argv[])
         }
     }
 
+    // This offsets the bones transforms by the import scale
+    for (auto& bone : model.skeleton->bones)
+    {
+        bone->offsetTransform._41 *= args.scale;
+        bone->offsetTransform._42 *= args.scale;
+        bone->offsetTransform._43 *= args.scale;
+        bone->toParentTransform._41 *= args.scale;
+        bone->toParentTransform._42 *= args.scale;
+        bone->toParentTransform._43 *= args.scale;
+    }
+
     if (scene->HasMaterials())
     {
         printf("Reading Material Data...\n");
@@ -376,6 +387,9 @@ int main(int argc, char* argv[])
 
     printf("Saving Material...\n");
     ModelIO::SaveMaterial(args.outputFileName, model);
+
+    printf("Saving Skeleton...\n");
+    ModelIO::SaveSkeleton(args.outputFileName, model);
 
     printf("Import Complete!\n");
 

@@ -30,6 +30,8 @@ void RenderGroup::Initialize(const std::filesystem::path& modelFilePath)
         return TextureManager::Get()->LoadTexture(textureName, false);
     };
 
+    skeleton = model->skeleton.get();
+
     for (const Model::MeshData& meshData : model->meshData)
     {
         RenderObject& renderObject = renderObjects.emplace_back();

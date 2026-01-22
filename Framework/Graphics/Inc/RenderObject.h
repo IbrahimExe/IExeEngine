@@ -8,6 +8,8 @@
 
 namespace IExeEngine::Graphics
 {
+    struct Skeleton; // Forward declaration of the skeleton as we dont use the skeleton yet only its data.
+
     class RenderObject
     {
     public:
@@ -33,5 +35,7 @@ namespace IExeEngine::Graphics
         ModelId modelId; // Model Identifier
         Transform transform; // Root Transform (Other objects may have other transforms)
         std::vector<RenderObject> renderObjects; // All objects to render
+
+        const Skeleton* skeleton; // Skeleton for animation
     };
 }
