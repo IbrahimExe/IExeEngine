@@ -33,7 +33,7 @@ void GameState::Initialize()
     mAnimation = AnimationBuilder()
         // Position Keyframes
         .AddPositionKey({ 0.0f, 0.0f, 0.0f }, 0.0f)   
-        .AddPositionKey({ 0.0f, 2.0f, 0.0f }, 0.5f)   
+        .AddPositionKey({ 0.0f, 2.5f, 0.0f }, 0.5f)   
         .AddPositionKey({ 0.0f, 0.0f, 0.0f }, 1.0f)   
 
         // Rotation Keyframes 
