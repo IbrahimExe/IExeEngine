@@ -186,3 +186,53 @@ void ModelIO::LoadMaterial(std::filesystem::path filePath, Model& model)
 
     fclose(file);
 }
+
+void ModelIO::SaveSkeleton(std::filesystem::path filePath, Model& model)
+{
+    if (model.skeleton == nullptr || model.skeleton->bones.empty())
+    {
+        return;
+    }
+    filePath.replace_extension("skeleton");
+    FILE* file = nullptr;
+    fopen_s(&file, filePath.u8string().c_str(), "w");
+    if (file == nullptr)
+    {
+        return;
+    }
+
+    auto WriteMatrix = [&file](auto& m)
+    {
+        fprintf_s(file, "%f %f %f %f\n", m._11, m._12, m._13, m._14);
+        fprintf_s(file, "%f %f %f %f\n", m._21, m._22, m._23, m._24);
+        fprintf_s(file, "%f %f %f %f\n", m._31, m._32, m._33, m._34);
+        fprintf_s(file, "%f %f %f %f\n", m._41, m._42, m._43, m._44);
+    };
+
+    uint32_t boneCount = model.skeleton->bones.size();
+    fprintf_s(file, "BoneCount: %d\n", boneCount);
+    fprintf_s(file, "RootBone: %d\n", model.skeleton->root->index);
+    for (uint32_t i = 0; i < boneCount; ++i)
+    {
+        const Bone* boneData = model.skeleton->bones[i].get();
+        fprintf_s(file, "BoneName: %d\n", boneData->name.c_str());
+        fprintf_s(file, "BoneIndex: %d\n", boneData->index);
+        fprintf_s(file, "ParentIndex: %d\n", boneData->parentIndex);
+
+        uint32_t childCount = boneData->childrenIndices.size();
+        fprintf_s(file, "ChildCount: %d\n", childCount);
+        for (uint32_t c = 0; c < childCount; ++c)
+        {
+            fprintf_s(file, "ChildIndex: %d\n", boneData->childrenIndices[c]);
+        }
+
+        WriteMatrix(boneData->toParentTransform);
+        WriteMatrix(boneData->offsetTransform);
+    }
+    fclose(file);
+}
+
+void ModelIO::LoadSkeleton(std::filesystem::path filePath, Model& model)
+{
+
+}
