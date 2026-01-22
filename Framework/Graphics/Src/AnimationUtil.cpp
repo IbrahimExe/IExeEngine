@@ -59,9 +59,9 @@ void AnimationUtil::DrawSkeleton(ModelId modelId, const BoneTransforms& boneTran
                 const Math::Vector3 bonePos = Math::GetTranslation(boneTransforms[bone->index]);
                 const Math::Vector3 parentPos = Math::GetTranslation(boneTransforms[bone->parentIndex]);
                 // Draws a line from the bone to its parent
-                SimpleDraw::AddLine(bonePos, parentPos, Colors::Orange);
+                SimpleDraw::AddLine(bonePos, parentPos, Colors::FloralWhite);
                 // Draws a sphere at the bone position (joint location)
-                SimpleDraw::AddSphere(10, 10, 0.02f, Colors::Red, bonePos);
+                SimpleDraw::AddSphere(16, 16, 0.02f, Colors::DarkGray, bonePos);
             }
         }
     }

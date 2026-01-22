@@ -31,7 +31,7 @@ VS_OUTPUT VS(VS_INPUT input)
 }
 
 // Lerped vetex data that is converted to a pixel on the screen
-float4 PS(VS_OUTPUT input) : SV_TARGET
+float4 PS(VS_OUTPUT input) : SV_Target
 {
     return input.color;
 }

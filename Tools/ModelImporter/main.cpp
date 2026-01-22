@@ -279,6 +279,34 @@ int main(int argc, char* argv[])
         // Build Skeleton:
         BuildSkeleton(scene->mRootNode, nullptr, *model.skeleton, boneIndexMap);
 
+        // Applies bone offset transforms (skinning mesh data offsets)
+        for (uint32_t meshIndex = 0; meshIndex < scene->mNumMeshes; ++meshIndex)
+        {
+            const auto& aiMesh = scene->mMeshes[meshIndex];
+            if (aiMesh->mPrimitiveTypes != aiPrimitiveType_TRIANGLE)
+            {
+                continue;
+            }
+            if (aiMesh->HasBones())
+            {
+                for (uint32_t b = 0; b < aiMesh->mNumBones; ++b)
+                {
+                    const auto& aiBone = aiMesh->mBones[b];
+                    SetBoneOffsetTransform(aiBone, *model.skeleton, boneIndexMap);
+                }
+            }
+        }
+        // This offsets the bones transforms by the import scale
+        for (auto& bone : model.skeleton->bones)
+        {
+            bone->offsetTransform._41 *= args.scale;
+            bone->offsetTransform._42 *= args.scale;
+            bone->offsetTransform._43 *= args.scale;
+            bone->toParentTransform._41 *= args.scale;
+            bone->toParentTransform._42 *= args.scale;
+            bone->toParentTransform._43 *= args.scale;
+        }
+
         printf("Reading Mesh Data...\n");
         
         for (uint32_t meshIndex = 0; meshIndex < scene->mNumMeshes; ++meshIndex)
@@ -328,18 +356,32 @@ int main(int argc, char* argv[])
                     mesh.indices.push_back(aiFace.mIndices[i]);
                 }
             }
+            // Get bone weights from mesh bones and apply to vertex data
+            if (aiMesh->HasBones())
+            {
+                printf("Reading Bone Weights for Mesh...\n");
+                std::vector<int> numWeightsAdded(mesh.vertices.size());
+                for (uint32_t b = 0; b < aiMesh->mNumBones; ++b)
+                {
+                    const auto& aiBone = aiMesh->mBones[b];
+                    uint32_t boneIndex = GetBoneIndex(aiBone, boneIndexMap);
+                    for (uint32_t w = 0; w < aiBone->mNumWeights; ++w)
+                    {
+                        const aiVertexWeight& weight = aiBone->mWeights[w];
+                        // Get the vertex that the bone is influencing
+                        Vertex& vertex = mesh.vertices[weight.mVertexId];
+                        // Get the number of bones already affecting this vertex
+                        int& weightCount = numWeightsAdded[weight.mVertexId];
+                        if (weightCount < Vertex::MaxBoneWeights)
+                        {
+                            vertex.boneIndices[weightCount] = boneIndex;
+                            vertex.boneWeights[weightCount] = weight.mWeight;
+                            ++weightCount;
+                        }
+                    }
+                }
+            }
         }
-    }
-
-    // This offsets the bones transforms by the import scale
-    for (auto& bone : model.skeleton->bones)
-    {
-        bone->offsetTransform._41 *= args.scale;
-        bone->offsetTransform._42 *= args.scale;
-        bone->offsetTransform._43 *= args.scale;
-        bone->toParentTransform._41 *= args.scale;
-        bone->toParentTransform._42 *= args.scale;
-        bone->toParentTransform._43 *= args.scale;
     }
 
     if (scene->HasMaterials())

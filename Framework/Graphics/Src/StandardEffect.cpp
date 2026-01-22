@@ -4,9 +4,12 @@
 #include "VertexTypes.h"
 #include "Camera.h"
 #include "RenderObject.h"
+#include "AnimationUtil.h"
 
 using namespace IExeEngine;
 using namespace IExeEngine::Graphics;
+
+static constexpr size_t MaxBoneCount = 256;
 
 void StandardEffect::Initialize(const std::filesystem::path& path)
 {
@@ -15,6 +18,7 @@ void StandardEffect::Initialize(const std::filesystem::path& path)
 	mLightBuffer.Initialize();
     mMaterialBuffer.Initialize();
     mSettingsBuffer.Initialize();
+    mBoneTransformBuffer.Initialize(MaxBoneCount * );
 
 	// Other Stuff
 	mVertexShader.Initialize<Vertex>(path);

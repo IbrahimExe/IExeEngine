@@ -17,12 +17,12 @@ void GameState::Initialize()
 
 	mCharacter.Initialize("Character_01/Character_01.model"); // Lil Timmy
     mCharacter.transform.position = { 0.0f, 0.0f, 0.0f };
-
-    parasite.Initialize("parasite/parasite.model"); // Parasite
-    parasite.transform.position = { -0.5f, 0.0f, 0.9f };
-
-    zombie.Initialize("zombie/zombie.model"); // Zombie
-    zombie.transform.position = { 0.5f, 0.0f, 0.6f };
+	
+    //parasite.Initialize("parasite/parasite.model"); // Parasite
+    //parasite.transform.position = { -0.5f, 0.0f, 0.9f };
+	//
+    //zombie.Initialize("zombie/zombie.model"); // Zombie
+    //zombie.transform.position = { 0.5f, 0.0f, 0.6f };
 
     std::filesystem::path shaderFile = L"../../Assets/Shaders/Standard.fx";
     mStandardEffect.Initialize(shaderFile);
@@ -33,8 +33,8 @@ void GameState::Initialize()
 void GameState::Terminate()
 {
 	mCharacter.Terminate();
-    parasite.Terminate();
-    zombie.Terminate();
+    //parasite.Terminate();
+    //zombie.Terminate();
     mStandardEffect.Terminate();
 }
 
@@ -51,18 +51,18 @@ void GameState::Render()
         AnimationUtil::ComputeBoneTransforms(mCharacter.modelId, boneTransforms);
         AnimationUtil::DrawSkeleton(mCharacter.modelId, boneTransforms);
 
-		SimpleDraw::AddGroundPlane(20.0f, Colors::Wheat);
+		SimpleDraw::AddGroundPlane(20.0f, Colors::DarkRed);
 		SimpleDraw::Render(mCamera);
 	}
 	else
 	{
-		SimpleDraw::AddGroundPlane(20.0f, Colors::Wheat);
+		SimpleDraw::AddGroundPlane(20.0f, Colors::White);
 		SimpleDraw::Render(mCamera);
 
 		mStandardEffect.Begin();
 			mStandardEffect.Render(mCharacter);
-			mStandardEffect.Render(parasite);
-			mStandardEffect.Render(zombie);
+			//mStandardEffect.Render(parasite);
+			//mStandardEffect.Render(zombie);
 		mStandardEffect.End();
 	}
 }
