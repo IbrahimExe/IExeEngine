@@ -12,4 +12,7 @@ namespace IExeEngine::Graphics::AnimationUtil
     
     // To be called after ComputeBoneTransforms, draws the skeleton hierarchy
     void DrawSkeleton(ModelId modelId, const BoneTransforms& boneTransforms);
+
+    // To be called to apply bone offsets for skinning data
+    void ApplyBoneOffsets(ModelId modelId, BoneTransforms& boneTransforms);
 }

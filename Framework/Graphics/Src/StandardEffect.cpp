@@ -145,6 +145,7 @@ void StandardEffect::Render(const RenderGroup& renderGroup)
     {
         AnimationUtil::BoneTransforms boneTransforms;
         AnimationUtil::ComputeBoneTransforms(renderGroup.modelId, boneTransforms);
+        AnimationUtil::ApplyBoneOffsets(renderGroup.modelId, boneTransforms);
 
         for (Math::Matrix4& transform : boneTransforms)
         {

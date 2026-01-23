@@ -66,3 +66,17 @@ void AnimationUtil::DrawSkeleton(ModelId modelId, const BoneTransforms& boneTran
         }
     }
 }
+
+void AnimationUtil::ApplyBoneOffsets(ModelId modelId, BoneTransforms& boneTransforms)
+{
+    const Model* model = ModelManager::Get()->GetModel(modelId);
+    if (model != nullptr && model->skeleton != nullptr)
+    {
+        // Iterate through the unique bone pointers to the bones in the skeleton
+        for (auto& bone : model->skeleton->bones)
+        {
+            // Apply the offset matrix to the computed bone transform
+            boneTransforms[bone->index] = bone->offsetTransform * boneTransforms[bone->index];
+        }
+    }
+}
