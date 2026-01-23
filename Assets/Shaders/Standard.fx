@@ -101,7 +101,7 @@ VS_OUTPUT VS(VS_INPUT input)
     // Matrix to multiply to get the vertex in NDC space 
     matrix toNDC = wvp;
     // Need to add this to the shadow.fx to work with animation/skinning
-    // Also need to include lwvp in the TransformBuffer
+    // Also need to include lwvp matrix in this calculation
     if (useSkinning)
     {
         // Apply skinning data to the mesh for the influence of bones

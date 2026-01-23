@@ -53,7 +53,6 @@ namespace IExeEngine::Graphics
             int useNormalMap = 1;
             int useBumpMap = 1;
             int useShadowMap = 1;
-            float bumpIntensity = -0.02f;
             int useSkinning = 1;
             float bumpWeight = 0.1f;
             float depthBias = 0.000003f;
@@ -71,7 +70,8 @@ namespace IExeEngine::Graphics
         using SettingsBuffer = TypedConstantBuffer<SettingsData>;
         SettingsBuffer mSettingsBuffer;
 
-        using 
+        using BoneTransformBuffer = ConstantBuffer;
+        BoneTransformBuffer mBoneTransformBuffer;
 
         VertexShader mVertexShader;
         PixelShader mPixelShader;
