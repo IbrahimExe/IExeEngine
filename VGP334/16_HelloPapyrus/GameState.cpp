@@ -7,11 +7,11 @@ using namespace IExeEngine::Input;
 enum class CurrentModel
 {
 	Timmy,
-    Parasite,
-    Zombie
+	Parasite,
+	Zombie
 };
 
-const char* gObjectNames[] = { "Timmy", "Parasite", "Zombie"};
+const char* gObjectNames[] = { "Timmy", "Parasite", "Zombie" };
 
 CurrentModel gCurrentModel = CurrentModel::Timmy;
 
@@ -21,31 +21,31 @@ void GameState::Initialize()
 	mCamera.SetLookAt({ 0.0f, 0.0f, 0.0f });
 
 	mDirectionalLight.direction = Math::Normalize({ 1.0f, -1.0f, 1.0f });
-    mDirectionalLight.ambient = { 0.4f, 0.4f, 0.4f, 1.0f };
-    mDirectionalLight.diffuse = { 0.8f, 0.8f, 0.8f, 1.0f };
-    mDirectionalLight.specular = { 0.9f, 0.9f, 0.9f, 1.0f };
+	mDirectionalLight.ambient = { 0.4f, 0.4f, 0.4f, 1.0f };
+	mDirectionalLight.diffuse = { 0.8f, 0.8f, 0.8f, 1.0f };
+	mDirectionalLight.specular = { 0.9f, 0.9f, 0.9f, 1.0f };
 
 	mCharacter.Initialize("Character_01/Character_01.model"); // Lil Timmy
-    mCharacter.transform.position = { 0.0f, 0.0f, 0.0f };
-	
-    parasite.Initialize("parasite/parasite.model"); // Parasite
-    parasite.transform.position = { 0.0f, 0.0f, 0.0f };
+	mCharacter.transform.position = { 0.0f, 0.0f, 0.0f };
 
-    zombie.Initialize("zombie/zombie.model"); // Zombie
-    zombie.transform.position = { 0.0f, 0.0f, 0.0f };
+	parasite.Initialize("parasite/parasite.model"); // Parasite
+	parasite.transform.position = { 0.0f, 0.0f, 0.0f };
 
-    std::filesystem::path shaderFile = L"../../Assets/Shaders/Standard.fx";
-    mStandardEffect.Initialize(shaderFile);
-    mStandardEffect.SetCamera(mCamera);
-    mStandardEffect.SetDirectionalLight(mDirectionalLight);
+	zombie.Initialize("zombie/zombie.model"); // Zombie
+	zombie.transform.position = { 0.0f, 0.0f, 0.0f };
+
+	std::filesystem::path shaderFile = L"../../Assets/Shaders/Standard.fx";
+	mStandardEffect.Initialize(shaderFile);
+	mStandardEffect.SetCamera(mCamera);
+	mStandardEffect.SetDirectionalLight(mDirectionalLight);
 }
 
 void GameState::Terminate()
 {
 	mCharacter.Terminate();
-    parasite.Terminate();
-    zombie.Terminate();
-    mStandardEffect.Terminate();
+	parasite.Terminate();
+	zombie.Terminate();
+	mStandardEffect.Terminate();
 }
 
 void GameState::Update(float deltaTime)
@@ -55,32 +55,47 @@ void GameState::Update(float deltaTime)
 
 void GameState::Render()
 {
+	SimpleDraw::AddGroundPlane(20.0f, mDrawSkeleton ? Colors::DarkRed : Colors::White);
+	SimpleDraw::Render(mCamera);
+
 	if (mDrawSkeleton)
 	{
-        AnimationUtil::BoneTransforms timBoneTransforms;
-        AnimationUtil::ComputeBoneTransforms(mCharacter.modelId, timBoneTransforms);
-        AnimationUtil::DrawSkeleton(mCharacter.modelId, timBoneTransforms);
+		// Draw skeleton for selected model only
+		AnimationUtil::BoneTransforms boneTransforms;
 
-        AnimationUtil::BoneTransforms parasiteBoneTransforms;
-        AnimationUtil::ComputeBoneTransforms(parasite.modelId, parasiteBoneTransforms);
-        AnimationUtil::DrawSkeleton(parasite.modelId, parasiteBoneTransforms);
-
-        AnimationUtil::BoneTransforms zombieBoneTransforms;
-        AnimationUtil::ComputeBoneTransforms(zombie.modelId, zombieBoneTransforms);
-        AnimationUtil::DrawSkeleton(zombie.modelId, zombieBoneTransforms);
-
-		SimpleDraw::AddGroundPlane(20.0f, Colors::DarkRed);
-		SimpleDraw::Render(mCamera);
+		switch (gCurrentModel)
+		{
+		case CurrentModel::Timmy:
+			AnimationUtil::ComputeBoneTransforms(mCharacter.modelId, boneTransforms);
+			AnimationUtil::DrawSkeleton(mCharacter.modelId, boneTransforms);
+			break;
+		case CurrentModel::Parasite:
+			AnimationUtil::ComputeBoneTransforms(parasite.modelId, boneTransforms);
+			AnimationUtil::DrawSkeleton(parasite.modelId, boneTransforms);
+			break;
+		case CurrentModel::Zombie:
+			AnimationUtil::ComputeBoneTransforms(zombie.modelId, boneTransforms);
+			AnimationUtil::DrawSkeleton(zombie.modelId, boneTransforms);
+			break;
+		}
 	}
 	else
 	{
-		SimpleDraw::AddGroundPlane(20.0f, Colors::White);
-		SimpleDraw::Render(mCamera);
-
 		mStandardEffect.Begin();
-			mStandardEffect.Render(mCharacter);
-			mStandardEffect.Render(parasite);
-			mStandardEffect.Render(zombie);
+
+			switch (gCurrentModel)
+			{
+			case CurrentModel::Timmy:
+				mStandardEffect.Render(mCharacter);
+				break;
+			case CurrentModel::Parasite:
+				mStandardEffect.Render(parasite);
+				break;
+			case CurrentModel::Zombie:
+				mStandardEffect.Render(zombie);
+				break;
+			}
+
 		mStandardEffect.End();
 	}
 }
@@ -88,6 +103,21 @@ void GameState::Render()
 void GameState::DebugUI()
 {
 	ImGui::Begin("Debug", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
+
+	// Modl Selection
+	if (ImGui::CollapsingHeader("Model Selection", ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		int currentModelIndex = static_cast<int>(gCurrentModel);
+		if (ImGui::Combo("Current Model", &currentModelIndex, gObjectNames, std::size(gObjectNames)))
+		{
+			gCurrentModel = static_cast<CurrentModel>(currentModelIndex);
+		}
+
+		ImGui::Checkbox("Draw Skeleton", &mDrawSkeleton);
+	}
+
+	ImGui::Separator();
+
 	if (ImGui::CollapsingHeader("Light", ImGuiTreeNodeFlags_DefaultOpen))
 	{
 		if (ImGui::DragFloat3("Direction#Light", &mDirectionalLight.direction.x, 0.01f))
@@ -102,25 +132,44 @@ void GameState::DebugUI()
 
 	ImGui::Separator();
 
-    if (ImGui::CollapsingHeader("Material", ImGuiTreeNodeFlags_DefaultOpen))
-    {
-        for (uint32_t i = 0; i < mCharacter.renderObjects.size(); ++i)
-        {
-            Material& material = mCharacter.renderObjects[i].material;
-            std::string renderObjectId = "RenderObject " + std::to_string(i);
-            ImGui::PushID(renderObjectId.c_str());
-			if (ImGui::CollapsingHeader(renderObjectId.c_str()))
+	if (ImGui::CollapsingHeader("Material", ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		// Get the currently selected model's render objects
+		std::vector<RenderObject>* currentRenderObjects = nullptr;
+
+		switch (gCurrentModel)
+		{
+		case CurrentModel::Timmy:
+			currentRenderObjects = &mCharacter.renderObjects;
+			break;
+		case CurrentModel::Parasite:
+			currentRenderObjects = &parasite.renderObjects;
+			break;
+		case CurrentModel::Zombie:
+			currentRenderObjects = &zombie.renderObjects;
+			break;
+		}
+
+		if (currentRenderObjects)
+		{
+			for (uint32_t i = 0; i < currentRenderObjects->size(); ++i)
 			{
-				ImGui::LabelText("label", "Material:");
-				ImGui::ColorEdit4("Emissive#Material", &material.emissive.r);
-				ImGui::ColorEdit4("Ambient#Material", &material.ambient.r);
-				ImGui::ColorEdit4("Diffuse#Material", &material.diffuse.r);
-				ImGui::ColorEdit4("Specular#Material", &material.specular.r);
-				ImGui::DragFloat("Shininess#Material", &material.shininess, 0.1f, 0.1f, 10000.0f);
+				Material& material = (*currentRenderObjects)[i].material;
+				std::string renderObjectId = "RenderObject " + std::to_string(i);
+				ImGui::PushID(renderObjectId.c_str());
+				if (ImGui::CollapsingHeader(renderObjectId.c_str()))
+				{
+					ImGui::LabelText("label", "Material:");
+					ImGui::ColorEdit4("Emissive#Material", &material.emissive.r);
+					ImGui::ColorEdit4("Ambient#Material", &material.ambient.r);
+					ImGui::ColorEdit4("Diffuse#Material", &material.diffuse.r);
+					ImGui::ColorEdit4("Specular#Material", &material.specular.r);
+					ImGui::DragFloat("Shininess#Material", &material.shininess, 0.1f, 0.1f, 10000.0f);
+				}
+				ImGui::PopID();
 			}
-            ImGui::PopID();
-        }
-    }
+		}
+	}
 
 	ImGui::Separator();
 
