@@ -4,6 +4,16 @@ using namespace IExeEngine;
 using namespace IExeEngine::Graphics;
 using namespace IExeEngine::Input;
 
+enum class CurrentModel
+{
+	Timmy,
+    Parasite,
+    Zombie
+};
+
+const char* gObjectNames[] = { "Timmy", "Parasite", "Zombie"};
+
+CurrentModel gCurrentModel = CurrentModel::Timmy;
 
 void GameState::Initialize()
 {
@@ -18,11 +28,11 @@ void GameState::Initialize()
 	mCharacter.Initialize("Character_01/Character_01.model"); // Lil Timmy
     mCharacter.transform.position = { 0.0f, 0.0f, 0.0f };
 	
-    //parasite.Initialize("parasite/parasite.model"); // Parasite
-    //parasite.transform.position = { -0.5f, 0.0f, 0.9f };
-	//
-    //zombie.Initialize("zombie/zombie.model"); // Zombie
-    //zombie.transform.position = { 0.5f, 0.0f, 0.6f };
+    parasite.Initialize("parasite/parasite.model"); // Parasite
+    parasite.transform.position = { 0.0f, 0.0f, 0.0f };
+
+    zombie.Initialize("zombie/zombie.model"); // Zombie
+    zombie.transform.position = { 0.0f, 0.0f, 0.0f };
 
     std::filesystem::path shaderFile = L"../../Assets/Shaders/Standard.fx";
     mStandardEffect.Initialize(shaderFile);
@@ -33,8 +43,8 @@ void GameState::Initialize()
 void GameState::Terminate()
 {
 	mCharacter.Terminate();
-    //parasite.Terminate();
-    //zombie.Terminate();
+    parasite.Terminate();
+    zombie.Terminate();
     mStandardEffect.Terminate();
 }
 
@@ -47,9 +57,17 @@ void GameState::Render()
 {
 	if (mDrawSkeleton)
 	{
-        AnimationUtil::BoneTransforms boneTransforms;
-        AnimationUtil::ComputeBoneTransforms(mCharacter.modelId, boneTransforms);
-        AnimationUtil::DrawSkeleton(mCharacter.modelId, boneTransforms);
+        AnimationUtil::BoneTransforms timBoneTransforms;
+        AnimationUtil::ComputeBoneTransforms(mCharacter.modelId, timBoneTransforms);
+        AnimationUtil::DrawSkeleton(mCharacter.modelId, timBoneTransforms);
+
+        AnimationUtil::BoneTransforms parasiteBoneTransforms;
+        AnimationUtil::ComputeBoneTransforms(parasite.modelId, parasiteBoneTransforms);
+        AnimationUtil::DrawSkeleton(parasite.modelId, parasiteBoneTransforms);
+
+        AnimationUtil::BoneTransforms zombieBoneTransforms;
+        AnimationUtil::ComputeBoneTransforms(zombie.modelId, zombieBoneTransforms);
+        AnimationUtil::DrawSkeleton(zombie.modelId, zombieBoneTransforms);
 
 		SimpleDraw::AddGroundPlane(20.0f, Colors::DarkRed);
 		SimpleDraw::Render(mCamera);
@@ -61,8 +79,8 @@ void GameState::Render()
 
 		mStandardEffect.Begin();
 			mStandardEffect.Render(mCharacter);
-			//mStandardEffect.Render(parasite);
-			//mStandardEffect.Render(zombie);
+			mStandardEffect.Render(parasite);
+			mStandardEffect.Render(zombie);
 		mStandardEffect.End();
 	}
 }
@@ -105,8 +123,6 @@ void GameState::DebugUI()
     }
 
 	ImGui::Separator();
-
-    ImGui::Checkbox("DrawSkeleton", &mDrawSkeleton);
 
 	mStandardEffect.DebugUI();
 	ImGui::End();
