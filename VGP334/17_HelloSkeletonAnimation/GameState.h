@@ -27,8 +27,8 @@ private:
     IExeEngine::Graphics::RenderGroup zombie;
 
     IExeEngine::Graphics::Animator mCharacterAnimator;
-    IExeEngine::Graphics::Animator mparasiteAnimator;
-    IExeEngine::Graphics::Animator mzombieAnimator;
+    IExeEngine::Graphics::Animator mParasiteAnimator;
+    IExeEngine::Graphics::Animator mZombieAnimator;
 
     IExeEngine::Graphics::StandardEffect mStandardEffect;
 

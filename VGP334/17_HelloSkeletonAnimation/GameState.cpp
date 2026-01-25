@@ -34,9 +34,17 @@ void GameState::Initialize()
 
 	parasite.Initialize("parasite/parasite.model"); // Parasite
 	parasite.transform.position = { 0.0f, 0.0f, 0.0f };
+    parasite.animator = &mParasiteAnimator;
+    ModelManager::Get()->AddAnimation(parasite.modelId, L"../../Assets/Models/parasite/Thriller02.animset");
+
+    mParasiteAnimator.Initialize(parasite.modelId);
 
 	zombie.Initialize("zombie/zombie.model"); // Zombie
 	zombie.transform.position = { 0.0f, 0.0f, 0.0f };
+    zombie.animator = &mZombieAnimator;
+    ModelManager::Get()->AddAnimation(zombie.modelId, L"../../Assets/Models/zombie/Thriller01.animset");
+
+    mZombieAnimator.Initialize(zombie.modelId);
 
 	std::filesystem::path shaderFile = L"../../Assets/Shaders/Standard.fx";
 	mStandardEffect.Initialize(shaderFile);
@@ -58,6 +66,8 @@ void GameState::Update(float deltaTime)
 
     // Update animator
     mCharacterAnimator.Update(deltaTime * mAnimationSpeed);
+    mParasiteAnimator.Update(deltaTime * mAnimationSpeed);
+    mZombieAnimator.Update(deltaTime * mAnimationSpeed);
 }
 
 void GameState::Render()
@@ -77,11 +87,11 @@ void GameState::Render()
 			AnimationUtil::DrawSkeleton(mCharacter.modelId, boneTransforms);
 			break;
 		case CurrentModel::Parasite:
-			AnimationUtil::ComputeBoneTransforms(parasite.modelId, boneTransforms);
+			AnimationUtil::ComputeBoneTransforms(parasite.modelId, boneTransforms, &mParasiteAnimator);
 			AnimationUtil::DrawSkeleton(parasite.modelId, boneTransforms);
 			break;
 		case CurrentModel::Zombie:
-			AnimationUtil::ComputeBoneTransforms(zombie.modelId, boneTransforms);
+			AnimationUtil::ComputeBoneTransforms(zombie.modelId, boneTransforms, &mZombieAnimator);
 			AnimationUtil::DrawSkeleton(zombie.modelId, boneTransforms);
 			break;
 		}
@@ -182,9 +192,13 @@ void GameState::DebugUI()
 
     ImGui::DragFloat("AnimationSpeed", &mAnimationSpeed, 0.1f, 0.0f, 10.0f);
 	int maxAnimations = mCharacterAnimator.GetAnimationCount();
-    if (ImGui::DragInt("AnimIndex", &mClipIndex, 1, -1, maxAnimations - 1)) // -1 for no animation
+    int maxParasiteAnimations = mParasiteAnimator.GetAnimationCount();
+    int maxZombieAnimations = mZombieAnimator.GetAnimationCount();
+    if (ImGui::DragInt("AnimIndex", &mClipIndex, 1, -1, maxAnimations - 1 | maxParasiteAnimations-1 | maxZombieAnimations - 1)) // -1 for no animation
 	{
 		mCharacterAnimator.PlayAnimation(mClipIndex, true); // Always looping
+        mParasiteAnimator.PlayAnimation(mClipIndex, true); 
+        mZombieAnimator.PlayAnimation(mClipIndex, true);
 	}
 
 	ImGui::Separator();
