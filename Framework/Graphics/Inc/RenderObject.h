@@ -5,6 +5,7 @@
 #include "Material.h"
 #include "TextureManager.h"
 #include "ModelManager.h"
+#include "Animator.h"
 
 namespace IExeEngine::Graphics
 {
@@ -36,6 +37,7 @@ namespace IExeEngine::Graphics
         Transform transform; // Root Transform (Other objects may have other transforms)
         std::vector<RenderObject> renderObjects; // All objects to render
 
-        const Skeleton* skeleton; // Skeleton for animation
+        const Skeleton* skeleton = nullptr; // Skeleton for animation
+        const Animator* animator = nullptr; // Animator for animation
     };
 }

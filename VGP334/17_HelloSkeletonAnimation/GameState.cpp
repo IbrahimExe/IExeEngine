@@ -27,6 +27,7 @@ void GameState::Initialize()
 
 	mCharacter.Initialize("Character_01/Character_01.model"); // Lil Timmy
 	mCharacter.transform.position = { 0.0f, 0.0f, 0.0f };
+    mCharacter.animator = &mCharacterAnimator;
     ModelManager::Get()->AddAnimation(mCharacter.modelId, L"../../Assets/Models/Character_01/SixSeven.animset");
 
     mCharacterAnimator.Initialize(mCharacter.modelId);
