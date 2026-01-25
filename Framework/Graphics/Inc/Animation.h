@@ -17,6 +17,7 @@ namespace IExeEngine::Graphics
         Math::Vector3 GetScale(float time) const;
 
         friend class AnimationBuilder;
+        friend class AnimationIO; // Forward declaration to allow access to private members "Worry about it later"
 
         PositionKeys mPositionKeys;
         RotationKeys mRotationKeys;

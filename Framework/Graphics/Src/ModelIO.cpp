@@ -1,9 +1,61 @@
 #include "Precompiled.h"
 #include "ModelIO.h"
 #include "Model.h"
+#include "AnimationBuilder.h"
 
 using namespace IExeEngine;
 using namespace IExeEngine::Graphics;
+
+void AnimationIO::Write(FILE* file, const Animation& animation)
+{
+    uint32_t keyCount = animation.mPositionKeys.size();
+    fprintf_s(file, "PositionKeys: %d\n", keyCount);
+    for (auto& key : animation.mPositionKeys)
+    {
+        fprintf_s(file, "%f %f %f %f\n", key.time, key.key.x, key.key.y, key.key.z);
+    }
+    keyCount = animation.mRotationKeys.size();
+    fprintf_s(file, "RotationKeys: %d\n", keyCount);
+    for (auto& key : animation.mRotationKeys)
+    {
+        fprintf_s(file, "%f %f %f %f %f\n", key.time, key.key.x, key.key.y, key.key.z, key.key.w);
+    }
+    keyCount = animation.mScaleKeys.size();
+    fprintf_s(file, "ScaleKeys: %d\n", keyCount);
+    for (auto& key : animation.mScaleKeys)
+    {
+        fprintf_s(file, "%f %f %f %f\n", key.time, key.key.x, key.key.y, key.key.z);
+    }
+}
+
+void AnimationIO::Read(FILE* file, Animation& animation)
+{
+    AnimationBuilder builder;
+    uint32_t keyCount = 0;
+    float time = 0.0f;
+    fscanf_s(file, "PositionKeys: %d\n", &keyCount);
+    for (uint32_t k = 0; k < keyCount; ++k)
+    {
+        Math::Vector3 pos;
+        fscanf_s(file, "%f %f %f %f\n", &time, &pos.x, &pos.y, &pos.z);
+        builder.AddPositionKey(pos, time);
+    }
+    fscanf_s(file, "RotationKeys: %d\n", &keyCount);
+    for (uint32_t k = 0; k < keyCount; ++k)
+    {
+        Math::Quaternion rot;
+        fscanf_s(file, "%f %f %f %f %f\n", &time, &rot.x, &rot.y, &rot.z, &rot.w);
+        builder.AddRotationKey(rot, time);
+    }
+    fscanf_s(file, "ScaleKeys: %d\n", &keyCount);
+    for (uint32_t k = 0; k < keyCount; ++k)
+    {
+        Math::Vector3 scale;
+        fscanf_s(file, "%f %f %f %f\n", &time, &scale.x, &scale.y, &scale.z);
+        builder.AddScaleKey(scale, time);
+    }
+    animation = builder.Build();
+}
 
 void ModelIO::SaveModel(std::filesystem::path filePath, const Model& model)
 {
@@ -290,6 +342,87 @@ void ModelIO::LoadSkeleton(std::filesystem::path filePath, Model& model)
 
         ReadMatrix(boneData->toParentTransform);
         ReadMatrix(boneData->offsetTransform);
+    }
+    fclose(file);
+}
+
+void ModelIO::SaveAnimation(std::filesystem::path filePath, Model& model)
+{
+    if (model.skeleton == nullptr || model.skeleton->bones.empty() || model.animationClips.empty())
+    {
+        return;
+    }
+
+    filePath.replace_extension("animset");
+
+    FILE* file = nullptr;
+    fopen_s(&file, filePath.u8string().c_str(), "w");
+    if (file == nullptr)
+    {
+        return;
+    }
+
+    uint32_t animClipCount = model.animationClips.size();
+    fprintf_s(file, "AnimClipCount: %d\n", animClipCount);
+    for (uint32_t i = 0; i < animClipCount; ++i)
+    {
+        const AnimationClip& animClipData = model.animationClips[i];
+        fprintf_s(file, "AnimClipName: %s\n", animClipData.name.c_str());
+        fprintf_s(file, "TickDuration: %f\n", animClipData.tickDuration);
+        fprintf_s(file, "TicksPerSecond: %f\n", animClipData.ticksPerSecond);
+
+        uint32_t boneAnimCount = animClipData.boneAnimations.size();
+        fprintf_s(file, "BoneAnimCount: %d\n", boneAnimCount);
+        for (uint32_t b = 0; b < boneAnimCount; ++b)
+        {
+            const Animation* boneAnim = animClipData.boneAnimations[b].get();
+            if (boneAnim == nullptr)
+            {
+                fprintf_s(file, "<NONE>\n");
+                continue;
+            }
+            fprintf_s(file, "<ANIMATION>\n"); // Animation Tag, data under this belongs to an animation
+            AnimationIO::Write(file, *boneAnim);
+        }
+    }
+    fclose(file);
+}
+
+void ModelIO::LoadAnimation(std::filesystem::path filePath, Model& model)
+{
+    filePath.replace_extension("animset");
+
+    FILE* file = nullptr;
+    fopen_s(&file, filePath.u8string().c_str(), "r");
+    if (file == nullptr)
+    {
+        return;
+    }
+
+    uint32_t animClipCount = 0;
+    fscanf_s(file, "AnimClipCount: %d\n", &animClipCount);
+    for (uint32_t i = 0; i < animClipCount; ++i)
+    {
+        AnimationClip& animClipData = model.animationClips.emplace_back();
+        char animClipName[MAX_PATH];
+        fscanf_s(file, "AnimClipName: %s\n", animClipName, (uint32_t)sizeof(animClipName));
+        fscanf_s(file, "TickDuration: %f\n", &animClipData.tickDuration);
+        fscanf_s(file, "TicksPerSecond: %f\n", &animClipData.ticksPerSecond);
+        animClipData.name = std::move(animClipName);
+
+        uint32_t boneAnimCount = 0;
+        fscanf_s(file, "BoneAnimCount: %d\n", &boneAnimCount);
+        animClipData.boneAnimations.resize(boneAnimCount);
+        for (uint32_t b = 0; b < boneAnimCount; ++b)
+        {
+            char tag[128]{};
+            fscanf_s(file, "%s\n", tag, (uint32_t)sizeof(tag));
+            if (strcmp(tag, "<ANIMATION>") == 0)
+            {
+                animClipData.boneAnimations[b] = std::make_unique<Animation>();
+                AnimationIO::Read(file, *animClipData.boneAnimations[b]);
+            }
+        }
     }
     fclose(file);
 }

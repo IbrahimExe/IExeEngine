@@ -4,6 +4,14 @@ namespace IExeEngine::Graphics
 {
     struct Model;
 
+    class Animation;
+
+    class AnimationIO
+    {
+    public:
+        static void Write(FILE* file, const Animation& animation);
+        static void Read(FILE* file, Animation& animation);
+    };
 
     namespace ModelIO
     {
@@ -15,5 +23,8 @@ namespace IExeEngine::Graphics
 
         void SaveSkeleton(std::filesystem::path filePath, Model& model);
         void LoadSkeleton(std::filesystem::path filePath, Model& model);
+
+        void SaveAnimation(std::filesystem::path filePath, Model& model);
+        void LoadAnimation(std::filesystem::path filePath, Model& model);
     }
 }

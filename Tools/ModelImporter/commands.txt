@@ -5,3 +5,8 @@
 -scale 0.01 ../../Assets/Models/SpiderManMilesMorales/spmiles.fbx ../../Assets/Models/SpiderManMilesMorales/spmiles.model
 -scale 0.01 ../../Assets/Models/SpiderGwen/SpiderGwen.fbx ../../Assets/Models/SpiderGwen/SpiderGwen.model
 -scale 0.01 ../../Assets/Models/SpiderMan2099/SpiderMan2099.fbx ../../Assets/Models/SpiderMan2099/SpiderMan2099.model
+
+Animations:
+-animOnly 1 -scale 0.01 ../../Assets/Models/Character_01/SixSeven.fbx ../../Assets/Models/Character_01/SixSeven.model
+-animOnly 1 -scale 0.01 ../../Assets/Models/parasite/Thriller02.fbx ../../Assets/Models/parasite/Thriller02.model
+-animOnly 1 -scale 0.01 ../../Assets/Models/zombie/Thriller01.fbx ../../Assets/Models/zombie/Thriller01.model

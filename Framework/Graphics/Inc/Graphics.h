@@ -77,3 +77,5 @@
 #include "Skeleton.h"
 
 #include "AnimationUtil.h"
+
+#include "AnimationClip.h"
