@@ -79,3 +79,5 @@
 #include "AnimationUtil.h"
 
 #include "AnimationClip.h"
+
+#include "Animator.h"

@@ -10,12 +10,17 @@ using namespace IExeEngine::Graphics;
 // Empty namespace for global helper functions isolated to the cpp file
 namespace
 {
-    void ComputeBoneTransformsRecursive(const Bone* bone, AnimationUtil::BoneTransforms& boneTransforms)
+    void ComputeBoneTransformsRecursive(const Bone* bone, AnimationUtil::BoneTransforms& boneTransforms, const Animator* animator)
     {
         if (bone != nullptr)
         {
             // Set the bone transform to the array of the matrices
-            boneTransforms[bone->index] = bone->toParentTransform;
+
+            // If no animator or the bone doesn't have an animated transform, use the regular toParentTransform, otherwise use the animaton
+            if (animator == nullptr || !animator->GetToParentTransform(bone, boneTransforms[bone->index]))
+            {
+                boneTransforms[bone->index] = bone->toParentTransform;
+            }
 
             // If there is a parent, apply the parent's transform too
             if (bone->parent != nullptr)
@@ -26,13 +31,13 @@ namespace
             // Go through the children and apply thier transforms 
             for (const Bone* child : bone->children)
             {
-                ComputeBoneTransformsRecursive(child, boneTransforms);
+                ComputeBoneTransformsRecursive(child, boneTransforms, animator);
             }
         }
     }
 }
 
-void AnimationUtil::ComputeBoneTransforms(ModelId modelId, BoneTransforms& boneTransforms)
+void AnimationUtil::ComputeBoneTransforms(ModelId modelId, BoneTransforms& boneTransforms, const Animator* animator)
 {
     const Model* model = ModelManager::Get()->GetModel(modelId);
     if (model != nullptr && model->skeleton != nullptr)
@@ -41,7 +46,7 @@ void AnimationUtil::ComputeBoneTransforms(ModelId modelId, BoneTransforms& boneT
         boneTransforms.resize(model->skeleton->bones.size());
 
         // Generate the matrices recursively starting from the root bone
-        ComputeBoneTransformsRecursive(model->skeleton->root, boneTransforms);
+        ComputeBoneTransformsRecursive(model->skeleton->root, boneTransforms, animator);
     }
 }
 
