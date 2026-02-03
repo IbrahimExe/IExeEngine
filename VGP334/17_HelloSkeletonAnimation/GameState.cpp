@@ -25,10 +25,12 @@ void GameState::Initialize()
 	mDirectionalLight.diffuse = { 0.8f, 0.8f, 0.8f, 1.0f };
 	mDirectionalLight.specular = { 0.9f, 0.9f, 0.9f, 1.0f };
 
+	ModelManager* timmy = ModelManager::Get();
 	mCharacter.Initialize("Character_01/Character_01.model"); // Lil Timmy
 	mCharacter.transform.position = { 0.0f, 0.0f, 0.0f };
     mCharacter.animator = &mCharacterAnimator;
-    ModelManager::Get()->AddAnimation(mCharacter.modelId, L"../../Assets/Models/Character_01/SixSeven.animset");
+    timmy->AddAnimation(mCharacter.modelId, L"../../Assets/Models/Character_01/SixSeven.animset");
+	timmy->AddAnimation(mCharacter.modelId, L"../../Assets/Models/Character_01/NotFamilyFriendly.animset");
 
     mCharacterAnimator.Initialize(mCharacter.modelId);
 
@@ -194,7 +196,7 @@ void GameState::DebugUI()
 	int maxAnimations = mCharacterAnimator.GetAnimationCount();
     int maxParasiteAnimations = mParasiteAnimator.GetAnimationCount();
     int maxZombieAnimations = mZombieAnimator.GetAnimationCount();
-    if (ImGui::DragInt("AnimIndex", &mClipIndex, 1, -1, maxAnimations - 1 | maxParasiteAnimations-1 | maxZombieAnimations - 1)) // -1 for no animation
+    if (ImGui::DragInt("AnimIndex", &mClipIndex, 1, -1, maxAnimations - 1 )) // -1 for no animation
 	{
 		mCharacterAnimator.PlayAnimation(mClipIndex, true); // Always looping
         mParasiteAnimator.PlayAnimation(mClipIndex, true); 
