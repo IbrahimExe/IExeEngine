@@ -35,14 +35,14 @@ void GameState::Initialize()
 	parasite.Initialize("parasite/parasite.model"); // Parasite
 	parasite.transform.position = { 0.0f, 0.0f, 0.0f };
     parasite.animator = &mParasiteAnimator;
-    ModelManager::Get()->AddAnimation(parasite.modelId, L"../../Assets/Models/parasite/Thriller02.animset");
+    ModelManager::Get()->AddAnimation(parasite.modelId, L"../../Assets/Models/parasite/samba.animset");
 
     mParasiteAnimator.Initialize(parasite.modelId);
 
 	zombie.Initialize("zombie/zombie.model"); // Zombie
 	zombie.transform.position = { 0.0f, 0.0f, 0.0f };
     zombie.animator = &mZombieAnimator;
-    ModelManager::Get()->AddAnimation(zombie.modelId, L"../../Assets/Models/zombie/Thriller01.animset");
+    ModelManager::Get()->AddAnimation(zombie.modelId, L"../../Assets/Models/zombie/Thriller.animset");
 
     mZombieAnimator.Initialize(zombie.modelId);
 

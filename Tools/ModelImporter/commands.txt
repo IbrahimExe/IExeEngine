@@ -8,5 +8,5 @@
 
 Animations:
 -animOnly 1 -scale 0.01 ../../Assets/Models/Character_01/SixSeven.fbx ../../Assets/Models/Character_01/SixSeven.model
--animOnly 1 -scale 0.01 ../../Assets/Models/parasite/Thriller02.fbx ../../Assets/Models/parasite/Thriller02.model
--animOnly 1 -scale 0.01 ../../Assets/Models/zombie/Thriller01.fbx ../../Assets/Models/zombie/Thriller01.model
+-animOnly 1 -scale 0.01 ../../Assets/Models/parasite/samba.fbx ../../Assets/Models/parasite/samba.model
+-animOnly 1 -scale 0.01 ../../Assets/Models/zombie/Thriller.fbx ../../Assets/Models/zombie/Thriller.model
