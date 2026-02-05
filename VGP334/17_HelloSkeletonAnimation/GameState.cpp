@@ -196,7 +196,7 @@ void GameState::DebugUI()
 	int maxAnimations = mCharacterAnimator.GetAnimationCount();
     int maxParasiteAnimations = mParasiteAnimator.GetAnimationCount();
     int maxZombieAnimations = mZombieAnimator.GetAnimationCount();
-    if (ImGui::DragInt("AnimIndex", &mClipIndex, 1, -1, maxAnimations - 1 )) // -1 for no animation
+    if (ImGui::DragInt("AnimIndex", &mClipIndex, 1, -1, maxAnimations - 1 | maxParasiteAnimations-1 | maxZombieAnimations - 1)) // -1 for no animation
 	{
 		mCharacterAnimator.PlayAnimation(mClipIndex, true); // Always looping
         mParasiteAnimator.PlayAnimation(mClipIndex, true); 
