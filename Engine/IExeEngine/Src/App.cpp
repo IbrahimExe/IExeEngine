@@ -27,6 +27,9 @@ void App::Run(const AppConfig& config)
 	TextureManager::StaticInitialize(L"../../Assets/Textures");
     ModelManager::StaticInitialize(L"../../Assets/Models");
 
+    PhysicsWorld::Settings physicsSettings;
+    PhysicsWorld::StaticInitialize(physicsSettings);
+
 	// Last Step Before Running
 	ASSERT(mCurrentState != nullptr, "App: Need an app state to run");
 	mCurrentState->Initialize();
@@ -59,6 +62,7 @@ void App::Run(const AppConfig& config)
 	#endif
 		{
 			mCurrentState->Update(deltaTime);
+            PhysicsWorld::Get()->Update(deltaTime);
 		}
 
 		GraphicsSystem* gs = GraphicsSystem::Get();
@@ -76,6 +80,7 @@ void App::Run(const AppConfig& config)
 	LOG("App Quit");
 	mCurrentState->Terminate();
 	
+    PhysicsWorld::StaticTerminate();
     ModelManager::StaticTerminate();
     TextureManager::StaticTerminate();
 	DebugUI::StaticTerminate();
