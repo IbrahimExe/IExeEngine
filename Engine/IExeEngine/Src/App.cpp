@@ -6,6 +6,7 @@ using namespace IExeEngine;
 using namespace IExeEngine::Core;
 using namespace IExeEngine::Graphics;
 using namespace IExeEngine::Input;
+using namespace IExeEngine::Physics;
 
 void App::Run(const AppConfig& config)
 {

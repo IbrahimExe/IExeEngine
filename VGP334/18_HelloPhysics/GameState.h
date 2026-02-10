@@ -23,7 +23,12 @@ private:
     IExeEngine::Graphics::DirectionalLight mDirectionalLight;
 
     IExeEngine::Graphics::RenderObject mFootball;
+	IExeEngine::Physics::CollisionShape mBallShape;
+    IExeEngine::Physics::RigidBody mBallRigidBody;
+
     IExeEngine::Graphics::RenderObject mGroundObject;
+    IExeEngine::Physics::CollisionShape mGroundShape;
+    IExeEngine::Physics::RigidBody mGroundRigidBody;
 
 	IExeEngine::Graphics::StandardEffect mStandardEffect;
 };

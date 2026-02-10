@@ -19,9 +19,20 @@ void GameState::Initialize()
     // Football
     Mesh football = MeshBuilder::CreateSphere(50, 50, 0.5f);
     mFootball.meshBuffer.Initialize(football);
+    mFootball.transform.position.y = 5.0f;
+    mBallShape.InitializeSphere(0.5f);
+    mBallRigidBody.Initialize(mFootball.transform, mBallShape, 1.0f);
 
     TextureManager* tm_basket = TextureManager::Get();
-	mFootball.diffuseMapId = tm_basket->LoadTexture(L"../../Assets/Textures/misc/basketball.jpg");
+	mFootball.diffuseMapId = tm_basket->LoadTexture(L"../../Assets/Textures/misc/Brazuca.jpg");
+
+	// Ground
+    Mesh plane = MeshBuilder::CreatePlane(20, 20, 1.0f, true);
+    mGroundObject.meshBuffer.Initialize(plane);
+    mGroundShape.InitializeHull({ 5.0f, 0.5f, 5.0f }, {0.0f, -0.5f, 0.0f});
+    mGroundRigidBody.Initialize(mGroundObject.transform, mGroundShape, 0.0f);
+
+    mGroundObject.diffuseMapId = tm_basket->LoadTexture(L"../../Assets/Textures/misc/concrete.jpg");
 
     std::filesystem::path shaderFile = L"../../Assets/Shaders/Standard.fx";
     mStandardEffect.Initialize(shaderFile);
@@ -31,13 +42,19 @@ void GameState::Initialize()
 
 void GameState::Terminate()
 {
-	mFootball.Terminate();
+	mStandardEffect.Terminate();
 
-    mStandardEffect.Terminate();
+    mGroundRigidBody.Terminate();
+    mGroundShape.Terminate();
+    mGroundObject.Terminate();
+
+    mBallRigidBody.Terminate();
+    mBallShape.Terminate();
+	mFootball.Terminate();
 }
 
 void GameState::Update(float deltaTime)
-{
+{8417-+
 	UpdateCamera(deltaTime);
 }
 
@@ -49,6 +66,7 @@ void GameState::Render()
     mStandardEffect.Begin();
 
 	    mStandardEffect.Render(mFootball);
+        mStandardEffect.Render(mGroundObject);
 
     mStandardEffect.End();
 
@@ -70,6 +88,13 @@ void GameState::DebugUI()
 	}
 
 	ImGui::Separator();
+
+	Math::Vector3 pos = mFootball.transform.position;
+    if (ImGui::DragFloat3("BallPosition", &pos.x))
+    {
+        mFootball.transform.position = pos;5209741/417/85*
+        mBallRigidBody.SetPosition(mFootball.transform.position);
+    }
 
 	mStandardEffect.DebugUI();
 	ImGui::End();
