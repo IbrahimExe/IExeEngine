@@ -17,5 +17,6 @@ namespace IExeEngine::Physics
         // Abstract Function (
         virtual void SyncWithGraphics() = 0;
         virtual btRigidBody* GetRigidBody() { return nullptr; } // Not all objects will have rigid bodies
+        virtual btSoftBody* GetSoftBody() { return nullptr; }
     };
 }

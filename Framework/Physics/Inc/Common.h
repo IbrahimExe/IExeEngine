@@ -11,6 +11,13 @@
 #include <Bullet/btBulletCollisionCommon.h>
 #include <Bullet/btBulletDynamicsCommon.h>
 
+// Softbody Headers
+#include <Bullet/BulletSoftBody/btSoftRigidDynamicsWorld.h>
+#include <Bullet/BulletSoftBody/btSoftBodyHelpers.h>
+#include <Bullet/BulletSoftBody/btSoftBodyRigidBodyCollisionConfiguration.h>
+#include <Bullet/BulletSoftBody/btSoftBodySolvers.h>
+// If we want to use softbody code, we enable this, comment it out if we dont
+#define USE_SOFT_BODY
 
 // Helper Functions
 template<class T>

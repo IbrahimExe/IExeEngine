@@ -22,10 +22,12 @@ private:
 	IExeEngine::Graphics::Camera mCamera;
     IExeEngine::Graphics::DirectionalLight mDirectionalLight;
 
+    // Ball info
     IExeEngine::Graphics::RenderObject mFootball;
 	IExeEngine::Physics::CollisionShape mBallShape;
     IExeEngine::Physics::RigidBody mBallRigidBody;
 
+    // Ground info
     IExeEngine::Graphics::RenderObject mGroundObject;
     IExeEngine::Physics::CollisionShape mGroundShape;
     IExeEngine::Physics::RigidBody mGroundRigidBody;
@@ -40,4 +42,9 @@ private:
     Boxes mBoxes;
 
 	IExeEngine::Graphics::StandardEffect mStandardEffect;
+
+	// Cloth info
+	IExeEngine::Graphics::RenderObject mCloth;
+    IExeEngine::Graphics::Mesh mClothMesh;
+    IExeEngine::Physics::SoftBody mClothSoftBody;
 };

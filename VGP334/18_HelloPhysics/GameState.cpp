@@ -41,6 +41,7 @@ void GameState::Initialize()
     mStandardEffect.SetCamera(mCamera);
     mStandardEffect.SetDirectionalLight(mDirectionalLight);
 
+    // Boxes
     Mesh boxShape = MeshBuilder::CreateCube(1.0f);
     TextureId boxTextureId = tm_basket->LoadTexture(L"../../Assets/Textures/misc/cardboard.jpg");
 
@@ -71,10 +72,30 @@ void GameState::Initialize()
     {
         mBoxes[i].rigidBody.Initialize(mBoxes[i].box.transform, mBoxes[i].shape, 1.0f);
     }
+
+    // Cloth
+    int rows = 20;
+    int cols = 20;
+    mClothMesh = MeshBuilder::CreatePlane(rows, cols, 0.5f);
+    for (Graphics::Vertex& v : mClothMesh.vertices)
+    {
+        v.position.y += 10.0f;
+        v.position.z += 10.0f;
+    }
+
+    uint32_t lastVertex = mClothMesh.vertices.size() - 1;
+    uint32_t lastVertexOS = lastVertex - cols; // Other Side
+    mClothSoftBody.Initialize(mClothMesh, 1.0f, { lastVertex, lastVertexOS });
+    mCloth.meshBuffer.Initialize(nullptr, sizeof(Vertex), mClothMesh.vertices.size(),
+        mClothMesh.indices.data(), mClothMesh.indices.size());
+    mCloth.diffuseMapId = tm_basket->LoadTexture(L"../../Assets/Textures/misc/cloth.jpg");
 }
 
 void GameState::Terminate()
 {
+    mCloth.Terminate();
+    mClothSoftBody.Terminate();
+
     for (BoxData& box : mBoxes)
     {
         box.rigidBody.Terminate();
@@ -107,6 +128,7 @@ void GameState::Update(float deltaTime)
 
 void GameState::Render()
 {
+    mCloth.meshBuffer.Update(mClothMesh.vertices.data(), mClothMesh.vertices.size());
 	SimpleDraw::AddGroundPlane(20.0f, Colors::Wheat);
 	SimpleDraw::Render(mCamera);
 
@@ -114,6 +136,7 @@ void GameState::Render()
 
 	    mStandardEffect.Render(mFootball);
         mStandardEffect.Render(mGroundObject);
+        mStandardEffect.Render(mCloth);
         for (BoxData& box : mBoxes)
         {
             mStandardEffect.Render(box.box);

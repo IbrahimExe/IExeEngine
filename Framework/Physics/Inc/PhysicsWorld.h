@@ -46,7 +46,14 @@ namespace IExeEngine::Physics
         btDefaultCollisionConfiguration* mCollisionConfig = nullptr;
         btSequentialImpulseConstraintSolver* mSolver = nullptr;
         // This is the main physics world that runs the simulations
+#ifdef USE_SOFT_BODY
+        friend class SoftBody;
+        btSoftRigidDynamicsWorld* mDynamicsWorld = nullptr;
+        btSoftRigidDynamicsWorld* GetSoftBodyWorld() { return mDynamicsWorld; }
+#else
         btDiscreteDynamicsWorld* mDynamicsWorld = nullptr;
+        btSoftRigidDynamicsWorld* GetSoftBodyWorld() { return nullptr; }
+#endif // USE_SOFT_BODY
 
         using PhysicsObjects = std::vector<PhysicsObject*>;
         PhysicsObjects mPhysicsObjects;
