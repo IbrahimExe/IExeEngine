@@ -11,6 +11,7 @@ namespace IExeEngine::Graphics
         static MeshPC CreateCubePC(float size, const Color& color);
         static MeshPC CreateCubePC(float size);
         static MeshPX CreateCubePX(float size);
+        static Mesh CreateCube(float size);
 
         // Pyramid
         static MeshPC CreatePyramidPC(float size);

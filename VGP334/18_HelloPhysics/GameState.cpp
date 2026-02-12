@@ -3,6 +3,8 @@
 using namespace IExeEngine;
 using namespace IExeEngine::Graphics;
 using namespace IExeEngine::Input;
+using namespace IExeEngine::Physics;
+
 
 void GameState::Initialize()
 {
@@ -21,7 +23,7 @@ void GameState::Initialize()
     mFootball.meshBuffer.Initialize(football);
     mFootball.transform.position.y = 5.0f;
     mBallShape.InitializeSphere(0.5f);
-    mBallRigidBody.Initialize(mFootball.transform, mBallShape, 1.0f);
+    mBallRigidBody.Initialize(mFootball.transform, mBallShape, 5.0f);
 
     TextureManager* tm_basket = TextureManager::Get();
 	mFootball.diffuseMapId = tm_basket->LoadTexture(L"../../Assets/Textures/misc/Brazuca.jpg");
@@ -38,10 +40,48 @@ void GameState::Initialize()
     mStandardEffect.Initialize(shaderFile);
     mStandardEffect.SetCamera(mCamera);
     mStandardEffect.SetDirectionalLight(mDirectionalLight);
+
+    Mesh boxShape = MeshBuilder::CreateCube(1.0f);
+    TextureId boxTextureId = tm_basket->LoadTexture(L"../../Assets/Textures/misc/cardboard.jpg");
+
+    float yOffset = 4.5f;
+    float xOffset = 0.0f;
+	int rowCount = 1;
+	int boxIndex = 0;
+	mBoxes.resize(10);
+	while (boxIndex < mBoxes.size())
+	{
+        xOffset = -((static_cast<float>(rowCount) - 1.0f) * 0.5f);
+		for (int r = 0; r < rowCount; ++r)
+		{
+            BoxData& box = mBoxes[boxIndex];
+            box.box.meshBuffer.Initialize(boxShape);
+            box.box.diffuseMapId = boxTextureId;
+            box.box.transform.position.x = xOffset;
+            box.box.transform.position.y = yOffset;
+            box.box.transform.position.z = 4.0f;
+            box.shape.InitializeBox({ 0.5f, 0.5f, 0.5f });
+            xOffset += 1.0f;
+            ++boxIndex;
+		}
+        yOffset -= 1.0f;
+        rowCount += 1;
+	}
+    for (int i = mBoxes.size() - 1; i >= 0; --i)
+    {
+        mBoxes[i].rigidBody.Initialize(mBoxes[i].box.transform, mBoxes[i].shape, 1.0f);
+    }
 }
 
 void GameState::Terminate()
 {
+    for (BoxData& box : mBoxes)
+    {
+        box.rigidBody.Terminate();
+        box.shape.Terminate();
+        box.box.Terminate();
+    }
+
 	mStandardEffect.Terminate();
 
     mGroundRigidBody.Terminate();
@@ -54,8 +94,15 @@ void GameState::Terminate()
 }
 
 void GameState::Update(float deltaTime)
-{8417-+
+{
 	UpdateCamera(deltaTime);
+
+    if (InputSystem::Get()->IsKeyPressed(KeyCode::SPACE))
+    {
+        Math::Vector3 spawnPos = mCamera.GetPosition() + (mCamera.GetDirection() * 0.5f);
+        mBallRigidBody.SetPosition(spawnPos);
+        mBallRigidBody.SetVelocity(mCamera.GetDirection() * 50.0f);
+    }
 }
 
 void GameState::Render()
@@ -67,6 +114,10 @@ void GameState::Render()
 
 	    mStandardEffect.Render(mFootball);
         mStandardEffect.Render(mGroundObject);
+        for (BoxData& box : mBoxes)
+        {
+            mStandardEffect.Render(box.box);
+        }
 
     mStandardEffect.End();
 
@@ -92,12 +143,14 @@ void GameState::DebugUI()
 	Math::Vector3 pos = mFootball.transform.position;
     if (ImGui::DragFloat3("BallPosition", &pos.x))
     {
-        mFootball.transform.position = pos;5209741/417/85*
+        mFootball.transform.position = pos;
         mBallRigidBody.SetPosition(mFootball.transform.position);
     }
 
 	mStandardEffect.DebugUI();
+    PhysicsWorld::Get()->DebugUI();
 	ImGui::End();
+    SimpleDraw::Render(mCamera);
 }
 
 void GameState::UpdateCamera(float deltaTime)

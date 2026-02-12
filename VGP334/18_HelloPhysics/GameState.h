@@ -30,5 +30,14 @@ private:
     IExeEngine::Physics::CollisionShape mGroundShape;
     IExeEngine::Physics::RigidBody mGroundRigidBody;
 
+	struct BoxData
+	{
+        IExeEngine::Graphics::RenderObject box;
+        IExeEngine::Physics::CollisionShape shape;
+        IExeEngine::Physics::RigidBody rigidBody;
+	};
+    using Boxes = std::vector<BoxData>;
+    Boxes mBoxes;
+
 	IExeEngine::Graphics::StandardEffect mStandardEffect;
 };

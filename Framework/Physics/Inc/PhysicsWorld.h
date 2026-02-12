@@ -1,5 +1,7 @@
 #pragma once
 
+#include "PhysicsDebugDraw.h"
+
 namespace IExeEngine::Physics
 {
     class PhysicsObject;
@@ -48,5 +50,8 @@ namespace IExeEngine::Physics
 
         using PhysicsObjects = std::vector<PhysicsObject*>;
         PhysicsObjects mPhysicsObjects;
+
+        PhysicsDebugDraw mPhysicsDebugDraw;
+        bool mDebugDraw = false;
     };
 }
