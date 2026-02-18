@@ -47,4 +47,9 @@ private:
 	IExeEngine::Graphics::RenderObject mCloth;
     IExeEngine::Graphics::Mesh mClothMesh;
     IExeEngine::Physics::SoftBody mClothSoftBody;
+
+    // Cloth Ball info
+    IExeEngine::Graphics::RenderObject mClothBall;
+    IExeEngine::Graphics::Mesh mClothBallMesh;
+    IExeEngine::Physics::SoftBody mClothBallSoftBody;
 };
