@@ -11,7 +11,7 @@ RigidBody::~RigidBody()
     ASSERT(mRigidBody == nullptr, "RigidBody: Terminate must be called!");
 }
 
-void RigidBody::Initialize(Graphics::Transform& graphicsTransform, const CollisionShape& shape, float mass)
+void RigidBody::Initialize(Graphics::Transform& graphicsTransform, const CollisionShape& shape, float mass, bool addToWorld)
 {
 	mGraphicsTransform = &graphicsTransform;
 	mMass = mass;
@@ -21,7 +21,11 @@ void RigidBody::Initialize(Graphics::Transform& graphicsTransform, const Collisi
 
 	mMotionState = new btDefaultMotionState(ConvertToBtTransform(graphicsTransform));
 	mRigidBody = new btRigidBody(mMass, mMotionState, shape.mCollisionShape, localInertia);
-	PhysicsWorld::Get()->Register(this);
+
+    if (addToWorld)
+    {
+		PhysicsWorld::Get()->Register(this);
+    }
 }
 
 void RigidBody::Terminate()
@@ -29,6 +33,22 @@ void RigidBody::Terminate()
     PhysicsWorld::Get()->Unregister(this); // Must unregister before deleting the rigid body or it will cause a crash in the physics world update loop
 	SafeDelete(mRigidBody);
 	SafeDelete(mMotionState);
+}
+
+void RigidBody::Activate()
+{
+    PhysicsWorld::Get()->Register(this);
+    mRigidBody->activate();
+}
+
+void RigidBody::Deactivate()
+{
+    PhysicsWorld::Get()->Unregister(this);
+}
+
+void RigidBody::SetCollisionFlags(int flags)
+{
+	mRigidBody->setCollisionFlags(flags);
 }
 
 void RigidBody::SetPosition(const Math::Vector3& position)

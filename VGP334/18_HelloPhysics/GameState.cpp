@@ -16,8 +16,6 @@ void GameState::Initialize()
     mDirectionalLight.diffuse = { 0.8f, 0.8f, 0.8f, 1.0f };
     mDirectionalLight.specular = { 0.9f, 0.9f, 0.9f, 1.0f };
 
-    // DragonBorn - Free Spline Animation Software
-
     // Football
     Mesh football = MeshBuilder::CreateSphere(50, 50, 0.5f);
     mFootball.meshBuffer.Initialize(football);
@@ -31,7 +29,7 @@ void GameState::Initialize()
 	// Ground
     Mesh plane = MeshBuilder::CreatePlane(20, 20, 1.0f, true);
     mGroundObject.meshBuffer.Initialize(plane);
-    mGroundShape.InitializeHull({ 5.0f, 0.5f, 5.0f }, {0.0f, -0.5f, 0.0f});
+    mGroundShape.InitializeHull({ 10.0f, 1.0f, 10.0f }, {0.0f, -0.5f, 0.0f});
     mGroundRigidBody.Initialize(mGroundObject.transform, mGroundShape, 0.0f);
 
     mGroundObject.diffuseMapId = tm_basket->LoadTexture(L"../../Assets/Textures/misc/concrete.jpg");
@@ -91,11 +89,11 @@ void GameState::Initialize()
     mCloth.diffuseMapId = tm_basket->LoadTexture(L"../../Assets/Textures/misc/cloth.jpg");
 
     // Cloth Ball
-    mClothBallMesh = MeshBuilder::CreateSphere(10, 10, 2.0f);
+    mClothBallMesh = MeshBuilder::CreateSphere(25, 25, 2.0f);
     for (Graphics::Vertex& v : mClothBallMesh.vertices)
     {
         v.position.y += 10.0f;
-        //v.position.z += 10.0f;
+        v.position.z -= 4.0f;
     }
     mClothBallSoftBody.Initialize(mClothBallMesh, 1.0f, {});
     mClothBall.meshBuffer.Initialize(nullptr, sizeof(Vertex), mClothBallMesh.vertices.size(),

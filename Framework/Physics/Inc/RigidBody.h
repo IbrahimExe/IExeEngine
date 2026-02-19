@@ -12,8 +12,12 @@ namespace IExeEngine::Physics
         RigidBody() = default;
         ~RigidBody() override;
 
-        void Initialize(Graphics::Transform& graphicsTransform, const CollisionShape& shape, float mass = 0.0f);
+        void Initialize(Graphics::Transform& graphicsTransform, const CollisionShape& shape, float mass = 0.0f, bool addToWorld = true);
         void Terminate();
+
+        void Activate();
+        void Deactivate();
+        void SetCollisionFlags(int flags);
 
         void SetPosition(const Math::Vector3& position);
 
