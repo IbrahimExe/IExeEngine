@@ -33,8 +33,9 @@ namespace IExeEngine::Physics
         bool IsActive();
         void DebugUI();
 
+        void SetPositon(const Math::Vector3& position);
         void SpawnParticles();
-        void Render();
+        void Render(Graphics::ParticleSystemEffect& effect);
 
     private:
         void InitializeParticles(uint32_t maxParticles);

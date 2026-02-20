@@ -654,3 +654,19 @@ MeshPX MeshBuilder::CreateScreenQuadPX()
 
 	return mesh;
 }
+
+MeshPX MeshBuilder::CreateSpriteQuadPX(float width, float height)
+{
+	MeshPX mesh;
+
+    const float hw = width * 0.5f; // Half Width
+    const float hh = height * 0.5f; // Half Height
+
+	mesh.vertices.push_back({ { -hw,  -hh, 0.0f }, { 0.0f, 1.0f } });
+	mesh.vertices.push_back({ { -hw,   hh, 0.0f }, { 0.0f, 0.0f } });
+	mesh.vertices.push_back({ {  hw,   hh, 0.0f }, { 1.0f, 0.0f } });
+	mesh.vertices.push_back({ {  hw,  -hh, 0.0f }, { 1.0f, 1.0f } });
+	mesh.indices = { 0, 1, 2, 0, 2, 3 };
+
+    return mesh;
+}
