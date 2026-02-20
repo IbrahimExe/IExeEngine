@@ -22,7 +22,8 @@ private:
 	IExeEngine::Graphics::Camera mCamera;
     IExeEngine::Graphics::DirectionalLight mDirectionalLight;
 
-    IExeEngine::Graphics::ParticleSystemEffect mParticleEffect;
+    // Particles
+    IExeEngine::Graphics::ParticleSystemEffect mParticleSystemEffect;
     IExeEngine::Physics::ParticleSystem mParticleSystem;
 
     // Ball info

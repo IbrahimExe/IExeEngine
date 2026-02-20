@@ -34,6 +34,7 @@ namespace IExeEngine::Physics
         void DebugUI();
 
         void SetPositon(const Math::Vector3& position);
+
         void SpawnParticles();
         void Render(Graphics::ParticleSystemEffect& effect);
 

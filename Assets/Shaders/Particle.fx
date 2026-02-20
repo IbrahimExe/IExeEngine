@@ -1,4 +1,4 @@
-// Renders a particle with Colour and a texture
+// Renders a particle with Colour and a Texture
 
 cbuffer ParticleBuffer : register(b0)
 {

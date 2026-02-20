@@ -3,6 +3,7 @@
 
 using namespace IExeEngine;
 using namespace IExeEngine::Physics;
+using namespace IExeEngine::Graphics;
 
 void ParticleSystem::Initialize(const ParticleSystemInfo& info)
 {
@@ -22,6 +23,8 @@ void ParticleSystem::Terminate()
         particle.reset();
     }
     mParticles.clear();
+
+    TextureManager::Get()->ReleaseTexture(mInfo.textureId);
 }
 
 void ParticleSystem::Update(float deltaTime)

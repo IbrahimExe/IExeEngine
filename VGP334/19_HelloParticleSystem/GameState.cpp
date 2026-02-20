@@ -17,11 +17,11 @@ void GameState::Initialize()
     mDirectionalLight.specular = { 0.9f, 0.9f, 0.9f, 1.0f };
 
     // Particles
-    mParticleEffect.Initialize();
-    mParticleEffect.SetCamera(mCamera);
+    mParticleSystemEffect.Initialize();
+    mParticleSystemEffect.SetCamera(mCamera);
 
     ParticleSystemInfo info;
-    info.textureId = TextureManager::Get()->LoadTexture(L"../../Assets/Textures/misc/smoke.png");
+    info.textureId = TextureManager::Get()->LoadTexture(L"../../Assets/Textures/Images/white.jpg");
     info.maxParticles = 1000;
     info.particlesPerEmit = { 1,4 };
     info.delay = 0.5f;
@@ -29,9 +29,13 @@ void GameState::Initialize()
     info.timeBetweenEmit = { 0.1f, 0.4f };
     info.spawnAngle = { -30.0f, 30.0f };
     info.spawnSpeed = { 1.0f, 3.0f };
-    info.particleLifeTime = { 1.0f, 2.0f };
+    info.particleLifeTime = { 0.5f, 2.0f };
     info.spawnDirection = Math::Vector3::YAxis;
-    info.spawnPosition = Math::Vector3::One;
+    info.spawnPosition = Math::Vector3::Zero;
+    info.startScale = { Math::Vector3::One, Math::Vector3::One };
+    info.endScale = { Math::Vector3::One, Math::Vector3::One };
+    info.startColour = { Graphics::Colors::White, Graphics::Colors::White };
+    mParticleSystem.Initialize(info);
 
     // Football
     Mesh football = MeshBuilder::CreateSphere(50, 50, 0.5f);
@@ -108,6 +112,9 @@ void GameState::Initialize()
 
 void GameState::Terminate()
 {
+    mParticleSystem.Terminate();
+    mParticleSystemEffect.Terminate();
+
     mCloth.Terminate();
     mClothSoftBody.Terminate();
 
@@ -132,13 +139,14 @@ void GameState::Terminate()
 void GameState::Update(float deltaTime)
 {
 	UpdateCamera(deltaTime);
-
     if (InputSystem::Get()->IsKeyPressed(KeyCode::SPACE))
     {
         Math::Vector3 spawnPos = mCamera.GetPosition() + (mCamera.GetDirection() * 0.5f);
         mBallRigidBody.SetPosition(spawnPos);
         mBallRigidBody.SetVelocity(mCamera.GetDirection() * 50.0f);
     }
+
+    mParticleSystem.Update(deltaTime);
 }
 
 void GameState::Render()
@@ -159,6 +167,9 @@ void GameState::Render()
 
     mStandardEffect.End();
 
+    mParticleSystemEffect.Begin();
+        mParticleSystem.Render(mParticleSystemEffect);
+    mParticleSystemEffect.End();
 }
 
 void GameState::DebugUI()
@@ -186,6 +197,7 @@ void GameState::DebugUI()
     }
 
 	mStandardEffect.DebugUI();
+    mParticleSystem.DebugUI();
     PhysicsWorld::Get()->DebugUI();
 	ImGui::End();
     SimpleDraw::Render(mCamera);

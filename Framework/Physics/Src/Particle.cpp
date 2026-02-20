@@ -9,8 +9,8 @@ using namespace IExeEngine::Physics;
 void Particle::Initialize()
 { 
     mLifetime = 0.0f;
-    mCollisionShape.InitializeSphere(0.1f); // Collision Shape of the particle
-    mRigidBody.Initialize(mTransform, mCollisionShape, 0.5f, false);
+    mCollisionShape.InitializeEmpty();
+    mRigidBody.Initialize(mTransform, mCollisionShape, 1.0f, false);
     mRigidBody.SetCollisionFlags(btCollisionObject::CF_NO_CONTACT_RESPONSE);
 }    
      
@@ -24,7 +24,7 @@ void Particle::Activate(const ParticleInfo& info)
 { 
     mInfo = info;
     mLifetime = info.lifetime;
-    if (info.lifetime > 0.0f)
+    if (info.lifetime > 0)
     {
         mRigidBody.Activate();
     }
@@ -34,11 +34,11 @@ void Particle::Activate(const ParticleInfo& info)
      
 void Particle::Update(float deltaTime)
 {  
-    if (IsActive)
+    if (IsActive())
     {
         mLifetime -= deltaTime;
 
-        if (!IsActive)
+        if (!IsActive())
         {
             mRigidBody.Deactivate();
         }
