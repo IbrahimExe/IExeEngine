@@ -12,11 +12,8 @@ enum class GameEventType
 class PressSpaceEvent : public IExeEngine::Core::Event
 {
 public:
-    PressSpaceEvent() 
-        : Event(static_cast<IExeEngine::Core::EventTypeId>(GameEventType::PressSpace))
-    {
+    PressSpaceEvent() {}
 
-    }
 };
 
 class PressEnterEvent : public IExeEngine::Core::Event

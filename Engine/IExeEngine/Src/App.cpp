@@ -7,6 +7,7 @@ using namespace IExeEngine::Core;
 using namespace IExeEngine::Graphics;
 using namespace IExeEngine::Input;
 using namespace IExeEngine::Physics;
+using namespace IExeEngine::Audio;
 
 void App::Run(const AppConfig& config)
 {
@@ -27,10 +28,14 @@ void App::Run(const AppConfig& config)
 	SimpleDraw::StaticInitialize(config.maxVertexCount);
 	TextureManager::StaticInitialize(L"../../Assets/Textures");
     ModelManager::StaticInitialize(L"../../Assets/Models");
-	EventManager::StaticInitialize();
 
     PhysicsWorld::Settings physicsSettings;
     PhysicsWorld::StaticInitialize(physicsSettings);
+
+	EventManager::StaticInitialize();
+
+    AudioSystem::StaticInitialize();
+    SoundEffectManager::StaticInitialize(L"");
 
 	// Last Step Before Running
 	ASSERT(mCurrentState != nullptr, "App: Need an app state to run!");
@@ -58,6 +63,8 @@ void App::Run(const AppConfig& config)
 			mCurrentState->Initialize();
 		}
 
+        AudioSystem::Get()->Update();
+
 		float deltaTime = TimeUtil::GetDeltaTime();
 	#if defined(_DEBUG)
 		if (deltaTime < 0.5f) // Primarily for handling Breakpoints
@@ -82,6 +89,8 @@ void App::Run(const AppConfig& config)
 	LOG("App Quit");
 	mCurrentState->Terminate();
 	
+    SoundEffectManager::StaticTerminate();
+    AudioSystem::StaticTerminate();
     PhysicsWorld::StaticTerminate();
     EventManager::StaticTerminate();
     ModelManager::StaticTerminate();

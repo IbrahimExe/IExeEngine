@@ -1,0 +1,95 @@
+#include "Precompiled.h"
+#include "SoundEffectManager.h"
+#include "AudioSystem.h"
+
+using namespace DirectX;
+using namespace IExeEngine;
+using namespace IExeEngine::Audio;
+
+namespace 
+{
+    std::unique_ptr<SoundEffectManager> sSoundEffectManager;
+}
+
+void SoundEffectManager::StaticInitialize(const std::filesystem::path& root)
+{
+    ASSERT(sSoundEffectManager == nullptr, "SoundEffectManager: Is already initialized!");
+    sSoundEffectManager = std::make_unique<SoundEffectManager>();
+    sSoundEffectManager->SetRootPath(root);
+}
+
+void SoundEffectManager::StaticTerminate()
+{
+    if (sSoundEffectManager != nullptr)
+    {
+        sSoundEffectManager->Clear();
+        sSoundEffectManager.reset();
+    }
+}
+
+SoundEffectManager* SoundEffectManager::Get()
+{
+    ASSERT(sSoundEffectManager != nullptr, "SoundEffectManager: Is not initialized!");
+    return sSoundEffectManager.get();
+}
+
+SoundEffectManager::~SoundEffectManager()
+{
+    ASSERT(mInventory.empty(), "SoundEffectManager: Isn't Terminated!");
+}
+
+void SoundEffectManager::SetRootPath(const std::filesystem::path& root)
+{
+    mRoot = root;
+}
+
+SoundId SoundEffectManager::Load(const std::filesystem::path& fileName)
+{
+    std::filesystem::path fullPath = mRoot / fileName;
+    std::size_t soundId = std::filesystem::hash_value(fullPath);
+    auto [iter, success] = mInventory.insert({ soundId, nullptr });
+    if (success)
+    {
+        AudioSystem* as = AudioSystem::Get();
+        auto& soundEventPtr = iter->second;
+        soundEventPtr = std::make_unique<Entry>();
+        soundEventPtr->effect = std::make_unique<SoundEffect>(as->mAudioEngine, fullPath.wstring().c_str());
+        soundEventPtr->instance = soundEventPtr->effect->CreateInstance();
+    }
+    return soundId;
+}
+
+void SoundEffectManager::Clear()
+{
+    AudioSystem::Get()->Suspend();
+    for (auto& entry : mInventory)
+    {
+        if (entry.second)
+        {
+            entry.second->instance->Stop();
+            entry.second->instance.reset();
+            entry.second->effect.reset();
+            entry.second.reset();
+        }
+    }
+    mInventory.clear();
+}
+
+void SoundEffectManager::Play(SoundId id, bool loop)
+{
+    auto iter = mInventory.find(id);
+    if (iter != mInventory.end())
+    {
+        iter->second->instance->Stop();
+        iter->second->instance->Play(loop);
+    }
+}
+
+void SoundEffectManager::Stop(SoundId id)
+{
+    auto iter = mInventory.find(id);
+    if (iter != mInventory.end())
+    {
+        iter->second->instance->Stop();
+    }
+}

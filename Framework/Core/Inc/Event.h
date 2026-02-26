@@ -8,12 +8,12 @@ namespace IExeEngine::Core
     {
     public:
         Event() = default;
-        Event(EventTypeId id) : mEventTypeId(id) {}
         virtual ~Event() = default;
 
-        EventTypeId GetTypeId() const { return mEventTypeId; }
-
-    private:
-        EventTypeId mEventTypeId = 0;
+        virtual EventTypeId GetTypeId() const = 0;
     };
 }
+
+#define SET_EVENT_TYPE_ID(id)\
+static IExeEngine::Core::EventTypeId GetStaticTypeId() { return static_cast<IExeEngine::Core::EventTypeId>(id); }
+IExeEngine::Core::EventTypeId GetTypeId() const override { return StaticGetTypeId(); }
