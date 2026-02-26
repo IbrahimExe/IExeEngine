@@ -11,6 +11,8 @@ namespace IExeEngine::Graphics
         AnimationBuilder& AddRotationKey(const Math::Quaternion& rotation, float time);
         AnimationBuilder& AddScaleKey(const Math::Vector3& scale, float time);
 
+        AnimationBuilder& AddEventKey(AnimationCallback cb, float time);
+
         [[nodiscard]] Animation Build();
 
     private:

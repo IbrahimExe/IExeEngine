@@ -24,19 +24,27 @@ void GameState::Initialize()
     ParticleSystemInfo info;
     info.textureId = TextureManager::Get()->LoadTexture(L"../../Assets/Textures/Images/bullet_bill.png");
     info.maxParticles = 1000;
-    info.particlesPerEmit = { 1,4 };
+    info.particlesPerEmit = { 8 ,12 };
     info.delay = 0.5f;
     info.lifeTime = FLT_MAX;
     info.timeBetweenEmit = { 0.1f, 0.4f };
     info.spawnAngle = { -30.0f, 30.0f };
     info.spawnSpeed = { 1.0f, 3.0f };
     info.particleLifeTime = { 0.5f, 2.0f };
-    info.spawnDirection = Math::Vector3::YAxis;
+    info.spawnDirection = -Math::Vector3::YAxis;
     info.spawnPosition = Math::Vector3::Zero;
     info.startScale = { Math::Vector3::One, Math::Vector3::One };
     info.endScale = { Math::Vector3::One, Math::Vector3::One };
     info.startColour = { Graphics::Colors::White, Graphics::Colors::White };
     mParticleSystem.Initialize(info);
+
+    info.particlesPerEmit = { 10, 50 };
+    info.delay = 0.0f;
+    info.lifeTime = 0.0f;
+    info.spawnAngle = { -180.0f, 180.0f };
+    info.startColour = { Graphics::Colors::Yellow, Graphics::Colors::Red };
+    info.endColour = { Graphics::Colors::LightGray, Graphics::Colors::White };
+    mFireworkParticles.Initialize(info);
 
     // Football
     Mesh football = MeshBuilder::CreateSphere(50, 50, 0.5f);
@@ -120,6 +128,16 @@ void GameState::Initialize()
         {
             LOG("E N T E R  WAZ HERE!");
         });
+
+    auto spawnFirework = [&]()
+    {
+        mFireworkParticles.SpawnParticles();
+    };
+    mFireworkAnimation = AnimationBuilder()
+        .AddPositionKey(Math::Vector3::Zero, 0.0f)
+        .AddPositionKey(Math::Vector3::YAxis * 5.0f, 3.0f)
+        .AddEventKey(spawnFirework, 1.0f)
+        .Build();
 }
 
 void GameState::Terminate()
@@ -127,6 +145,8 @@ void GameState::Terminate()
     EventManager* em = EventManager::Get();
     em->RemoveListener((EventTypeId)GameEventType::PressSpace, mSpacePressedListenerId);
     em->RemoveListener((EventTypeId)GameEventType::PressEnter, mEnterPressedListenerId);
+    
+    mFireworkParticles.Terminate();
 
     mParticleSystem.Terminate();
     mParticleSystemEffect.Terminate();
@@ -163,6 +183,18 @@ void GameState::Update(float deltaTime)
     }
 
     mParticleSystem.Update(deltaTime);
+    mFireworkParticles.Update(deltaTime);
+
+    float prevTime = mFireworkAnimationTime;
+    /*mFireworkAnimaitonTime += deltaTime;
+    if (mFireworkAnimation.GetDuration() > 0)
+    {
+        mFireworkAnimation.PlayEvents(prevTime, mFireworkAnimationTime);
+        while (mFireworkAnimationTime >= mFireworkAnimation.GetDuration())
+        {
+            mFireworkAnimationTime -= mFireworkAnimation.GetDuration();
+        }
+    }*/
 }
 
 void GameState::Render()
@@ -183,8 +215,12 @@ void GameState::Render()
 
     mStandardEffect.End();
 
+    Transform particleTransform = mFireworkAnimation.GetTransform(mFireworkAnimationTime);
+    mParticleSystem.SetPositon(particleTransform.position);
+
     mParticleSystemEffect.Begin();
         mParticleSystem.Render(mParticleSystemEffect);
+        mFireworkParticles.Render(mParticleSystemEffect);
     mParticleSystemEffect.End();
 }
 
@@ -260,4 +296,6 @@ void GameState::UpdateCamera(float deltaTime)
 void GameState::OnSpacePressedEvent(const IExeEngine::Core::Event& e)
 {
     LOG("S P A C E  WAZ HERE!");
+
+    mFireworkParticles.SpawnParticles();
 }

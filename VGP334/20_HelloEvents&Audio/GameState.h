@@ -31,6 +31,11 @@ private:
     // Particles
     IExeEngine::Graphics::ParticleSystemEffect mParticleSystemEffect;
     IExeEngine::Physics::ParticleSystem mParticleSystem;
+    IExeEngine::Physics::ParticleSystem mFireworkParticles;
+
+    // Animation
+    IExeEngine::Graphics::Animation mFireworkAnimation;
+    float mFireworkAnimationTime = 0.0f;
 
     // Ball info
     IExeEngine::Graphics::RenderObject mFootball;
