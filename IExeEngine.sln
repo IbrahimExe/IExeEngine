@@ -96,6 +96,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "18_HelloPhysics", "VGP334\1
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "19_HelloParticleSystem", "VGP334\19_HelloParticleSystem\19_HelloParticleSystem.vcxproj", "{B14DF7F0-6111-46F8-868F-87B368D81F70}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "20_HelloEvents&Audio", "VGP334\20_HelloEvents&Audio\20_HelloEvents&Audio.vcxproj", "{7FD7E5EF-9861-4C5B-BF08-5A1C3A3B2C9F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -344,6 +346,14 @@ Global
 		{B14DF7F0-6111-46F8-868F-87B368D81F70}.Release|x64.Build.0 = Release|x64
 		{B14DF7F0-6111-46F8-868F-87B368D81F70}.Release|x86.ActiveCfg = Release|Win32
 		{B14DF7F0-6111-46F8-868F-87B368D81F70}.Release|x86.Build.0 = Release|Win32
+		{7FD7E5EF-9861-4C5B-BF08-5A1C3A3B2C9F}.Debug|x64.ActiveCfg = Debug|x64
+		{7FD7E5EF-9861-4C5B-BF08-5A1C3A3B2C9F}.Debug|x64.Build.0 = Debug|x64
+		{7FD7E5EF-9861-4C5B-BF08-5A1C3A3B2C9F}.Debug|x86.ActiveCfg = Debug|Win32
+		{7FD7E5EF-9861-4C5B-BF08-5A1C3A3B2C9F}.Debug|x86.Build.0 = Debug|Win32
+		{7FD7E5EF-9861-4C5B-BF08-5A1C3A3B2C9F}.Release|x64.ActiveCfg = Release|x64
+		{7FD7E5EF-9861-4C5B-BF08-5A1C3A3B2C9F}.Release|x64.Build.0 = Release|x64
+		{7FD7E5EF-9861-4C5B-BF08-5A1C3A3B2C9F}.Release|x86.ActiveCfg = Release|Win32
+		{7FD7E5EF-9861-4C5B-BF08-5A1C3A3B2C9F}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -380,6 +390,7 @@ Global
 		{8A5CFEBB-88F4-4584-806B-4B5A1E088AB5} = {1F0CEE47-F72B-4C16-9F96-0230370008C2}
 		{11C71B4F-2F9D-4057-97DB-665C947C563B} = {EEA3B3F0-C3CE-446F-8425-4780824BC19B}
 		{B14DF7F0-6111-46F8-868F-87B368D81F70} = {EEA3B3F0-C3CE-446F-8425-4780824BC19B}
+		{7FD7E5EF-9861-4C5B-BF08-5A1C3A3B2C9F} = {EEA3B3F0-C3CE-446F-8425-4780824BC19B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C84562D2-23AD-4C29-92D2-1A4C470BECEF}

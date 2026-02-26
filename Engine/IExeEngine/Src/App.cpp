@@ -27,12 +27,13 @@ void App::Run(const AppConfig& config)
 	SimpleDraw::StaticInitialize(config.maxVertexCount);
 	TextureManager::StaticInitialize(L"../../Assets/Textures");
     ModelManager::StaticInitialize(L"../../Assets/Models");
+	EventManager::StaticInitialize();
 
     PhysicsWorld::Settings physicsSettings;
     PhysicsWorld::StaticInitialize(physicsSettings);
 
 	// Last Step Before Running
-	ASSERT(mCurrentState != nullptr, "App: Need an app state to run");
+	ASSERT(mCurrentState != nullptr, "App: Need an app state to run!");
 	mCurrentState->Initialize();
 
 	// Process Updates
@@ -82,6 +83,7 @@ void App::Run(const AppConfig& config)
 	mCurrentState->Terminate();
 	
     PhysicsWorld::StaticTerminate();
+    EventManager::StaticTerminate();
     ModelManager::StaticTerminate();
     TextureManager::StaticTerminate();
 	DebugUI::StaticTerminate();
