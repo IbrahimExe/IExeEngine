@@ -13,15 +13,12 @@ class PressSpaceEvent : public IExeEngine::Core::Event
 {
 public:
     PressSpaceEvent() {}
-
+    SET_EVENT_TYPE_ID(GameEventType::PressSpace)
 };
 
 class PressEnterEvent : public IExeEngine::Core::Event
 {
 public:
-    PressEnterEvent()
-        : Event(static_cast<IExeEngine::Core::EventTypeId>(GameEventType::PressEnter))
-    {
-
-    }
+    PressEnterEvent() {}
+    SET_EVENT_TYPE_ID(GameEventType::PressEnter)
 };

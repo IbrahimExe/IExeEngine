@@ -35,7 +35,7 @@ void App::Run(const AppConfig& config)
 	EventManager::StaticInitialize();
 
     AudioSystem::StaticInitialize();
-    SoundEffectManager::StaticInitialize(L"");
+    SoundEffectManager::StaticInitialize(L"../../Assets/Audio");
 
 	// Last Step Before Running
 	ASSERT(mCurrentState != nullptr, "App: Need an app state to run!");

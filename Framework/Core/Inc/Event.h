@@ -15,5 +15,5 @@ namespace IExeEngine::Core
 }
 
 #define SET_EVENT_TYPE_ID(id)\
-static IExeEngine::Core::EventTypeId GetStaticTypeId() { return static_cast<IExeEngine::Core::EventTypeId>(id); }
-IExeEngine::Core::EventTypeId GetTypeId() const override { return StaticGetTypeId(); }
+    static IExeEngine::Core::EventTypeId StaticGetTypeId() { return static_cast<IExeEngine::Core::EventTypeId>(id); }\
+    IExeEngine::Core::EventTypeId GetTypeId() const override { return StaticGetTypeId(); }

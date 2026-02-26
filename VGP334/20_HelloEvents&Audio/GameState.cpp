@@ -5,7 +5,7 @@ using namespace IExeEngine;
 using namespace IExeEngine::Graphics;
 using namespace IExeEngine::Input;
 using namespace IExeEngine::Physics;
-
+using namespace IExeEngine::Audio;
 
 void GameState::Initialize()
 {
@@ -25,10 +25,10 @@ void GameState::Initialize()
     info.textureId = TextureManager::Get()->LoadTexture(L"../../Assets/Textures/Images/bullet_bill.png");
     info.maxParticles = 1000;
     info.particlesPerEmit = { 8 ,12 };
-    info.delay = 0.5f;
+    info.delay = 1.0f;
     info.lifeTime = FLT_MAX;
-    info.timeBetweenEmit = { 0.1f, 0.4f };
-    info.spawnAngle = { -30.0f, 30.0f };
+    info.timeBetweenEmit = { 0.1f, 0.2f };
+    info.spawnAngle = { -20.0f, 20.0f };
     info.spawnSpeed = { 1.0f, 3.0f };
     info.particleLifeTime = { 0.5f, 2.0f };
     info.spawnDirection = -Math::Vector3::YAxis;
@@ -36,13 +36,17 @@ void GameState::Initialize()
     info.startScale = { Math::Vector3::One, Math::Vector3::One };
     info.endScale = { Math::Vector3::One, Math::Vector3::One };
     info.startColour = { Graphics::Colors::White, Graphics::Colors::White };
+    info.endColour = { Graphics::Colors::White, Graphics::Colors::White };
     mParticleSystem.Initialize(info);
 
-    info.particlesPerEmit = { 10, 50 };
+    info.textureId = TextureManager::Get()->LoadTexture(L"../../Assets/Textures/Images/explosion.png");
+    info.particlesPerEmit = { 10, 250 };
+    info.spawnSpeed = { 7.0f, 25.0f };
     info.delay = 0.0f;
     info.lifeTime = 0.0f;
     info.spawnAngle = { -180.0f, 180.0f };
-    info.startColour = { Graphics::Colors::Yellow, Graphics::Colors::Red };
+    info.spawnDirection = Math::Vector3::YAxis;
+    info.startColour = { Graphics::Colors::OrangeRed, Graphics::Colors::LightYellow };
     info.endColour = { Graphics::Colors::LightGray, Graphics::Colors::White };
     mFireworkParticles.Initialize(info);
 
@@ -120,31 +124,48 @@ void GameState::Initialize()
 
     // Events
     EventManager* em = EventManager::Get();
-    mSpacePressedListenerId = em->AddListener((EventTypeId)GameEventType::PressSpace,
+    mSpacePressedListenerId = em->AddListener(PressSpaceEvent::StaticGetTypeId(),
         std::bind(&GameState::OnSpacePressedEvent, this, std::placeholders::_1));
 
-    mEnterPressedListenerId = em->AddListener((EventTypeId)GameEventType::PressEnter,
+    mEnterPressedListenerId = em->AddListener(PressEnterEvent::StaticGetTypeId(),
         [](const Event& e)
         {
             LOG("E N T E R  WAZ HERE!");
         });
+    
+    // Sounds
+    SoundEffectManager* sm = SoundEffectManager::Get();
+    mLaunchSoundId = sm->Load("megamanx_blast.wav");
+    mExplosionSoundId = sm->Load("explosion.wav");
+
+    auto launchFirework = [&]()
+        {
+            SoundEffectManager::Get()->Play(mLaunchSoundId);
+        };
 
     auto spawnFirework = [&]()
     {
         mFireworkParticles.SpawnParticles();
+        SoundEffectManager::Get()->Play(mExplosionSoundId);
     };
     mFireworkAnimation = AnimationBuilder()
         .AddPositionKey(Math::Vector3::Zero, 0.0f)
-        .AddPositionKey(Math::Vector3::YAxis * 5.0f, 3.0f)
-        .AddEventKey(spawnFirework, 1.0f)
+        .AddPositionKey(Math::Vector3::Zero, 2.0f)
+        .AddPositionKey(Math::Vector3::YAxis * 25.0f, 4.0f)
+        .AddEventKey(launchFirework, 2.0f)
+        .AddEventKey(spawnFirework, 4.0f)
         .Build();
 }
 
 void GameState::Terminate()
 {
+    SoundEffectManager* sm = SoundEffectManager::Get();
+    sm->Stop(mLaunchSoundId);
+    sm->Stop(mExplosionSoundId);
+
     EventManager* em = EventManager::Get();
-    em->RemoveListener((EventTypeId)GameEventType::PressSpace, mSpacePressedListenerId);
-    em->RemoveListener((EventTypeId)GameEventType::PressEnter, mEnterPressedListenerId);
+    em->RemoveListener(PressSpaceEvent::StaticGetTypeId(), mSpacePressedListenerId);
+    em->RemoveListener(PressEnterEvent::StaticGetTypeId(), mEnterPressedListenerId);
     
     mFireworkParticles.Terminate();
 
@@ -186,7 +207,7 @@ void GameState::Update(float deltaTime)
     mFireworkParticles.Update(deltaTime);
 
     float prevTime = mFireworkAnimationTime;
-    /*mFireworkAnimaitonTime += deltaTime;
+    mFireworkAnimationTime += deltaTime;
     if (mFireworkAnimation.GetDuration() > 0)
     {
         mFireworkAnimation.PlayEvents(prevTime, mFireworkAnimationTime);
@@ -194,7 +215,7 @@ void GameState::Update(float deltaTime)
         {
             mFireworkAnimationTime -= mFireworkAnimation.GetDuration();
         }
-    }*/
+    }
 }
 
 void GameState::Render()
@@ -204,7 +225,6 @@ void GameState::Render()
 	SimpleDraw::Render(mCamera);
 
     mStandardEffect.Begin();
-
 	    mStandardEffect.Render(mFootball);
         mStandardEffect.Render(mGroundObject);
         mStandardEffect.Render(mCloth);
@@ -212,11 +232,11 @@ void GameState::Render()
         {
             mStandardEffect.Render(box.box);
         }
-
     mStandardEffect.End();
 
     Transform particleTransform = mFireworkAnimation.GetTransform(mFireworkAnimationTime);
     mParticleSystem.SetPositon(particleTransform.position);
+    mFireworkParticles.SetPositon(particleTransform.position);
 
     mParticleSystemEffect.Begin();
         mParticleSystem.Render(mParticleSystemEffect);
@@ -296,6 +316,5 @@ void GameState::UpdateCamera(float deltaTime)
 void GameState::OnSpacePressedEvent(const IExeEngine::Core::Event& e)
 {
     LOG("S P A C E  WAZ HERE!");
-
     mFireworkParticles.SpawnParticles();
 }

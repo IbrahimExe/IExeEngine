@@ -62,4 +62,8 @@ private:
 	IExeEngine::Graphics::RenderObject mCloth;
     IExeEngine::Graphics::Mesh mClothMesh;
     IExeEngine::Physics::SoftBody mClothSoftBody;
+
+    // Sound
+    IExeEngine::Audio::SoundId mLaunchSoundId = 0;
+    IExeEngine::Audio::SoundId mExplosionSoundId = 0;
 };
