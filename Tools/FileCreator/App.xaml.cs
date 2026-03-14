@@ -1,7 +1,4 @@
-﻿using System.Configuration;
-using System.Data;
-using System.Windows;
-
+﻿using System.Windows;
 using FileCreator.Models;
 using FileCreator.Services;
 using FileCreator.Views;
@@ -14,12 +11,13 @@ namespace FileCreator
         {
             base.OnStartup(e);
 
+            ShutdownMode = ShutdownMode.OnExplicitShutdown;
+
             if (!ConfigService.ConfigExists())
             {
                 var dialog = new FirstRunDialog();
                 bool? result = dialog.ShowDialog();
 
-                // exit cleanly is user closes early
                 if (result != true)
                 {
                     Shutdown();
@@ -29,6 +27,8 @@ namespace FileCreator
                 var config = new EngineConfig { EngineName = dialog.EngineName };
                 ConfigService.Save(config);
             }
+
+            ShutdownMode = ShutdownMode.OnMainWindowClose;
 
             var mainWindow = new MainWindow();
             mainWindow.Show();

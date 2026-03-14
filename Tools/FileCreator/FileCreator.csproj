@@ -9,6 +9,7 @@
     <AssemblyName>FileCreator</AssemblyName>
     <RootNamespace>FileCreator</RootNamespace>
     <ApplicationIcon />
+    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
 
 </Project>

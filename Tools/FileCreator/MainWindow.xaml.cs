@@ -57,7 +57,7 @@ namespace FileCreator
             Log($"File Creator ready.");
             Log($"Engine name   : {_config.EngineName}");
             Log($"Engine root   : {_engineRoot}");
-            Log($"──────────────────────────────────────────");
+            Log($"───────────────────────────────────────────────────────────────────────────────");
         }
 
         // UI event handlers 
