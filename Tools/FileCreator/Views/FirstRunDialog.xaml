@@ -1,0 +1,66 @@
+﻿<Window x:Class="FileCreator.Views.FirstRunDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="First Time Setup"
+        Height="220" Width="460"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Background="#1E1E2E">
+
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Title -->
+        <TextBlock Grid.Row="0"
+                   Text="Welcome to File Creator"
+                   FontSize="16" FontWeight="Bold"
+                   Foreground="#CDD6F4"
+                   Margin="0,0,0,6"/>
+
+        <!-- Subtitle -->
+        <TextBlock Grid.Row="1"
+                   Text="Enter your engine's namespace name (Case Sensitive), all new files you create will use this name. Only needs to be set once! [I hope]"
+                   Foreground="#A6ADC8"
+                   FontSize="12"
+                   TextWrapping="Wrap"
+                   Margin="0,0,0,16"/>
+
+        <!-- Label -->
+        <TextBlock Grid.Row="2"
+                   Text="Engine Name:"
+                   Foreground="#CDD6F4"
+                   FontSize="13"
+                   Margin="0,0,0,6"/>
+
+        <!-- Input -->
+        <TextBox Grid.Row="3"
+                 x:Name="EngineNameBox"
+                 Text="[Engine Name]"
+                 FontSize="13"
+                 Padding="8,5"
+                 Background="#313244"
+                 Foreground="#CDD6F4"
+                 BorderBrush="#45475A"
+                 CaretBrush="#CDD6F4"
+                 SelectionBrush="#89B4FA" TextChanged="EngineNameBox_TextChanged"/>
+
+        <!-- Confirm button -->
+        <Button Grid.Row="5"
+                Content="Confirm"
+                Click="OnConfirmClicked"
+                HorizontalAlignment="Right"
+                Width="100" Height="32"
+                Background="#89B4FA"
+                Foreground="#1E1E2E"
+                FontWeight="SemiBold"
+                BorderThickness="0"
+                Cursor="Hand"/>
+    </Grid>
+</Window>
