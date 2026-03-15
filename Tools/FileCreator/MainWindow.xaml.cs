@@ -8,6 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
 
 using FileCreator.Models;
 using FileCreator.Services;
@@ -19,6 +20,7 @@ namespace FileCreator
     {
         private EngineConfig _config = new();
         private string? _engineRoot;
+        private CreationRecord? _lastCreation; // Stores the last operation for undo
 
         public MainWindow()
         {
@@ -117,8 +119,64 @@ namespace FileCreator
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
 
-                StatusLabel.Text = "Creation failed — see log for details.";
+                StatusLabel.Text = "Creation failed! see log for details.";
             }
+        }
+
+        private void OnUndoClicked(object sender, RoutedEventArgs e)
+        {
+            if (_lastCreation == null) return;
+
+            // Confirm before doing anything destructive
+            var confirm = MessageBox.Show(
+                $"This will permanently delete '{_lastCreation.FileName}.h'" +
+                (_lastCreation.HadCpp ? $" and '{_lastCreation.FileName}.cpp'" : "") +
+                $" from the {_lastCreation.ProjectName} project and reverse all changes.\n\n" +
+                "Are you sure?",
+                "Confirm Undo",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Warning);
+
+            if (confirm != MessageBoxResult.Yes) return;
+
+            Log($"──────────────────────────────────────────────────────────────────────────────");
+            Log($"Undoing creation of '{_lastCreation.FileName}' in {_lastCreation.ProjectName}...");
+
+            UndoService.UndoResult result = UndoService.Undo(_lastCreation);
+
+            // Log each step regardless of success
+            foreach (string step in result.Steps)
+                Log(step);
+
+            if (result.Success)
+            {
+                Log($"[DONE] Undo complete. '{_lastCreation.FileName}' has been removed.");
+                StatusLabel.Text = $"↩ Undo complete — '{_lastCreation.FileName}' removed.";
+
+                MessageBox.Show(
+                    $"'{_lastCreation.FileName}' has been fully removed from the " +
+                    $"{_lastCreation.ProjectName} project.\n\n" +
+                    $"Reload the {_lastCreation.ProjectName} project in Visual Studio to confirm.",
+                    "Undo Complete",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+            }
+            else
+            {
+                Log($"[ERROR] Undo completed with errors:");
+                Log($"  {result.ErrorMessage}");
+                StatusLabel.Text = "Undo completed with errors — see log.";
+
+                MessageBox.Show(
+                    $"Undo completed but some steps had errors:\n\n{result.ErrorMessage}",
+                    "Undo Errors",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+            }
+
+            // Clear the record either way
+            _lastCreation = null;
+            UndoButton.IsEnabled = false;
         }
 
         // Helper s
@@ -160,7 +218,22 @@ namespace FileCreator
             VcxprojService.UpdateVcxproj(vcxproj, fileName, includeCpp);
             Log($"[OK] Updated .vcxproj");
 
-            // Success
+            // Store record for undo 
+            _lastCreation = new CreationRecord
+            {
+                ProjectName = projectName,
+                FileName = fileName,
+                HeaderPath = System.IO.Path.Combine(incPath, $"{fileName}.h"),
+                CppPath = includeCpp ? System.IO.Path.Combine(srcPath, $"{fileName}.cpp") : null,
+                UmbrellaPath = umbrella,
+                VcxprojPath = vcxproj,
+                FiltersPath = filters,
+                HadCpp = includeCpp
+            };
+
+            UndoButton.IsEnabled = true;
+
+            // Success 
             Log($"[DONE] '{fileName}' successfully added to {projectName}.");
             Log($"  → Reload the {projectName} project in Visual Studio to see the new files.");
             StatusLabel.Text = $"✓ {fileName} added to {projectName} successfully.";
@@ -171,8 +244,7 @@ namespace FileCreator
                 $"and select 'Reload Project' to see the new files.",
                 "Files Created",
                 MessageBoxButton.OK,
-                MessageBoxImage.Information
-                );
+                MessageBoxImage.Information);
         }
 
         /// Updates the preview label below the form fields to show exactly

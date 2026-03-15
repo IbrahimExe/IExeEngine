@@ -292,38 +292,52 @@
 
                 <!-- Buttons row -->
                 <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3"
-                    Orientation="Horizontal">
+            Orientation="Horizontal">
 
                     <CheckBox x:Name="IncludeCppCheckBox"
-                      Content="Include a .cpp file"
-                      IsChecked="True"
-                      Foreground="#CDD6F4"
-                      FontSize="12"
-                      Margin="0,0,24,0"
-                      VerticalContentAlignment="Center"
-                      Checked="OnCppCheckChanged"
-                      Unchecked="OnCppCheckChanged"/>
+              Content="Include a .cpp file"
+              IsChecked="True"
+              Foreground="#CDD6F4"
+              FontSize="12"
+              Margin="0,0,24,0"
+              VerticalContentAlignment="Center"
+              Checked="OnCppCheckChanged"
+              Unchecked="OnCppCheckChanged"/>
 
-                    <!-- Spacer -->
-                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal"
-                        Margin="0,0,0,0">
+                    <StackPanel Orientation="Horizontal">
+
                         <Button x:Name="ClearLogButton"
-                        Content="Clear Log"
-                        Click="OnClearLogClicked"
-                        Background="Transparent"
-                        Foreground="#6C7086"
-                        BorderBrush="#45475A"
-                        BorderThickness="1"
-                        FontSize="12"
-                        Padding="12,6"
-                        Margin="0,0,10,0"
-                        Cursor="Hand"/>
+                Content="Clear Log"
+                Click="OnClearLogClicked"
+                Background="Transparent"
+                Foreground="#6C7086"
+                BorderBrush="#45475A"
+                BorderThickness="1"
+                FontSize="12"
+                Padding="12,6"
+                Margin="0,0,10,0"
+                Cursor="Hand"/>
 
                         <Button x:Name="CreateButton"
-                        Content="Create Files"
-                        Style="{StaticResource PrimaryButton}"
-                        Click="OnCreateClicked"
-                        IsEnabled="False"/>
+                Content="Create Files"
+                Style="{StaticResource PrimaryButton}"
+                Click="OnCreateClicked"
+                Margin="0,0,0,0"
+                IsEnabled="False"/>
+                        
+                        <Button x:Name="UndoButton"
+                Content="↩ Undo Last"
+                Click="OnUndoClicked"
+                IsEnabled="False"
+                Background="Transparent"
+                Foreground="#C25463"
+                BorderBrush="#C25463"
+                BorderThickness="1"
+                FontSize="12"
+                Margin="180,0,0,0"                
+                Padding="12,6"
+                Cursor="Hand"/>
+
                     </StackPanel>
                 </StackPanel>
             </Grid>

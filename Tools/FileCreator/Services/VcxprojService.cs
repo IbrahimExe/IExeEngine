@@ -107,8 +107,54 @@ namespace FileCreator.Services
             itemGroup.AppendChild(elem);
         }
 
-        // .vcxproj helpers 
 
+        // Removes the new fileses entries from the .vcxproj.filters file.
+        public static void RemoveFromFilters(
+            string filtersPath,
+            string fileName,
+            bool hadCpp)
+        {
+            XmlDocument doc = LoadXml(filtersPath);
+            XmlNamespaceManager ns = BuildNsManager(doc);
+
+            RemoveNode(doc, ns, $"//ms:ClInclude[@Include='Inc\\{fileName}.h']");
+
+            if (hadCpp)
+                RemoveNode(doc, ns, $"//ms:ClCompile[@Include='Src\\{fileName}.cpp']");
+
+            SaveXml(doc, filtersPath);
+        }
+
+
+        // Removes the new fileses entries from the .vcxproj file.
+        public static void RemoveFromVcxproj(
+            string vcxprojPath,
+            string fileName,
+            bool hadCpp)
+        {
+            XmlDocument doc = LoadXml(vcxprojPath);
+            XmlNamespaceManager ns = BuildNsManager(doc);
+
+            RemoveNode(doc, ns, $"//ms:ClInclude[@Include='Inc\\{fileName}.h']");
+
+            if (hadCpp)
+                RemoveNode(doc, ns, $"//ms:ClCompile[@Include='Src\\{fileName}.cpp']");
+
+            SaveXml(doc, vcxprojPath);
+        }
+
+        // Finds a node by XPath and removes it from its parent.
+        // Silently does nothing if the node is not found.
+        private static void RemoveNode(
+            XmlDocument doc,
+            XmlNamespaceManager ns,
+            string xpath)
+        {
+            XmlNode? node = doc.SelectSingleNode(xpath, ns);
+            node?.ParentNode?.RemoveChild(node);
+        }
+
+        // .vcxproj helpers 
         private static void EnsureClIncludeInVcxproj(
             XmlDocument doc,
             XmlNamespaceManager ns,

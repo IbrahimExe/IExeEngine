@@ -51,5 +51,25 @@ namespace FileCreator.Services
             File.WriteAllLines(umbrellaHeaderPath, newLines);
             return true;
         }
+
+        /// Removes the #include's 
+        public static bool RemoveInclude(string umbrellaHeaderPath, string fileName)
+        {
+            string includeStatement = $"#include \"{fileName}.h\"";
+
+            string[] lines = File.ReadAllLines(umbrellaHeaderPath);
+
+            // Check if the line actually exists before trying to remove it
+            int index = Array.FindIndex(lines, l => l.Trim() == includeStatement);
+
+            if (index < 0)
+                return false;
+
+            List<string> newLines = new(lines);
+            newLines.RemoveAt(index);
+
+            File.WriteAllLines(umbrellaHeaderPath, newLines);
+            return true;
+        }
     }
 }
