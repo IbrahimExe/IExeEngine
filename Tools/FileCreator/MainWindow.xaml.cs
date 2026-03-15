@@ -121,7 +121,7 @@ namespace FileCreator
             }
         }
 
-        // Helper 
+        // Helper s
         private void RunCreation(string projectName, string fileName, bool includeCpp)
         {
             string engineRoot = _engineRoot!;
@@ -171,7 +171,70 @@ namespace FileCreator
                 $"and select 'Reload Project' to see the new files.",
                 "Files Created",
                 MessageBoxButton.OK,
-                MessageBoxImage.Information);
+                MessageBoxImage.Information
+                );
+        }
+
+        /// Updates the preview label below the form fields to show exactly
+        /// which files will be created, so the user can verify before clicking.
+        private void UpdatePreview()
+        {
+            if (PreviewLabel == null) return;
+
+            bool projectSelected = ProjectComboBox.SelectedItem != null;
+            bool nameEntered = !string.IsNullOrWhiteSpace(FileNameBox.Text);
+            bool includeCpp = IncludeCppCheckBox.IsChecked == true;
+
+            if (!projectSelected || !nameEntered)
+            {
+                PreviewLabel.Text = "";
+                return;
+            }
+
+            string project = ((ComboBoxItem)ProjectComboBox.SelectedItem).Content.ToString()!;
+            string name = FileNameBox.Text.Trim();
+
+            string header = $"Framework/{project}/Inc/{name}.h";
+            string cpp = $"Framework/{project}/Src/{name}.cpp";
+            string umbrella = PathResolver.GetUmbrellaHeaderName(project);
+
+            string preview = includeCpp
+                ? $"Will create → {header}  |  {cpp}  |  include injected into {umbrella}"
+                : $"Will create → {header}  |  include injected into {umbrella}";
+
+            PreviewLabel.Text = preview;
+        }
+
+        private void OnCppCheckChanged(object sender, RoutedEventArgs e)
+        {
+            UpdatePreview();
+        }
+
+        private void OnClearLogClicked(object sender, RoutedEventArgs e)
+        {
+            LogBox.Clear();
+            Log("Log cleared.");
+        }
+
+        private void OnSettingsClicked(object sender, RoutedEventArgs e)
+        {
+            var dialog = new SettingsDialog(_config.EngineName, _engineRoot ?? "Not found");
+            dialog.Owner = this;
+            bool? result = dialog.ShowDialog();
+
+            if (result != true) return;
+
+            // Save the updated engine name
+            _config.EngineName = dialog.EngineName;
+            ConfigService.Save(_config);
+
+            // Refresh UI labels
+            Title = $"{_config.EngineName} — File Creator";
+            TitleLabel.Text = $"{_config.EngineName} File Creator";
+            EngineLabel.Text = $"Engine: {_config.EngineName}   Root: {_engineRoot}";
+
+            Log($"[Settings] Engine name updated to: {_config.EngineName}");
+            StatusLabel.Text = "Settings saved.";
         }
 
         // Enables the Create button only when both a project and a valid
@@ -184,6 +247,8 @@ namespace FileCreator
             bool nameEntered = !string.IsNullOrWhiteSpace(FileNameBox.Text);
 
             CreateButton.IsEnabled = projectSelected && nameEntered;
+
+            UpdatePreview();
         }
 
         // Appends a timestamped line to the log output box.
