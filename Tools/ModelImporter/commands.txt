@@ -1,3 +1,4 @@
+Models:
 -scale 0.01 ../../Assets/Models/Character_01/Character_01.fbx ../../Assets/Models/Character_01/Character_01.model
 -scale 0.01 ../../Assets/Models/parasite/parasite.fbx ../../Assets/Models/parasite/parasite.model
 -scale 0.01 ../../Assets/Models/zombie/zombie.fbx ../../Assets/Models/zombie/zombie.model
@@ -6,8 +7,36 @@
 -scale 0.01 ../../Assets/Models/SpiderGwen/SpiderGwen.fbx ../../Assets/Models/SpiderGwen/SpiderGwen.model
 -scale 0.01 ../../Assets/Models/SpiderMan2099/SpiderMan2099.fbx ../../Assets/Models/SpiderMan2099/SpiderMan2099.model
 
+-scale 0.01 ../../Assets/Models/Guard_01/Guard_01.fbx ../../Assets/Models/Guard_01/Guard_01.model
+
+-scale 0.01 ../../Assets/Models/Guard_02/Guard_02.fbx ../../Assets/Models/Guard_02/Guard_02.model
+
+-scale 0.01 ../../Assets/Models/Knight/Knight.fbx ../../Assets/Models/Knight/Knight.model
+
+
 Animations:
 -animOnly 1 -scale 0.01 ../../Assets/Models/Character_01/SixSeven.fbx ../../Assets/Models/Character_01/SixSeven.model
 -animOnly 1 -scale 0.01 ../../Assets/Models/Character_01/NotFamilyFriendly.fbx ../../Assets/Models/Character_01/NotFamilyFriendly.model
 -animOnly 1 -scale 0.01 ../../Assets/Models/parasite/samba.fbx ../../Assets/Models/parasite/samba.model
 -animOnly 1 -scale 0.01 ../../Assets/Models/zombie/Thriller.fbx ../../Assets/Models/zombie/Thriller.model
+
+Guard_01 Animations:
+-animOnly 1 -scale 0.01 ../../Assets/Models/Guard_01/Idle_Guard_01.fbx ../../Assets/Models/Guard_01/Idle_Guard_01.model
+-animOnly 1 -scale 0.01 ../../Assets/Models/Guard_01/Kill_Guard_01.fbx ../../Assets/Models/Guard_01/Kill_Guard_01.model
+-animOnly 1 -scale 0.01 ../../Assets/Models/Guard_01/LookBack_Guard_01.fbx ../../Assets/Models/Guard_01/LookBack_Guard_01.model
+-animOnly 1 -scale 0.01 ../../Assets/Models/Guard_01/Looking_Guard_01.fbx ../../Assets/Models/Guard_01/Looking_Guard_01.model
+-animOnly 1 -scale 0.01 ../../Assets/Models/Guard_01/Shrugging_Guard_01.fbx ../../Assets/Models/Guard_01/Shrugging_Guard_01.model
+
+Guard_02 Animations:
+-animOnly 1 -scale 0.01 ../../Assets/Models/Guard_02/Looking_Guard_02.fbx ../../Assets/Models/Guard_02/Looking_Guard_02.model
+-animOnly 1 -scale 0.01 ../../Assets/Models/Guard_02/Pointing_Guard_02.fbx ../../Assets/Models/Guard_02/Pointing_Guard_02.model
+-animOnly 1 -scale 0.01 ../../Assets/Models/Guard_02/Reacting_Guard_02.fbx ../../Assets/Models/Guard_02/Reacting_Guard_02.model
+-animOnly 1 -scale 0.01 ../../Assets/Models/Guard_02/Shrugging_Guard_02.fbx ../../Assets/Models/Guard_02/Shrugging_Guard_02.model
+
+Knight Animations:
+-animOnly 1 -scale 0.01 ../../Assets/Models/Knight/DrunkRun_Knight.fbx ../../Assets/Models/Knight/DrunkRun_Knight.model
+-animOnly 1 -scale 0.01 ../../Assets/Models/Knight/GoofyRun_Knight.fbx ../../Assets/Models/Knight/GoofyRun_Knight.model
+-animOnly 1 -scale 0.01 ../../Assets/Models/Knight/GoofySprint_Knight.fbx ../../Assets/Models/Knight/GoofySprint_Knight.model
+-animOnly 1 -scale 0.01 ../../Assets/Models/Knight/Punch_Knight.fbx ../../Assets/Models/Knight/Punch_Knight.model
+-animOnly 1 -scale 0.01 ../../Assets/Models/Knight/SeriousSprint_Knight.fbx ../../Assets/Models/Knight/SeriousSprint_Knight.model
+-animOnly 1 -scale 0.01 ../../Assets/Models/Knight/WeirdRun_Knight.fbx ../../Assets/Models/Knight/WeirdRun_Knight.model
