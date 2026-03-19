@@ -325,6 +325,13 @@ If you made a mistake, click **↩ Undo Last** immediately after creating. It wi
 
 <div align="center">
 
+# Animation For Games
+
+https://github.com/user-attachments/assets/c8e6de55-bc71-4380-94d1-c02981ef62c0
+
+[Animation Inspiration](https://www.youtube.com/watch?v=gHdDxKy2QW0)
+<div align="center">
+
 ### 🖥️ GitHub Link
 [🔗 View Repository on GitHub](https://github.com/IbrahimExe/IExeEngine)
 
