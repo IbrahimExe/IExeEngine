@@ -9,9 +9,7 @@ using ProjectCreator.Models;
 
 namespace ProjectCreator.Services
 {
-    /// <summary>
-    /// Loads and saves EngineConfig to config.json next to the executable.
-    /// </summary>
+    // Loads and saves EngineConfig to config.json next to the executable.
     public static class ConfigService
     {
         private static readonly string ConfigPath = System.IO.Path.Combine(
