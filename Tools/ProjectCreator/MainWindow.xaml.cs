@@ -68,11 +68,20 @@ namespace ProjectCreator
             Log($"Engine name : {_config.EngineName}");
             Log($"Engine root : {_engineRoot}");
             Log($"Solution    : {System.IO.Path.GetFileName(_slnPath)}");
-            Log("───────────────────────────────────────────────────────────────────");
+            Log("─────────────────────────────────────────────────────────");
         }
 
         private void OnSettingsClicked(object sender, RoutedEventArgs e)
         {
+            var dialog = new SettingsDialog(_config.EngineName, _engineRoot ?? "Not found");
+            dialog.Owner = this;
+            bool? result = dialog.ShowDialog();
+
+            if (result != true) return;
+
+            _config.EngineName = dialog.EngineName;
+            ConfigService.Save(_config);
+
             Title = $"{_config.EngineName} — Project Creator";
             TitleLabel.Text = $"{_config.EngineName} Project Creator";
             EngineLabel.Text = $"Engine: {_config.EngineName}   Root: {_engineRoot}";
