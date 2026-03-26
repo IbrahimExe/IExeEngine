@@ -20,6 +20,8 @@ namespace ProjectCreator
         private string? _engineRoot;
         private string? _slnPath;
 
+        private ParsedSolution? _parsedSolution;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -60,6 +62,23 @@ namespace ProjectCreator
                 return;
             }
 
+            // Parse the solution file
+            try
+            {
+                _parsedSolution = SolutionParserService.Parse(_slnPath, _engineRoot);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Failed to parse the solution file:\n\n{ex.Message}",
+                    "Parse Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+
+                Application.Current.Shutdown();
+                return;
+            }
+
             Title = $"{_config.EngineName} — Project Creator";
             TitleLabel.Text = $"{_config.EngineName} Project Creator";
             EngineLabel.Text = $"Engine: {_config.EngineName}   Root: {_engineRoot}";
@@ -68,7 +87,10 @@ namespace ProjectCreator
             Log($"Engine name : {_config.EngineName}");
             Log($"Engine root : {_engineRoot}");
             Log($"Solution    : {System.IO.Path.GetFileName(_slnPath)}");
-            Log("─────────────────────────────────────────────────────────");
+            Log($"VGP folders  : {string.Join(", ", _parsedSolution.VgpFolders.Select(f => f.Name))}");
+            Log($"Engine GUID  : {_parsedSolution.EngineProjectGuid}");
+            Log($"Props file   : {_parsedSolution.PropsFileName}.props");
+            Log("─────────────────────────────────────────────────────────────────────────");
         }
 
         private void OnSettingsClicked(object sender, RoutedEventArgs e)
