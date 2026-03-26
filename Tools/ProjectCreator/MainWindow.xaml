@@ -212,8 +212,16 @@
         </Border>
 
         <Border Grid.Row="1" Padding="20,16" Background="#1E1E2E">
-            <TextBlock Text="Form coming in Step 6..."
-                       Foreground="#45475A" FontSize="12"/>
+            <Button x:Name="TestGenButton"
+            Content="Generate"
+            Click="OnTestGenClicked"
+            Background="#89B4FA"
+            Foreground="#1E1E2E"
+            FontWeight="SemiBold"
+            BorderThickness="0"
+            Padding="20,8"
+            HorizontalAlignment="Left"
+            Cursor="Hand"/>
         </Border>
 
         <Border Grid.Row="2" Padding="20,0,20,12">
@@ -253,4 +261,5 @@
             </Grid>
         </Border>
     </Grid>
+    
 </Window>

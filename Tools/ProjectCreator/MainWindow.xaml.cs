@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.IO;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -117,6 +118,56 @@ namespace ProjectCreator
             string line = $"[{DateTime.Now:HH:mm:ss}] {message}";
             LogBox.AppendText(line + "\n");
             LogBox.ScrollToEnd();
+        }
+
+        private void OnTestGenClicked(object sender, RoutedEventArgs e)
+        {
+            if (_parsedSolution == null || _engineRoot == null || _slnPath == null) return;
+
+            var vgpFolder = _parsedSolution.VgpFolders
+                .FirstOrDefault(f => f.Name == "VGP334");
+
+            if (vgpFolder == null)
+            {
+                Log("VGP334 folder not found in parsed solution.");
+                return;
+            }
+
+            string testProjectName = "99_TestProject";
+            string testFolderPath = System.IO.Path.Combine(
+                _engineRoot, "VGP334", testProjectName);
+
+            // Create the folder temporarily
+            Directory.CreateDirectory(testFolderPath);
+
+            var req = new ProjectCreationRequest
+            {
+                EngineName = _config.EngineName,
+                VgpFolderName = "VGP334",
+                VgpFolderGuid = vgpFolder.Guid,
+                ProjectName = testProjectName,
+                ProjectGuid = $"{{{Guid.NewGuid().ToString().ToUpper()}}}",
+                EngineProjectGuid = _parsedSolution.EngineProjectGuid,
+                PropsFileName = _parsedSolution.PropsFileName,
+                EngineRoot = _engineRoot,
+                ProjectFolderPath = testFolderPath,
+                SlnPath = _slnPath,
+                CopyStarterFiles = false,
+                AppDisplayName = "Test Project"
+            };
+
+            try
+            {
+                string vcxprojPath = VcxprojGeneratorService.Generate(req);
+                string filtersPath = FiltersGeneratorService.Generate(req);
+
+                Log($"test .vcxproj created  : {vcxprojPath}");
+                Log($"test .filters created  : {filtersPath}");
+            }
+            catch (Exception ex)
+            {
+                Log($"[TEST ERROR] {ex.Message}");
+            }
         }
     }
 }
