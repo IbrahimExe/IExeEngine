@@ -39,7 +39,7 @@ namespace ProjectCreator.Services
             {
                 Indent = true,
                 IndentChars = "  ",
-                Encoding = System.Text.Encoding.UTF8,
+                Encoding = new System.Text.UTF8Encoding(false),
                 OmitXmlDeclaration = false
             };
 
