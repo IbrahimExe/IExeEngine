@@ -2,12 +2,13 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Project Creator"
-        Height="580" Width="680"
-        MinHeight="580" MinWidth="620"
+        Height="640" Width="700"
+        MinHeight="640" MinWidth="660"
         WindowStartupLocation="CenterScreen"
         Background="#1E1E2E">
 
     <Window.Resources>
+
         <Style x:Key="FieldLabel" TargetType="TextBlock">
             <Setter Property="Foreground" Value="#A6ADC8"/>
             <Setter Property="FontSize"   Value="12"/>
@@ -26,13 +27,13 @@
         </Style>
 
         <Style x:Key="InputCombo" TargetType="ComboBox">
-            <Setter Property="Background"        Value="#313244"/>
-            <Setter Property="Foreground"        Value="#CDD6F4"/>
-            <Setter Property="BorderBrush"       Value="#45475A"/>
-            <Setter Property="BorderThickness"   Value="1"/>
-            <Setter Property="FontSize"          Value="13"/>
-            <Setter Property="Padding"           Value="6,4"/>
-            <Setter Property="Cursor"            Value="Hand"/>
+            <Setter Property="Background"      Value="#313244"/>
+            <Setter Property="Foreground"      Value="#CDD6F4"/>
+            <Setter Property="BorderBrush"     Value="#45475A"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize"        Value="13"/>
+            <Setter Property="Padding"         Value="6,4"/>
+            <Setter Property="Cursor"          Value="Hand"/>
             <Setter Property="ItemContainerStyle">
                 <Setter.Value>
                     <Style TargetType="ComboBoxItem">
@@ -135,17 +136,18 @@
         </Style>
 
         <Style x:Key="LogBox" TargetType="TextBox">
-            <Setter Property="Background"                Value="#181825"/>
-            <Setter Property="Foreground"                Value="#A6ADC8"/>
-            <Setter Property="FontFamily"                Value="Consolas"/>
-            <Setter Property="FontSize"                  Value="11.5"/>
-            <Setter Property="BorderBrush"               Value="#313244"/>
-            <Setter Property="BorderThickness"           Value="1"/>
-            <Setter Property="IsReadOnly"                Value="True"/>
+            <Setter Property="Background"                  Value="#181825"/>
+            <Setter Property="Foreground"                  Value="#A6ADC8"/>
+            <Setter Property="FontFamily"                  Value="Consolas"/>
+            <Setter Property="FontSize"                    Value="11.5"/>
+            <Setter Property="BorderBrush"                 Value="#313244"/>
+            <Setter Property="BorderThickness"             Value="1"/>
+            <Setter Property="IsReadOnly"                  Value="True"/>
             <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
-            <Setter Property="TextWrapping"              Value="Wrap"/>
-            <Setter Property="Padding"                   Value="8"/>
+            <Setter Property="TextWrapping"                Value="Wrap"/>
+            <Setter Property="Padding"                     Value="8"/>
         </Style>
+
     </Window.Resources>
 
     <Grid>
@@ -156,6 +158,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+        <!-- HEADER -->
         <Border Grid.Row="0" Background="#181825" Padding="20,14">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -168,10 +171,8 @@
                                Text="Project Creator"
                                FontSize="18" FontWeight="Bold"
                                Foreground="#CDD6F4"/>
-                    <TextBlock Text="Create new semester projects with all references and property sheets linked automatically"
-                               FontSize="11"
-                               Foreground="#6C7086"
-                               TextWrapping="Wrap"
+                    <TextBlock Text="An easy, worry-free method to create new projects!"
+                               FontSize="11" Foreground="#6C7086"
                                Margin="0,2,0,0"/>
                 </StackPanel>
 
@@ -211,19 +212,83 @@
             </Grid>
         </Border>
 
+        <!-- FORM -->
         <Border Grid.Row="1" Padding="20,16" Background="#1E1E2E">
-            <Button x:Name="TestGenButton"
-            Content="Generate"
-            Click="OnTestGenClicked"
-            Background="#89B4FA"
-            Foreground="#1E1E2E"
-            FontWeight="SemiBold"
-            BorderThickness="0"
-            Padding="20,8"
-            HorizontalAlignment="Left"
-            Cursor="Hand"/>
+            <StackPanel>
+
+                <!-- Row 1: VGP folder + Project name -->
+                <Grid Margin="0,0,0,12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="16"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="Semester Folder" Style="{StaticResource FieldLabel}"/>
+                        <ComboBox x:Name="VgpFolderComboBox"
+                                  Style="{StaticResource InputCombo}"
+                                  SelectionChanged="OnVgpFolderChanged"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2">
+                        <TextBlock Text="Project Name" Style="{StaticResource FieldLabel}"/>
+                        <TextBox x:Name="ProjectNameBox"
+                                 Style="{StaticResource InputBox}"
+                                 TextChanged="OnProjectNameChanged"/>
+                    </StackPanel>
+                </Grid>
+
+                <!-- Starter files checkbox -->
+                <CheckBox x:Name="CopyFilesCheckBox"
+                          Content="Copy starter files from a previous project"
+                          IsChecked="False"
+                          Foreground="#CDD6F4"
+                          FontSize="12"
+                          Margin="0,0,0,10"
+                          Checked="OnCopyFilesCheckedChanged"
+                          Unchecked="OnCopyFilesCheckedChanged"/>
+
+                <!-- Source project dropdown -->
+                <StackPanel x:Name="SourceProjectPanel" Visibility="Collapsed" Margin="0,0,0,12">
+                    <TextBlock Text="Copy files from" Style="{StaticResource FieldLabel}"/>
+                    <ComboBox x:Name="SourceProjectComboBox"
+                              Style="{StaticResource InputCombo}"/>
+                </StackPanel>
+
+                <!-- Preview -->
+                <TextBlock x:Name="PreviewLabel"
+                           Foreground="#6C7086"
+                           FontFamily="Consolas"
+                           FontSize="11"
+                           TextWrapping="Wrap"
+                           Margin="0,0,0,12"/>
+
+                <!-- Buttons -->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+
+                    <Button Content="Clear Log"
+                            Click="OnClearLogClicked"
+                            Background="Transparent"
+                            Foreground="#6C7086"
+                            BorderBrush="#45475A"
+                            BorderThickness="1"
+                            FontSize="12"
+                            Padding="12,6"
+                            Margin="0,0,10,0"
+                            Cursor="Hand"/>
+
+                    <Button x:Name="CreateButton"
+                            Content="Create Project"
+                            Style="{StaticResource PrimaryButton}"
+                            Click="OnCreateClicked"
+                            IsEnabled="False"/>
+                </StackPanel>
+
+            </StackPanel>
         </Border>
 
+        <!-- LOG -->
         <Border Grid.Row="2" Padding="20,0,20,12">
             <Grid>
                 <Grid.RowDefinitions>
@@ -240,7 +305,7 @@
             </Grid>
         </Border>
 
-
+        <!-- STATUS BAR -->
         <Border Grid.Row="3" Background="#181825" Padding="20,6">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -260,6 +325,6 @@
                            VerticalAlignment="Center"/>
             </Grid>
         </Border>
+
     </Grid>
-    
 </Window>
