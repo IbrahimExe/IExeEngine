@@ -98,13 +98,35 @@ namespace ProjectCreator.Services
         // Strips the leading number and underscore, then splits on capitals.
         public static string DeriveDisplayName(string projectName)
         {
-            // Strip leading digits and underscores
+            // Strip leading digits and underscore e.g. "22_"
             string stripped = Regex.Replace(projectName, @"^\d+_", "");
 
-            // Split on capital letters to add spaces
+            // Remove any non-alphanumeric characters except spaces
+            stripped = Regex.Replace(stripped, @"[^a-zA-Z0-9]", "");
+            // i.e: "22_HelloNewProject" -> "Hello New Project"
+            //      "20_HelloEvents&Audio" -> "Hello Events Audio"
+
+            // Split on capital letters to insert spaces
             string spaced = Regex.Replace(stripped, @"(?<!^)(?=[A-Z])", " ");
 
             return spaced.Trim();
+        }
+
+
+        // Checks which of the three starter files actually exist in the source project.
+        // Returns a list of any files that are missing so the UI can warn the user.
+        public static List<string> CheckMissingFiles(string sourceProjectFolderPath)
+        {
+            var missing = new List<string>();
+
+            foreach (string fileName in FilesToCopy)
+            {
+                string path = Path.Combine(sourceProjectFolderPath, fileName);
+                if (!File.Exists(path))
+                    missing.Add(fileName);
+            }
+
+            return missing;
         }
     }
 }

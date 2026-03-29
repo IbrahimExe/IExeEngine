@@ -217,6 +217,8 @@ namespace ProjectCreator
             Log("──────────────────────────────────────────");
             Log($"Creating project '{projectName}' in {vgpFolder.Name}...");
 
+            // Prevent user from clicking create twice while the tool is running
+            SetFormEnabled(false);
             try
             {
                 RunCreation(vgpFolder, projectName, copyFiles, sourceProject);
@@ -228,6 +230,10 @@ namespace ProjectCreator
                     $"An unexpected error occurred:\n\n{ex.Message}",
                     "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 StatusLabel.Text = "Creation failed — see log for details.";
+            }
+            finally
+            {
+                SetFormEnabled(true);
             }
         }
 
@@ -267,15 +273,45 @@ namespace ProjectCreator
             string vcxprojPath = VcxprojGeneratorService.Generate(req);
             Log($"Generated .vcxproj : {vcxprojPath}");
 
-            // 3. Generate .vcxproj.filters
+            // 3a. Generate .vcxproj.filters
             string filtersPath = FiltersGeneratorService.Generate(req);
             Log($"Generated .filters : {filtersPath}");
+            // 3b. Generate .vcxproj.user
+            string userFilePath = VcxprojGeneratorService.GenerateUserFile(req);
+            Log($"Generated .user    : {userFilePath}");
 
             // 4. Copy and patch starter files if requested
             if (copyFiles && sourceProject != null)
             {
                 string sourceFolderPath = StarterFileService.GetSourceProjectFolder(
                     _engineRoot!, sourceProject);
+
+                // Warn the user if any expected files are missing in the source project
+                List<string> missing = StarterFileService.CheckMissingFiles(sourceFolderPath);
+                if (missing.Count > 0)
+                {
+                    string missingList = string.Join(", ", missing);
+                    var result = MessageBox.Show(
+                        $"The source project '{sourceProject.Name}' is missing:\n\n" +
+                        $"  {missingList}\n\n" +
+                        "These files will be skipped. The project will still be created " +
+                        "but may not compile without them.\n\n" +
+                        "Do you want to continue anyway?",
+                        "Missing Source Files",
+                        MessageBoxButton.YesNo,
+                        MessageBoxImage.Warning);
+
+                    if (result != MessageBoxResult.Yes)
+                    {
+                        // Clean up the folder we already created and abort
+                        if (Directory.Exists(req.ProjectFolderPath))
+                            Directory.Delete(req.ProjectFolderPath, recursive: true);
+
+                        Log("[ABORTED] Project creation cancelled by user.");
+                        StatusLabel.Text = "Creation cancelled.";
+                        return;
+                    }
+                }
 
                 List<string> copyLog = StarterFileService.CopyAndPatch(req, sourceFolderPath);
                 foreach (string entry in copyLog)
@@ -380,5 +416,17 @@ namespace ProjectCreator
             LogBox.AppendText(line + "\n");
             LogBox.ScrollToEnd();
         }
+
+        private void SetFormEnabled(bool enabled)
+        {
+            VgpFolderComboBox.IsEnabled = enabled;
+            ProjectNameBox.IsEnabled = enabled;
+            CopyFilesCheckBox.IsEnabled = enabled;
+            SourceProjectComboBox.IsEnabled = enabled;
+            CreateButton.IsEnabled = enabled &&
+                                             VgpFolderComboBox.SelectedItem != null &&
+                                             !string.IsNullOrWhiteSpace(ProjectNameBox.Text);
+        }
+
     }
 }

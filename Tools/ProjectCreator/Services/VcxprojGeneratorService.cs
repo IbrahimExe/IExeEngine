@@ -285,5 +285,33 @@ namespace ProjectCreator.Services
             w.WriteString(value);
             w.WriteEndElement();
         }
+
+        // Generates the .vcxproj.user file
+        // from its own directory when debugging.
+        public static string GenerateUserFile(ProjectCreationRequest req)
+        {
+            string outputPath = System.IO.Path.Combine(
+                req.ProjectFolderPath, $"{req.ProjectName}.vcxproj.user");
+
+            var settings = new XmlWriterSettings
+            {
+                Indent = true,
+                IndentChars = "  ",
+                Encoding = new System.Text.UTF8Encoding(false),
+                OmitXmlDeclaration = false
+            };
+
+            using XmlWriter w = XmlWriter.Create(outputPath, settings);
+
+            w.WriteStartDocument();
+            w.WriteStartElement("Project", MsBuildNs);
+            w.WriteAttributeString("ToolsVersion", "Current");
+
+            // Empty user file - VS will populate it with local settings on first use
+            w.WriteEndElement();
+            w.WriteEndDocument();
+
+            return outputPath;
+        }
     }
 }
