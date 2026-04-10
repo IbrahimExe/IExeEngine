@@ -49,6 +49,8 @@ void* BlockAllocator::Allocate()
 
     LOG("%s allocated blocks at %p, Allocated: %zu, Freed %zu, Highest: %zu",
         mName.c_str(), freeBlock, mBlocksAllocatedCurrent, mBlocksFreed, mBlocksHighest);
+
+    return freeBlock;
 }
 
 void BlockAllocator::Free(void* ptr)

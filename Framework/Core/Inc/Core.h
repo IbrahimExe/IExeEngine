@@ -9,3 +9,4 @@
 #include "Event.h"
 #include "EventManager.h"
 #include "BlockAllocator.h"
+#include "TypedAllocator.h"
