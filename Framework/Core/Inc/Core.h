@@ -8,3 +8,4 @@
 #include "WindowMessageHandler.h"
 #include "Event.h"
 #include "EventManager.h"
+#include "BlockAllocator.h"
