@@ -37,6 +37,23 @@ private:
     std::string mName;
 };
 
+static int sTeacherId = 0;
+class Teacher
+{
+public:
+    Teacher()
+    {
+        mId = ++sTeacherId;
+        mName = "Teacher_" + std::to_string(mId);
+        mSubject = "Subject_" + std::to_string(mId % 5);
+    }
+
+private:
+    int mId = 0;
+    std::string mName;
+    std::string mSubject;
+};
+
 int WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int)
 {
     TypedAllocator studentPool = TypedAllocator<Student>("StudentPool", 100);
