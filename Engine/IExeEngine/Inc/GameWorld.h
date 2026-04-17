@@ -17,6 +17,9 @@ namespace IExeEngine
         void DestroyGameObject(const GameObjectHandle& handle);
 
     private:
+        bool IsValid(const GameObjectHandle& handle);
+        void ProcessDestoyList(); // As we never want to destoy game objects during an update loop...
+
         struct Slot
         {
             std::unique_ptr<GameObject> gameObject;
@@ -27,5 +30,6 @@ namespace IExeEngine
         GameObjectSlots mGameObjectSlots;
         std::vector<uint32_t> mFreeSlots;
         std::vector<uint32_t> mToBeDestroyed;
+        bool mInitialized = false;
     };
 }

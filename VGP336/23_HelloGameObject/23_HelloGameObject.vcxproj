@@ -21,10 +21,10 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{53dbe9fa-9ccb-4ec8-8f16-10a2c6cb821a}</ProjectGuid>
-    <RootNamespace>My23HelloMemory</RootNamespace>
+    <ProjectGuid>{26a003c8-38c9-4f6b-a0f0-449c894e4240}</ProjectGuid>
+    <RootNamespace>My23HelloGameObject</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>23_HelloMemory</ProjectName>
+    <ProjectName>24_HelloGameObject</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -132,12 +132,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\24_HelloGameObject\GameState.cpp" />
+    <ClCompile Include="..\24_HelloGameObject\WinMain.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\24_HelloGameObject\GameState.h" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\Engine\IExeEngine\IExeEngine.vcxproj">
       <Project>{daca0f24-e27d-4787-ab9e-c75a1e5d2129}</Project>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

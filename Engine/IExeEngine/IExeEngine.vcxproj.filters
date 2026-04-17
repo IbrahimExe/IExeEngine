@@ -7,6 +7,12 @@
     <Filter Include="Src">
       <UniqueIdentifier>{b7f224e8-f653-4ea8-9342-ff4ea59c874c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Inc\Components">
+      <UniqueIdentifier>{9c68264e-fd4c-42fa-93e4-6a312b23b811}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Components">
+      <UniqueIdentifier>{2c3de4cd-ce24-4bc1-a102-fca8cddc6fa8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Inc\Common.h">
@@ -32,6 +38,9 @@
     </ClInclude>
     <ClInclude Include="Inc\GameObjectHandle.h">
       <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\Component.h">
+      <Filter>Inc\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

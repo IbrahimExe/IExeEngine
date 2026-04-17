@@ -138,6 +138,7 @@
     <ClInclude Include="Inc\App.h" />
     <ClInclude Include="Inc\AppState.h" />
     <ClInclude Include="Inc\Common.h" />
+    <ClInclude Include="Inc\Component.h" />
     <ClInclude Include="Inc\GameObject.h" />
     <ClInclude Include="Inc\GameObjectHandle.h" />
     <ClInclude Include="Inc\GameWorld.h" />
