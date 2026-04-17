@@ -10,6 +10,11 @@
 #include "GameWorld.h"
 #include "GameObjectHandle.h"
 
+// Component Info
+#include "TypeIds.h"
+#include "Component.h"
+#include "TransformComponent.h"
+
 namespace IExeEngine
 {
 	App& MainApp();

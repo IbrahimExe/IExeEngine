@@ -15,7 +15,7 @@ void GameObject::Initialize()
 
 void GameObject::Terminate()
 {
-
+    for (auto& )
 }
 
 void GameObject::Update(float deltaTime)
