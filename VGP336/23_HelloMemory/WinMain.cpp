@@ -130,7 +130,7 @@ int WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int)
         // Teachers: mix of default and named+subject overload
         Teacher* t = (i % 2 == 0)
             ? teacherPool.New()
-            : teacherPool.New("Prof_" + std::to_string(i), "Mathematics");
+            : teacherPool.New("Prof_" + std::to_string(i), "Programming");
         t->Log();
         teachers.push_back(t);
 

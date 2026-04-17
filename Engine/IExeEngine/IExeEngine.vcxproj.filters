@@ -24,6 +24,15 @@
     <ClInclude Include="Inc\AppState.h">
       <Filter>Inc</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\GameObject.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\GameWorld.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\GameObjectHandle.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Precompiled.cpp">
@@ -33,6 +42,12 @@
       <Filter>Src</Filter>
     </ClCompile>
     <ClCompile Include="Src\IExeEngine.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObject.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameWorld.cpp">
       <Filter>Src</Filter>
     </ClCompile>
   </ItemGroup>
