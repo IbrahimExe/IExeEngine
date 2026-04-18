@@ -13,6 +13,12 @@
     <Filter Include="Src\Components">
       <UniqueIdentifier>{2c3de4cd-ce24-4bc1-a102-fca8cddc6fa8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Inc\Services">
+      <UniqueIdentifier>{2509bd80-0b70-4e28-af6e-38567b27f81d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Services">
+      <UniqueIdentifier>{2fffb608-4d4b-4a21-bdcd-44dd0b3227a8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Inc\Common.h">
@@ -48,6 +54,15 @@
     <ClInclude Include="Inc\TransformComponent.h">
       <Filter>Inc\Components</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\CameraComponent.h">
+      <Filter>Inc\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\FPSCameraComponent.h">
+      <Filter>Inc\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\Service.h">
+      <Filter>Inc\Services</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Precompiled.cpp">
@@ -66,6 +81,12 @@
       <Filter>Src</Filter>
     </ClCompile>
     <ClCompile Include="Src\TransformComponent.cpp">
+      <Filter>Src\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\CameraComponent.cpp">
+      <Filter>Src\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\FPSCameraComponent.cpp">
       <Filter>Src\Components</Filter>
     </ClCompile>
   </ItemGroup>

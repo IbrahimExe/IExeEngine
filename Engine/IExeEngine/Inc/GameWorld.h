@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GameObject.h"
+#include "Service.h"
 
 namespace IExeEngine
 {
@@ -31,5 +32,8 @@ namespace IExeEngine
         std::vector<uint32_t> mFreeSlots;
         std::vector<uint32_t> mToBeDestroyed;
         bool mInitialized = false;
+
+        using Services = std::vector<std::unique_ptr<Service>>;
+        Services mServices;
     };
 }

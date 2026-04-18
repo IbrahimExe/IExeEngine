@@ -8,5 +8,7 @@ namespace IExeEngine
     {
     public:
         SET_TYPE_ID(ComponentId::Transform);
+
+        void DebugUI() override;
     };
 }

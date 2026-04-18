@@ -15,12 +15,20 @@ void GameObject::Initialize()
 
 void GameObject::Terminate()
 {
-    for (auto& )
+    for (auto& component : mComponents)
+    {
+        component->Terminate();
+        component.reset();
+    }
+    mComponents.clear();
 }
 
 void GameObject::Update(float deltaTime)
 {
-
+    for (auto& component : mComponents)
+    {
+        component->Update(deltaTime);
+    }
 }
 
 void GameObject::DebugUI()
@@ -28,7 +36,10 @@ void GameObject::DebugUI()
     ImGui::PushID(mId);
     if (ImGui::CollapsingHeader(mName.c_str()))
     {
-        // WIll add more here later
+        for (auto& component : mComponents)
+        {
+            component->DebugUI();
+        }
     }
     ImGui::PopID();
 }

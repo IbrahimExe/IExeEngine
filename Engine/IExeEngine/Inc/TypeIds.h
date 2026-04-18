@@ -5,9 +5,19 @@ namespace IExeEngine
     enum class ComponentId 
     {
         Invalid,    // default value, not a valid component
-        Transform,  // transform component for local data
-        Count       // last value, can be used to chain custom components
 
+        Transform,  // transform component for local data
+        Camera,     // contains the camera for viewing
+        FPSCamera,  // Move the camera component with FPS controls
+
+        Count       // last value, can be used to chain custom components
+    };
+
+    enum class ServiceId
+    {
+        Invalid,            // Default value, not valid Id
+        Camera,				// Manages the cameras in the world
+        Count               // Last value, can be used to chain custom services
     };
 }
 

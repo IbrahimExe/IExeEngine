@@ -6,6 +6,11 @@ using namespace IExeEngine;
 void GameWorld::Initialize(uint32_t capacity)
 {
     ASSERT(!mInitialized, "GameWorld: Already initialized!");
+    // Services have to be added first, then Game Object can be added 
+    for (auto& service : mServices)
+    {
+        service->Initialize();
+    }
 
     mGameObjectSlots.resize(capacity);
     mFreeSlots.resize(capacity);
@@ -28,6 +33,14 @@ void GameWorld::Terminate()
     mFreeSlots.clear();
     mToBeDestroyed.clear();
 
+    // Get rid of all game objects to make sure they dont mess with the services
+    for (auto& service : mServices)
+    {
+        service->Terminate();
+        service.reset();
+    }
+    mServices.clear();
+
     mInitialized = false;
 }
 
@@ -40,11 +53,19 @@ void GameWorld::Update(float deltaTime)
             slot.gameObject->Update(deltaTime);
         }
     }
+    for (auto& service : mServices)
+    {
+        service->Update(deltaTime);
+    }
+    ProcessDestoyList();
 }
 
 void GameWorld::Render()
 {
-
+    for (auto& service : mServices)
+    {
+        service->Render();
+    }
 }
 
 void GameWorld::DebugUI()
@@ -55,6 +76,10 @@ void GameWorld::DebugUI()
         {
             slot.gameObject->DebugUI();
         }
+    }
+    for (auto& service : mServices)
+    {
+        service->DebugUI();
     }
 }
 

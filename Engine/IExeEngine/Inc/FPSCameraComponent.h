@@ -1,0 +1,25 @@
+#pragma once
+
+#include "Component.h"
+
+namespace IExeEngine
+{
+	class CameraComponent;
+
+	class FPSCameraComponent final : public Component
+	{
+	public:
+		SET_TYPE_ID(ComponentId::FPSCamera);
+
+		void Initialize() override;
+		void Terminate() override;
+		void Update(float deltaTime) override;
+		void DebugUI() override;
+
+	private:
+		CameraComponent* mCameraComponent = nullptr;
+		float mShiftSpeed = 20.0f;
+		float mMoveSpeed = 5.0f;
+		float mTurnSpeed = 0.1f;
+	};
+}
