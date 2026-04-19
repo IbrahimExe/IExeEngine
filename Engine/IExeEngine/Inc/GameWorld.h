@@ -17,6 +17,13 @@ namespace IExeEngine
         GameObject* CreateGameObject(std::string name);
         void DestroyGameObject(const GameObjectHandle& handle);
 
+        template<class ServiceType>
+        ServiceType* AddService()
+        {
+            
+        }
+
+
     private:
         bool IsValid(const GameObjectHandle& handle);
         void ProcessDestoyList(); // As we never want to destoy game objects during an update loop...
