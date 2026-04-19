@@ -1,6 +1,6 @@
 #include "Precompiled.h"
 #include "FPSCameraComponent.h"
-#include "CameraComponent.h" // Which camera we are actually gonna use
+#include "CameraComponent.h"
 #include "GameObject.h"
 
 using namespace IExeEngine;
@@ -8,17 +8,17 @@ using namespace IExeEngine::Input;
 
 void FPSCameraComponent::Initialize()
 {
-    mCameraComponent = GetOwner().GetComponent<CameraComponent>();
-    ASSERT(mCameraComponent != nullptr, "FPSCameraComponent: camera was not found!");
+	mCameraComponent = GetOwner().GetComponent<CameraComponent>();
+	ASSERT(mCameraComponent != nullptr, "FPSCameraComponent: Camera was not found!");
 }
 
 void FPSCameraComponent::Terminate()
-{    
-    mCameraComponent = nullptr;
-}    
-     
+{
+	mCameraComponent = nullptr;
+}
+
 void FPSCameraComponent::Update(float deltaTime)
-{    
+{
 	Graphics::Camera& camera = mCameraComponent->GetCamera();
 	auto input = InputSystem::Get();
 	const float moveSpeed = ((input->IsKeyDown(KeyCode::LSHIFT)) ? mShiftSpeed : mMoveSpeed) * deltaTime;
@@ -52,8 +52,8 @@ void FPSCameraComponent::Update(float deltaTime)
 		camera.Yaw(input->GetMouseMoveX() * turnSpeed);
 		camera.Pitch(input->GetMouseMoveY() * turnSpeed);
 	}
-}    
-     
+}
+
 void FPSCameraComponent::DebugUI()
 {
 	ImGui::DragFloat("Move Speed", &mMoveSpeed, 0.1f, 0.1f, 100.0f);

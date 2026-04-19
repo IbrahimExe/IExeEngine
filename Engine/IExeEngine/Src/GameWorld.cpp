@@ -57,6 +57,7 @@ void GameWorld::Update(float deltaTime)
     {
         service->Update(deltaTime);
     }
+    
     ProcessDestoyList();
 }
 
