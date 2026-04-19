@@ -18,8 +18,8 @@ namespace IExeEngine
 
 	private:
 		CameraComponent* mCameraComponent = nullptr;
-		float mShiftSpeed = 20.0f;
-		float mMoveSpeed = 5.0f;
+		float mShiftSpeed = 10.0f;
+		float mMoveSpeed = 1.0f;
 		float mTurnSpeed = 0.1f;
 	};
 }
