@@ -20,7 +20,32 @@ namespace IExeEngine
         template<class ServiceType>
         ServiceType* AddService()
         {
-            
+            static_assert(std::is_base_of_v<Service, ServiceType>,
+                "GameWorld: ServiceType must be of type Service.");
+            ASSERT(!mInitialized, "GameWorld: can't add services when initialized");
+
+            auto& newService = mServices.emplace_back(std::make_unique<ServiceType>());
+            newService->mWorld = this;
+            return static_cast<ServiceType*>(newService.get());
+        }
+
+        template<class ServiceType>
+        const ServiceType* GetService() const
+        {
+            for (auto& service : mServices)
+            {
+                if (service->GetTypeId() == ServiceType::StaticGetTypeId())
+                {
+                    return static_cast<ServiceType*>(service.get());
+                }
+            }
+            return nullptr;
+        }
+        template<class ServiceType>
+        ServiceType* GetService()
+        {
+            const GameWorld* thisConst = static_cast<const GameWorld*>(this);
+            return const_cast<ServiceType*>(thisConst->GetService<ServiceType>());
         }
 
 
