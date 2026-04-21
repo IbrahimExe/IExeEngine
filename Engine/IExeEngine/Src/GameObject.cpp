@@ -8,6 +8,10 @@ static uint32_t gUniqueId = 0;
 void GameObject::Initialize()
 {
     ASSERT(!mInitialized, "GameObject: Already initialized!");
+    for (auto& component : mComponents)
+    {
+        component->Initialize();
+    }
 
     mId = ++gUniqueId;
     mInitialized = true;
