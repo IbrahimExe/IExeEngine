@@ -10,19 +10,25 @@ void GameState::Initialize()
 {
 	mGameWorld.Initialize();
 
-	GameObject* transformGO = mGameWorld.CreateGameObject("Transform");
-	transformGO->AddComponent<TransformComponent>();
-	transformGO->Initialize();
-
+	// Camera
 	GameObject* cameraGO = mGameWorld.CreateGameObject("Camera");
 	mCameraComponent = cameraGO->AddComponent<CameraComponent>();
 	cameraGO->AddComponent<FPSCameraComponent>();
 	cameraGO->Initialize();
 
+	// World Objects
 	GameObject* playerGO = mGameWorld.CreateGameObject("Player");
 	TransformComponent* playerTransform = playerGO->AddComponent<TransformComponent>();
 	playerTransform->position.x = 2.0f;
 	playerGO->Initialize();
+
+	GameObject* transformGO = mGameWorld.CreateGameObject("Transform");
+	transformGO->AddComponent<TransformComponent>();
+	transformGO->Initialize();
+
+
+
+
 }
 
 void GameState::Terminate()
