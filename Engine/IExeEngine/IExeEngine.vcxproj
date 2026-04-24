@@ -142,6 +142,7 @@
     <ClInclude Include="Inc\Component.h" />
     <ClInclude Include="Inc\FPSCameraComponent.h" />
     <ClInclude Include="Inc\GameObject.h" />
+    <ClInclude Include="Inc\GameObjectFactory.h" />
     <ClInclude Include="Inc\GameObjectHandle.h" />
     <ClInclude Include="Inc\GameWorld.h" />
     <ClInclude Include="Inc\IExeEngine.h" />
@@ -155,6 +156,7 @@
     <ClCompile Include="Src\CameraComponent.cpp" />
     <ClCompile Include="Src\FPSCameraComponent.cpp" />
     <ClCompile Include="Src\GameObject.cpp" />
+    <ClCompile Include="Src\GameObjectFactory.cpp" />
     <ClCompile Include="Src\GameWorld.cpp" />
     <ClCompile Include="Src\IExeEngine.cpp" />
     <ClCompile Include="Src\Precompiled.cpp">

@@ -9,6 +9,7 @@
 #include "GameObject.h"
 #include "GameWorld.h"
 #include "GameObjectHandle.h"
+#include "GameObjectFactory.h"
 
 // Component Info
 #include "TypeIds.h"
