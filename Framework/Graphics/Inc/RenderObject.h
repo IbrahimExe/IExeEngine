@@ -31,6 +31,7 @@ namespace IExeEngine::Graphics
     {
     public:
         void Initialize(const std::filesystem::path& modelFilePath);
+        void Initialize(const Model& model, const Animator* anim = nullptr);
         void Terminate();
 
         ModelId modelId; // Model Identifier

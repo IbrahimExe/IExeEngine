@@ -18,9 +18,12 @@
 #include "TransformComponent.h"
 #include "CameraComponent.h"
 #include "FPSCameraComponent.h"
+#include "RenderObjectComponent.h"
 
 // Services
 #include "Service.h"
+#include "CameraService.h"
+#include "RenderService.h"
 
 namespace IExeEngine
 {

@@ -1,17 +1,28 @@
 #include "Precompiled.h"
 #include "CameraComponent.h"
 #include "SaveUtil.h"
+#include "CameraService.h"
+#include "GameWorld.h"
+#include "GameObject.h"
 
 using namespace IExeEngine;
 
 void CameraComponent::Initialize()
 {
-
+    CameraService* cameraService = GetOwner().GetWorld().GetService<CameraService>();
+	if (cameraService != nullptr)
+	{
+        cameraService->Register(this);
+	}
 }
 
 void CameraComponent::Terminate()
 {
-
+	CameraService* cameraService = GetOwner().GetWorld().GetService<CameraService>();
+	if (cameraService != nullptr)
+	{
+		cameraService->Unregister(this);
+	}
 }
 
 void CameraComponent::DebugUI()

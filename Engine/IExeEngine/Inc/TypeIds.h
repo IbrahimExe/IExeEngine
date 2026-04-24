@@ -17,6 +17,7 @@ namespace IExeEngine
     {
         Invalid,            // Default value, not valid Id
         Camera,				// Manages the cameras in the world
+        Render,             // Renders the renderobjects into the world
         Count               // Last value, can be used to chain custom services
     };
 }

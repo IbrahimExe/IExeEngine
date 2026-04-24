@@ -14,6 +14,11 @@ void RenderObject::Terminate()
     tm->ReleaseTexture(bumpMapId);
 }
 
+void RenderGroup::Initialize(const Model& model, const Animator* anim)
+{
+
+}
+
 void RenderGroup::Initialize(const std::filesystem::path& modelFilePath)
 {
     modelId = ModelManager::Get()->LoadModel(modelFilePath);
@@ -49,6 +54,7 @@ void RenderGroup::Initialize(const std::filesystem::path& modelFilePath)
         }
     }
 }
+
 
 void RenderGroup::Terminate()
 {

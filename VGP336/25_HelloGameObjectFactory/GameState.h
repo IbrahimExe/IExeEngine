@@ -17,6 +17,4 @@ public:
 
 private:
     IExeEngine::GameWorld mGameWorld;
-
-	IExeEngine::CameraComponent* mCameraComponent = nullptr;
 };

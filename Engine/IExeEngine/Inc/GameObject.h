@@ -23,6 +23,9 @@ namespace IExeEngine
 
         const GameObjectHandle& GetHandle() const;
 
+        GameWorld& GetWorld();
+        const GameWorld& GetWorld() const;
+
         template<class ComponentType>
         ComponentType* AddComponent()
         {
@@ -86,6 +89,7 @@ namespace IExeEngine
 
         GameObjectHandle mHandle;
 
+        GameWorld* mWorld = nullptr;
 
         using Components = std::vector<std::unique_ptr<Component>>;
         Components mComponents;

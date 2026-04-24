@@ -8,11 +8,11 @@ using namespace IExeEngine::Physics;
 
 void GameState::Initialize()
 {
+    mGameWorld.AddService<CameraService>();
 	mGameWorld.Initialize();
 
 	// Camera
 	GameObject* cameraGO = mGameWorld.CreateGameObject("Camera");
-	mCameraComponent = cameraGO->AddComponent<CameraComponent>();
 	cameraGO->AddComponent<FPSCameraComponent>();
 	cameraGO->Initialize();
 
@@ -70,5 +70,4 @@ void GameState::DebugUI()
 	mGameWorld.DebugUI();
 	ImGui::End();
 
-	SimpleDraw::Render(mCameraComponent->GetCamera());
 }

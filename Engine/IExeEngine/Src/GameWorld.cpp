@@ -103,6 +103,7 @@ GameObject* GameWorld::CreateGameObject(std::string name, const std::filesystem:
     slot.gameObject->SetName(name);
     slot.gameObject->mHandle.mIndex = freeSlot;
     slot.gameObject->mHandle.mGeneration = slot.generation;
+    slot.gameObject->mWorld = this;
 
     if (!templatePath.empty())
     {

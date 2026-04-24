@@ -70,3 +70,13 @@ const GameObjectHandle& GameObject::GetHandle() const
     // TODO: insert return statement here
     return mHandle;
 }
+
+GameWorld& GameObject::GetWorld()
+{
+    return *mWorld;
+}
+
+const GameWorld& GameObject::GetWorld() const
+{
+    return *mWorld;
+}
