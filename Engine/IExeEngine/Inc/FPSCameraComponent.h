@@ -15,6 +15,7 @@ namespace IExeEngine
 		void Terminate() override;
 		void Update(float deltaTime) override;
 		void DebugUI() override;
+        void Deserialize(const rapidjson::Value& value) override;
 
 	private:
 		CameraComponent* mCameraComponent = nullptr;

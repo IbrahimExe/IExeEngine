@@ -85,7 +85,7 @@ void GameWorld::DebugUI()
     }
 }
 
-GameObject* GameWorld::CreateGameObject(std::string name, const std::filesystem::path& templatePath = "")
+GameObject* GameWorld::CreateGameObject(std::string name, const std::filesystem::path& templatePath)
 {
     ASSERT(mInitialized, "GameWorld: Not initialized!");
     if (mFreeSlots.empty())

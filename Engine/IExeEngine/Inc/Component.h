@@ -25,7 +25,7 @@ namespace IExeEngine
         // Will read in data, apply to the object
         virtual void Deserialize(const rapidjson::Value& value) {}
         // Will write out data to a json document, which will be saved to a json file
-        virtual void Serialize(rapidjson::Document& doc, rapidjson::Value& value, const rapidjson::Value& originalValue);
+        virtual void Serialize(rapidjson::Document& doc, rapidjson::Value& value, const rapidjson::Value& originalValue) {}
 
         virtual uint32_t GetTypeId() const = 0;
 
