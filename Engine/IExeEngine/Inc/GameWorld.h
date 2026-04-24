@@ -14,7 +14,7 @@ namespace IExeEngine
         void Render();
         void DebugUI();
     
-        GameObject* CreateGameObject(std::string name);
+        GameObject* CreateGameObject(std::string name, const std::filesystem::path& templatePath = "");
         void DestroyGameObject(const GameObjectHandle& handle);
 
         template<class ServiceType>

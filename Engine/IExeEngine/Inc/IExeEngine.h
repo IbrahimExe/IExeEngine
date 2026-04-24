@@ -10,6 +10,7 @@
 #include "GameWorld.h"
 #include "GameObjectHandle.h"
 #include "GameObjectFactory.h"
+#include "SaveUtil.h"
 
 // Component Info
 #include "TypeIds.h"

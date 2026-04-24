@@ -12,3 +12,8 @@ void TransformComponent::DebugUI()
 
 	SimpleDraw::AddTransform(GetMatrix4());
 }
+
+void TransformComponent::Deserialize(const rapidjson::Value& value)
+{
+
+}

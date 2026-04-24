@@ -1,7 +1,38 @@
 #include "Precompiled.h"
 #include "GameObjectFactory.h"
+#include "Component.h"
+#include "GameObject.h"
+// components includes we've made 
+#include "TransformComponent.h"
+#include "CameraComponent.h"
+#include "FPSCameraComponent.h"
 
 using namespace IExeEngine;
+
+namespace
+{
+    // Helper funcitons in here only stay in this specific .cpp file
+    Component* AddComponent(const std::string& componentName, GameObject& gameObject)
+    {
+        Component* newComponent = nullptr;
+        if (componentName == "TransformComponent")
+        {
+            newComponent = gameObject.AddComponent<TransformComponent>();
+        }
+        else if (componentName == "CameraComponent")
+        {
+            newComponent = gameObject.AddComponent<CameraComponent>();
+        }
+        else if (componentName == "FPSCameraComponent")
+        {
+            newComponent = gameObject.AddComponent<FPSCameraComponent>();
+        }
+
+        ASSERT(newComponent != nullptr, "GameObjectFactory: Component type [%s] not found!", componentName.c_str());
+
+        return newComponent;
+    }
+}
 
 void GameObjectFactory::Make(const std::filesystem::path& templatePath, GameObject& gameObject, GameWorld& gameWorld)
 {
@@ -20,5 +51,11 @@ void GameObjectFactory::Make(const std::filesystem::path& templatePath, GameObje
     for (auto& component : components)
     {
         // TODO read data...
+        Component* newComponent = AddComponent(component.name.GetString(), gameObject);
+        if (newComponent != nullptr)
+        {
+            // Apply the jason value data
+            newComponent->Deserialize(component.value);
+        }
     }
 }
