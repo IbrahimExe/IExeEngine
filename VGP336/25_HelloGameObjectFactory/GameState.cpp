@@ -9,6 +9,7 @@ using namespace IExeEngine::Physics;
 void GameState::Initialize()
 {
     mGameWorld.AddService<CameraService>();
+	mGameWorld.AddService<RenderService>();
 	mGameWorld.Initialize();
 
 	// Camera

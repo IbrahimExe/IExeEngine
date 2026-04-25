@@ -57,7 +57,7 @@ void RenderService::DebugUI()
 {
     if (ImGui::CollapsingHeader("RenderService"))
     {
-        ImGui::Text("FPS: %3f", mFPS);
+        ImGui::Text("FPS: %.3f", mFPS);
         if (ImGui::CollapsingHeader("Light", ImGuiTreeNodeFlags_DefaultOpen))
         {
             if (ImGui::DragFloat3("Direction", &mDirectionalLight.direction.x, 0.001f))
@@ -95,5 +95,17 @@ void RenderService::Register(const RenderObjectComponent* renderObjectComponent)
 
 void RenderService::Unregister(const RenderObjectComponent* renderObjectComponent)
 {
+    auto iter = std::find_if(
+        mRenderEntries.begin(),
+        mRenderEntries.end(),
+        [&](const Entry& entry)
+        {
+            return entry.renderComponent == renderObjectComponent;
+        });
 
+    if (iter != mRenderEntries.end())
+    {
+        iter->renderGroup.Terminate();
+        mRenderEntries.erase(iter);
+    }
 }
