@@ -14,14 +14,13 @@ void RenderObject::Terminate()
     tm->ReleaseTexture(bumpMapId);
 }
 
-
-void RenderGroup::Initialize(const std::filesystem::path& modelFilePath)
+void RenderGroup::Initialize(const std::filesystem::path& modelFilePath, const Animator* anim)
 {
     modelId = ModelManager::Get()->LoadModel(modelFilePath);
     const Model* model = ModelManager::Get()->GetModel(modelId);
     ASSERT(model != nullptr, "RenderGroup: Failed to load %s", modelFilePath.u8string().c_str());
 
-    Initialize(*model);
+    Initialize(*model, anim);
 }
 
 void RenderGroup::Initialize(const Model& model, const Animator* anim)
@@ -36,16 +35,16 @@ void RenderGroup::Initialize(const Model& model, const Animator* anim)
             return TextureManager::Get()->LoadTexture(textureName, false);
         };
 
-    skeleton = model->skeleton.get();
+    skeleton = model.skeleton.get();
 
-    for (const Model::MeshData& meshData : model->meshData)
+    for (const Model::MeshData& meshData : model.meshData)
     {
         RenderObject& renderObject = renderObjects.emplace_back();
         renderObject.meshBuffer.Initialize(meshData.mesh);
-        if (meshData.materialIndex < model->materialData.size())
+        if (meshData.materialIndex < model.materialData.size())
         {
             // Add Material Data
-            const Model::MaterialData& materialData = model->materialData[meshData.materialIndex];
+            const Model::MaterialData& materialData = model.materialData[meshData.materialIndex];
             renderObject.material = materialData.material;
 
             renderObject.diffuseMapId = TryLoadTexture(materialData.diffuseMapName);
