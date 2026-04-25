@@ -14,10 +14,6 @@ void RenderObject::Terminate()
     tm->ReleaseTexture(bumpMapId);
 }
 
-void RenderGroup::Initialize(const Model& model, const Animator* anim)
-{
-
-}
 
 void RenderGroup::Initialize(const std::filesystem::path& modelFilePath)
 {
@@ -25,15 +21,20 @@ void RenderGroup::Initialize(const std::filesystem::path& modelFilePath)
     const Model* model = ModelManager::Get()->GetModel(modelId);
     ASSERT(model != nullptr, "RenderGroup: Failed to load %s", modelFilePath.u8string().c_str());
 
+    Initialize(*model);
+}
+
+void RenderGroup::Initialize(const Model& model, const Animator* anim)
+{
     auto TryLoadTexture = [](const auto& textureName) -> TextureId
-    {
-        if (textureName.empty())
         {
-            return 0;
-        }
-        
-        return TextureManager::Get()->LoadTexture(textureName, false);
-    };
+            if (textureName.empty())
+            {
+                return 0;
+            }
+
+            return TextureManager::Get()->LoadTexture(textureName, false);
+        };
 
     skeleton = model->skeleton.get();
 
@@ -54,7 +55,6 @@ void RenderGroup::Initialize(const std::filesystem::path& modelFilePath)
         }
     }
 }
-
 
 void RenderGroup::Terminate()
 {
