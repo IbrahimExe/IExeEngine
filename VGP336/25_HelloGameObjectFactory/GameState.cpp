@@ -24,6 +24,11 @@ void GameState::Initialize()
 	playerTransform->position.x = 0.0f;
 	playerGO->Initialize();
 
+	GameObject* modelGO = mGameWorld.CreateGameObject("SphereObj", L"../../Assets/Templates/Objects/mesh_obj.json");
+	TransformComponent* sphereTransform = modelGO->GetComponent<TransformComponent>();
+	sphereTransform->position.x = 3.0f;
+	modelGO->Initialize();
+
 	//GameObject* enemy1GO = mGameWorld.CreateGameObject("Enemy1");
 	//TransformComponent* enemy1Transform = enemy1GO->AddComponent<TransformComponent>();
 	//enemy1Transform->position.x = 5.0f;
@@ -46,6 +51,16 @@ void GameState::Initialize()
 	//cloudTransform->position.x = 7.0f;
  //   cloudTransform->position.y = 7.0f;
  //   cloudGO->Initialize();
+
+	/*
+	GameObject* treeGO = mGameWorld.CreateGameObject("Tree");
+	TransformComponent* treeTransform = treeGO->AddComponent<TransformComponent>();
+	treeTransform->position.x = -5.0f;
+	treeGO->Initialize();
+
+
+
+	*/
 }
 
 void GameState::Terminate()
