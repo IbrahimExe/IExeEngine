@@ -20,6 +20,7 @@
 #include "FPSCameraComponent.h"
 #include "RenderObjectComponent.h"
 #include "MeshComponent.h"
+#include "ModelComponent.h"
 
 // Services
 #include "Service.h"
