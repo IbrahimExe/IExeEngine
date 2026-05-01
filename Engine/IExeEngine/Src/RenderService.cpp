@@ -50,6 +50,13 @@ void RenderService::Render()
             mShadowEffect.Render(entry.renderGroup);
         }
     }
+    mShadowEffect.End();
+
+    mStandardEffect.Begin();
+    for (Entry& entry : mRenderEntries)
+    {
+        mStandardEffect.Render(entry.renderGroup);
+    }
     mStandardEffect.End();
 }
 
