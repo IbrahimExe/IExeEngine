@@ -7,6 +7,7 @@
 #include "CameraComponent.h"
 #include "FPSCameraComponent.h"
 #include "MeshComponent.h"
+#include "ModelComponent.h"
 
 using namespace IExeEngine;
 
@@ -31,6 +32,10 @@ namespace
         else if (componentName == "MeshComponent")
         {
             newComponent = gameObject.AddComponent<MeshComponent>();
+        }
+        else if (componentName == "ModelComponent")
+        {
+            newComponent = gameObject.AddComponent<ModelComponent>();
         }
 
         ASSERT(newComponent != nullptr, "GameObjectFactory: Component type [%s] not found!", componentName.c_str());

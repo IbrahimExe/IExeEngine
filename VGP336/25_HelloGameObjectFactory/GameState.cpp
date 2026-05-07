@@ -11,56 +11,30 @@ void GameState::Initialize()
 	mGameWorld.AddService<RenderService>();
 	mGameWorld.Initialize();
 
+	std::vector<GameObject*> gameObjects;
+	 
 	// Camera
-	GameObject* cameraGO = mGameWorld.CreateGameObject("Camera", L"../../Assets/Templates/Objects/fps_camera.json");
-	cameraGO->Initialize();
+	gameObjects.push_back(mGameWorld.CreateGameObject("Camera", L"../../Assets/Templates/Objects/fps_camera.json"));
 
 	// World Objects
-	GameObject* transformGO = mGameWorld.CreateGameObject("Transform", L"../../Assets/Templates/Objects/transform_obj.json");
-    transformGO->Initialize();
+	gameObjects.push_back(mGameWorld.CreateGameObject("Transform", L"../../Assets/Templates/Objects/transform_obj.json"));
 
-    GameObject* playerGO = mGameWorld.CreateGameObject("Player", L"../../Assets/Templates/Objects/transform_obj.json");
-	TransformComponent* playerTransform = playerGO->GetComponent<TransformComponent>();
+	gameObjects.push_back(mGameWorld.CreateGameObject("Player", L"../../Assets/Templates/Objects/transform_obj.json"));
+	TransformComponent* playerTransform = gameObjects.back()->GetComponent<TransformComponent>();
 	playerTransform->position.x = 0.0f;
-	playerGO->Initialize();
 
-	GameObject* modelGO = mGameWorld.CreateGameObject("SphereObj", L"../../Assets/Templates/Objects/mesh_obj.json");
-	TransformComponent* sphereTransform = modelGO->GetComponent<TransformComponent>();
-	sphereTransform->position.x = 3.0f;
-	modelGO->Initialize();
+	gameObjects.push_back(mGameWorld.CreateGameObject("SphereObj", L"../../Assets/Templates/Objects/mesh_obj.json"));
+	TransformComponent* meshTransform = gameObjects.back()->GetComponent<TransformComponent>();
+	meshTransform->position.x = 3.0f;
 
-	//GameObject* enemy1GO = mGameWorld.CreateGameObject("Enemy1");
-	//TransformComponent* enemy1Transform = enemy1GO->AddComponent<TransformComponent>();
-	//enemy1Transform->position.x = 5.0f;
- //   enemy1Transform->position.z = 5.0f;
-	//enemy1GO->Initialize();
+	gameObjects.push_back(mGameWorld.CreateGameObject("ModelObj", L"../../Assets/Templates/Objects/model_obj.json"));
+	TransformComponent* modelTransform = gameObjects.back()->GetComponent<TransformComponent>();
+	modelTransform->position.x = -3.0f;
 
-	//GameObject* enemy2GO = mGameWorld.CreateGameObject("Enemy2");
-	//TransformComponent* enemy2Transform = enemy2GO->AddComponent<TransformComponent>();
- //   enemy2Transform->position.x =  5.0f;
- //   enemy2Transform->position.z = -5.0f;
-	//enemy2GO->Initialize();
+	gameObjects.push_back(mGameWorld.CreateGameObject("Ground", L"../../Assets/Templates/Objects/ground.json"));
 
- //   GameObject* bossGO = mGameWorld.CreateGameObject("Boss");
- //   TransformComponent* bossTransform = bossGO->AddComponent<TransformComponent>();
- //   bossTransform->position.x = 15.0f;
- //   bossGO->Initialize();
-
- //   GameObject* cloudGO = mGameWorld.CreateGameObject("Cloud");
- //   TransformComponent* cloudTransform = cloudGO->AddComponent<TransformComponent>();
-	//cloudTransform->position.x = 7.0f;
- //   cloudTransform->position.y = 7.0f;
- //   cloudGO->Initialize();
-
-	/*
-	GameObject* treeGO = mGameWorld.CreateGameObject("Tree");
-	TransformComponent* treeTransform = treeGO->AddComponent<TransformComponent>();
-	treeTransform->position.x = -5.0f;
-	treeGO->Initialize();
-
-
-
-	*/
+	for (GameObject* go : gameObjects)
+		go->Initialize();
 }
 
 void GameState::Terminate()

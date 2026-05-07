@@ -4,27 +4,43 @@
 
 using namespace IExeEngine;
 
-void IExeEngine::ModelComponent::Initialize()
+void ModelComponent::Initialize()
 {
+	Graphics::ModelManager* mm = Graphics::ModelManager::Get();
+	mModelId = mm->GetModelId(mFileName);
+	if (mm->GetModel(mModelId) == nullptr)
+	{
+		mModelId = mm->LoadModel(mFileName);
+		for (const std::string& animation : mAnimations)
+		{
+			mm->AddAnimation(mModelId, animation);
+		}
+	}
 
+	ASSERT(mm->GetModel(mModelId) != nullptr, "ModelComponent: Failed to load model %s !", mFileName.c_str());
+	RenderObjectComponent::Initialize();
 }
 
-void IExeEngine::ModelComponent::Terminate()
+void ModelComponent::Terminate()
 {
-    RenderObjectComponent::Terminate();
+	RenderObjectComponent::Terminate();
 }
 
-void IExeEngine::ModelComponent::Deserialize(const rapidjson::Value& value)
+void ModelComponent::Deserialize(const rapidjson::Value& value)
 {
+	RenderObjectComponent::Deserialize(value);
 
+	mAnimations.clear();
+	SaveUtil::ReadString("FileName", mFileName, value);
+	SaveUtil::ReadStringArray("Animations", mAnimations, value);
 }
 
-Graphics::ModelId IExeEngine::ModelComponent::GetModelId() const
+Graphics::ModelId ModelComponent::GetModelId() const
 {
-    return Graphics::ModelId();
+	return mModelId;
 }
 
-Graphics::Model& IExeEngine::ModelComponent::GetModel() const
+const Graphics::Model& ModelComponent::GetModel() const
 {
-    // TODO: insert return statement here
+	return *Graphics::ModelManager::Get()->GetModel(mModelId);
 }

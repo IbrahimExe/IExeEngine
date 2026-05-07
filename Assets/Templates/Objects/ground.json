@@ -8,10 +8,10 @@
     "MeshComponent": {
       "CastShadow": false,
       "Shape": {
-        "Type": "Sphere",
-        "Slices": 60,
-        "Rings": 60,
-        "Radius": 1.0
+        "Type": "Plane",
+        "Rows": 10,
+        "Columns": 10,
+        "Spacing": 1.0
       },
       "Material": {
         "Emissive": [ 0.0, 0.0, 0.0, 1.0 ],
@@ -21,7 +21,7 @@
         "Shininess": 10.0
       },
       "Textures": {
-        "DiffuseMap": "../../Assets/Textures/earth.jpg"
+        "DiffuseMap": "../../Assets/Textures/paper.jpg"
       }
     }
   }

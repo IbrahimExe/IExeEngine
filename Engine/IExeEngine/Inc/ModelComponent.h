@@ -15,11 +15,15 @@ namespace IExeEngine
 
         void Deserialize(const rapidjson::Value& value) override;
 
-        Graphics::ModelId GetModelId() const;
+        Graphics::ModelId GetModelId() const override;
 
-        Graphics::Model& GetModel() const;
+        const Graphics::Model& GetModel() const override;
 
     private:
+        std::string mFileName;
+        Graphics::ModelId mModelId;
 
+        using Animations = std::vector<std::string>;
+        Animations mAnimations;
     };
 }
