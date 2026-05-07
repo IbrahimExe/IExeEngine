@@ -4,6 +4,7 @@
 #include "CameraService.h"
 #include "RenderObjectComponent.h"
 #include "TransformComponent.h"
+#include "AnimatorComponent.h"
 #include "GameWorld.h"
 
 using namespace IExeEngine;
@@ -92,6 +93,12 @@ void RenderService::Register(const RenderObjectComponent* renderObjectComponent)
 
     if (iter == mRenderEntries.end())
     {
+        const Graphics::Animator* animator = nullptr;
+        const AnimatorComponent* animatorComponent = renderObjectComponent->GetOwner().GetComponent<AnimatorComponent>();
+        if (animatorComponent != nullptr)
+        {
+            animator = &animatorComponent->GetAnimator();
+        }
         Entry& entry = mRenderEntries.emplace_back();
         entry.renderComponent = renderObjectComponent;
         entry.transformComponent = renderObjectComponent->GetOwner().GetComponent<TransformComponent>();

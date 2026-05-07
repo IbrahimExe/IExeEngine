@@ -19,3 +19,5 @@
 #include <rapidjson/filewritestream.h>
 #include <rapidjson/writer.h>
 #include <rapidjson/prettywriter.h>
+
+#define USE_PHYSICS_SERVICE

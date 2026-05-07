@@ -21,11 +21,14 @@
 #include "RenderObjectComponent.h"
 #include "MeshComponent.h"
 #include "ModelComponent.h"
+#include "AnimatorComponent.h"
+#include "RigidBodyComponent.h"
 
 // Services
 #include "Service.h"
 #include "CameraService.h"
 #include "RenderService.h"
+#include "PhysicsService.h"
 
 namespace IExeEngine
 {

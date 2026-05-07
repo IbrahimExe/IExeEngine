@@ -9,6 +9,7 @@ void GameState::Initialize()
 {
     mGameWorld.AddService<CameraService>();
 	mGameWorld.AddService<RenderService>();
+	mGameWorld.AddService<PhysicsService>();
 	mGameWorld.Initialize();
 
 	std::vector<GameObject*> gameObjects;

@@ -71,7 +71,10 @@ void App::Run(const AppConfig& config)
 	#endif
 		{
 			mCurrentState->Update(deltaTime);
+
+#ifndef USE_PHYSICS_SERVICE // ifndef - if not defined
             PhysicsWorld::Get()->Update(deltaTime);
+#endif		// IF we are NOT using the physics service -> Use the regular update				
 		}
 
 		GraphicsSystem* gs = GraphicsSystem::Get();

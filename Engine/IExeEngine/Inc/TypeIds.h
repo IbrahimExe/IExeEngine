@@ -12,7 +12,7 @@ namespace IExeEngine
         Mesh,       // Add a mesh shape on the game object to render
         Model,      // Add a model to the game object to render
         Animator,   // Adds an animation controller to the game object
-
+        RigidBody,  // Adds a physics object to the game object
         Count       // last value, can be used to chain custom components
     };
 
@@ -21,6 +21,7 @@ namespace IExeEngine
         Invalid,            // Default value, not valid Id
         Camera,				// Manages the cameras in the world
         Render,             // Renders the renderobjects into the world
+        Physics,            // Registers & monitors physics objects
         Count               // Last value, can be used to chain custom services
     };
 }

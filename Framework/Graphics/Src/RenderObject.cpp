@@ -36,6 +36,7 @@ void RenderGroup::Initialize(const Model& model, const Animator* anim)
         };
 
     skeleton = model.skeleton.get();
+    animator = anim;
 
     for (const Model::MeshData& meshData : model.meshData)
     {
