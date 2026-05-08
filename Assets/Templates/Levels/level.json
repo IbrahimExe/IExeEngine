@@ -1,0 +1,14 @@
+{
+  "Capacity": 100,
+  "Services": {
+    "CameraService": {
+
+    },
+    "RenderService": {
+
+    },
+    "PhysicsService": {
+
+    }
+  }
+}

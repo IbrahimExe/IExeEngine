@@ -129,6 +129,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Objects", "Objects", "{DAF9
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "25_HelloGameObjectFactory", "VGP336\25_HelloGameObjectFactory\25_HelloGameObjectFactory.vcxproj", "{CC5C32FB-14DC-43F4-8168-0B452ABDCBD3}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "26_HelloGameWorld", "VGP336\26_HelloGameWorld\26_HelloGameWorld.vcxproj", "{D4F649C7-5866-4941-8124-B91F53F93AA6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Levels", "Levels", "{A56BEE60-F02C-461F-A500-3F478035014B}"
+	ProjectSection(SolutionItems) = preProject
+		Assets\Templates\Levels\level.json = Assets\Templates\Levels\level.json
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -619,6 +626,18 @@ Global
 		{CC5C32FB-14DC-43F4-8168-0B452ABDCBD3}.Release|x64.Build.0 = Release|x64
 		{CC5C32FB-14DC-43F4-8168-0B452ABDCBD3}.Release|x86.ActiveCfg = Release|Win32
 		{CC5C32FB-14DC-43F4-8168-0B452ABDCBD3}.Release|x86.Build.0 = Release|Win32
+		{D4F649C7-5866-4941-8124-B91F53F93AA6}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{D4F649C7-5866-4941-8124-B91F53F93AA6}.Debug|Any CPU.Build.0 = Debug|x64
+		{D4F649C7-5866-4941-8124-B91F53F93AA6}.Debug|x64.ActiveCfg = Debug|x64
+		{D4F649C7-5866-4941-8124-B91F53F93AA6}.Debug|x64.Build.0 = Debug|x64
+		{D4F649C7-5866-4941-8124-B91F53F93AA6}.Debug|x86.ActiveCfg = Debug|Win32
+		{D4F649C7-5866-4941-8124-B91F53F93AA6}.Debug|x86.Build.0 = Debug|Win32
+		{D4F649C7-5866-4941-8124-B91F53F93AA6}.Release|Any CPU.ActiveCfg = Release|x64
+		{D4F649C7-5866-4941-8124-B91F53F93AA6}.Release|Any CPU.Build.0 = Release|x64
+		{D4F649C7-5866-4941-8124-B91F53F93AA6}.Release|x64.ActiveCfg = Release|x64
+		{D4F649C7-5866-4941-8124-B91F53F93AA6}.Release|x64.Build.0 = Release|x64
+		{D4F649C7-5866-4941-8124-B91F53F93AA6}.Release|x86.ActiveCfg = Release|Win32
+		{D4F649C7-5866-4941-8124-B91F53F93AA6}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -667,6 +686,8 @@ Global
 		{C95D5A12-9D9F-4DA0-9AB4-D0FFD5B059EB} = {E90CA997-7E10-4D40-920B-233AD2ACCEC9}
 		{DAF9582A-5154-4BA9-B67F-BC3A1C7BF38F} = {C95D5A12-9D9F-4DA0-9AB4-D0FFD5B059EB}
 		{CC5C32FB-14DC-43F4-8168-0B452ABDCBD3} = {59B28DF0-7CC6-463F-B15F-9911D83C07C1}
+		{D4F649C7-5866-4941-8124-B91F53F93AA6} = {59B28DF0-7CC6-463F-B15F-9911D83C07C1}
+		{A56BEE60-F02C-461F-A500-3F478035014B} = {C95D5A12-9D9F-4DA0-9AB4-D0FFD5B059EB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C84562D2-23AD-4C29-92D2-1A4C470BECEF}

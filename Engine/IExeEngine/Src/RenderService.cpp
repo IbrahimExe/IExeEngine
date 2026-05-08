@@ -102,7 +102,7 @@ void RenderService::Register(const RenderObjectComponent* renderObjectComponent)
         Entry& entry = mRenderEntries.emplace_back();
         entry.renderComponent = renderObjectComponent;
         entry.transformComponent = renderObjectComponent->GetOwner().GetComponent<TransformComponent>();
-        entry.renderGroup.Initialize(renderObjectComponent->GetModel());
+        entry.renderGroup.Initialize(renderObjectComponent->GetModel(), animator);
         entry.renderGroup.modelId = renderObjectComponent->GetModelId();
     }
 }
