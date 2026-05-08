@@ -132,7 +132,7 @@ void GameWorld::LoadLevel(const std::filesystem::path& levelFile)
 {
     FILE* file = nullptr;
     auto err = fopen_s(&file, levelFile.u8string().c_str(), "r");
-    ASSERT(err = 0 && file != nullptr, "GameWorld: Failed to open %s!", levelFile.u8string().c_str());
+    ASSERT(err == 0 && file != nullptr, "GameWorld: Failed to open %s!", levelFile.u8string().c_str());
 
     char readBuffer[65536];
     rapidjson::FileReadStream readStream(file, readBuffer, sizeof(readBuffer));
@@ -160,6 +160,7 @@ void GameWorld::LoadLevel(const std::filesystem::path& levelFile)
         }
 
         ASSERT(newService != nullptr, "GameWorld: Failed to add service %s!", serviceName.c_str());
+        newService->Deserialize(service.value);
     }
 
     uint32_t capacity = static_cast<uint32_t>(doc["Capacity"].GetInt());

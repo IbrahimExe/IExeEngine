@@ -28,7 +28,8 @@ void PhysicsService::Deserialize(const rapidjson::Value& value)
 	SaveUtil::ReadVector3("Gravity", settings.gravity, value);
 	SaveUtil::ReadInt("SimSteps", simSteps, value);
 	SaveUtil::ReadFloat("FixedTimeStep", settings.fixedTimeStep, value);
-	settings.
+	settings.simulationSteps = simSteps;
+	Physics::PhysicsWorld::Get()->UpdateSettings(settings);
 }
 
 void PhysicsService::Register(RigidBodyComponent* rigidBodyComponent)
