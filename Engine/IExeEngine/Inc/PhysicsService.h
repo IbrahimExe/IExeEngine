@@ -15,6 +15,8 @@ namespace IExeEngine
 
 		void DebugUI() override;
 
+		void Deserialize(const rapidjson::Value& value) override;
+
 		void Register(RigidBodyComponent* rigidBodyComponent);
 		void Unregister(RigidBodyComponent* rigidBodyComponent);
 

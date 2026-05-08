@@ -24,6 +24,7 @@ namespace IExeEngine
 		virtual void Update(float deltaTime) {}
 		virtual void Render() {}
 		virtual void DebugUI() {}
+		virtual void Deserialize(const rapidjson::Value& value) {}
 
 		GameWorld& GetWorld() { return *mWorld; }
 		const GameWorld& GetWorld() const { return *mWorld; }
