@@ -14,5 +14,23 @@
     "PhysicsService": {
       "Gravity": [ 0.0, -9.81, 0.0 ]
     }
+
+  },
+  "GameObjects": {
+    "Transform": {
+      "Template": "../../Assets/Templates/Objects/transform_obj.json"
+    },
+    "Camera": {
+      "Template": "../../Assets/Templates/Objects/fps_camera.json"
+    },
+    "SphereObj": {
+      "Template": "../../Assets/Templates/Objects/mesh_obj.json"
+    },
+    "ModelObj": {
+      "Template": "../../Assets/Templates/Objects/model_obj.json"
+    },
+    "Ground": {
+      "Template": "../../Assets/Templates/Objects/ground.json"
+    }
   }
 }
