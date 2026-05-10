@@ -8,6 +8,16 @@
 
 using namespace IExeEngine;
 
+namespace
+{
+    CustomService TryAddService;
+}
+
+void GameWorld::SetCustomService(CustomService customService)
+{
+    TryAddService = customService;
+}
+
 void GameWorld::Initialize(uint32_t capacity)
 {
     ASSERT(!mInitialized, "GameWorld: Already initialized!");
@@ -157,6 +167,11 @@ void GameWorld::LoadLevel(const std::filesystem::path& levelFile)
         else if (serviceName == "PhysicsService")
         {
             newService = AddService<PhysicsService>();
+        }
+        else
+        {
+            // Check if its a custom service
+            newService = TryAddService(serviceName, *this);
         }
 
         ASSERT(newService != nullptr, "GameWorld: Failed to add service %s!", serviceName.c_str());

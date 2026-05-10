@@ -13,8 +13,10 @@
     },
     "PhysicsService": {
       "Gravity": [ 0.0, -9.81, 0.0 ]
-    }
+    },
+    "CustomDebugDrawService": {
 
+    }
   },
   "GameObjects": {
     "Transform": {
@@ -56,6 +58,9 @@
           "Scale": [ 1.0, 1.0, 1.0 ]
         }
       }
+    },
+    "CustomDebugDrawObj": {
+      "Template": "../../Assets/Templates/Objects/custom_obj.json"
     }
   }
 }

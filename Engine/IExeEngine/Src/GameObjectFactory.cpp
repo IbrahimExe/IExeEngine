@@ -15,6 +15,10 @@ using namespace IExeEngine;
 
 namespace
 {
+    // Need to add above the other funcitons so they have the knowledge of it before...
+    CustomComponent TryMakeComponent;
+    CustomComponent TryGetComponent;
+
     // Helper funcitons in here only stay in this specific .cpp file
     Component* AddComponent(const std::string& componentName, GameObject& gameObject)
     {
@@ -47,6 +51,10 @@ namespace
         {
             newComponent = gameObject.AddComponent<RigidBodyComponent>();
         }
+        else
+        {
+            newComponent = TryMakeComponent(componentName, gameObject);
+        }
 
         ASSERT(newComponent != nullptr, "GameObjectFactory: Component type [%s] not found!", componentName.c_str());
 
@@ -55,39 +63,53 @@ namespace
 
     Component* GetComponent(const std::string& componentName, GameObject& gameObject)
     {
-        Component* newComponent = nullptr;
+        Component* component = nullptr;
         if (componentName == "TransformComponent")
         {
-            newComponent = gameObject.GetComponent<TransformComponent>();
+            component = gameObject.GetComponent<TransformComponent>();
         }
         else if (componentName == "CameraComponent")
         {
-            newComponent = gameObject.GetComponent<CameraComponent>();
+            component = gameObject.GetComponent<CameraComponent>();
         }
         else if (componentName == "FPSCameraComponent")
         {
-            newComponent = gameObject.GetComponent<FPSCameraComponent>();
+            component = gameObject.GetComponent<FPSCameraComponent>();
         }
         else if (componentName == "MeshComponent")
         {
-            newComponent = gameObject.GetComponent<MeshComponent>();
+            component = gameObject.GetComponent<MeshComponent>();
         }
         else if (componentName == "ModelComponent")
         {
-            newComponent = gameObject.GetComponent<ModelComponent>();
+            component = gameObject.GetComponent<ModelComponent>();
         }
         else if (componentName == "AnimatorComponent")
         {
-            newComponent = gameObject.GetComponent<AnimatorComponent>();
+            component = gameObject.GetComponent<AnimatorComponent>();
         }
         else if (componentName == "RigidBodyComponent")
         {
-            newComponent = gameObject.GetComponent<RigidBodyComponent>();
+            component = gameObject.GetComponent<RigidBodyComponent>();
+        }
+        else
+        {
+            component = TryGetComponent(componentName, gameObject);
         }
 
-        ASSERT(newComponent != nullptr, "GameObjectFactory: Component type [%s] not found!", componentName.c_str());
-        return newComponent;
+        ASSERT(component != nullptr, "GameObjectFactory: Component type [%s] not found!", componentName.c_str());
+        return component;
     }
+}
+
+void GameObjectFactory::SetCustomMake(CustomComponent callback)
+{
+    TryMakeComponent = callback;
+}
+
+void GameObjectFactory::SetCustomGet(CustomComponent callback)
+{
+    TryGetComponent = callback;
 }
 
 void GameObjectFactory::Make(const std::filesystem::path& templatePath, GameObject& gameObject, GameWorld& gameWorld)
