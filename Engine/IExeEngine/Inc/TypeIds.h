@@ -4,16 +4,18 @@ namespace IExeEngine
 {
     enum class ComponentId 
     {
-        Invalid,    // default value, not a valid component
-
-        Transform,  // transform component for local data
-        Camera,     // contains the camera for viewing
-        FPSCamera,  // Move the camera component with FPS controls
-        Mesh,       // Add a mesh shape on the game object to render
-        Model,      // Add a model to the game object to render
-        Animator,   // Adds an animation controller to the game object
-        RigidBody,  // Adds a physics object to the game object
-        Count       // last value, can be used to chain custom components
+        Invalid,       // default value, not a valid component
+                       
+        Transform,     // transform component for local data
+        Camera,        // contains the camera for viewing
+        FPSCamera,     // Move the camera component with FPS controls
+        Mesh,          // Add a mesh shape on the game object to render
+        Model,         // Add a model to the game object to render
+        Animator,      // Adds an animation controller to the game object
+        RigidBody,     // Adds a physics object to the game object
+        SoundEffect,   // Adds a sound effect to an object
+        SoundBank,     // Adds a group of sounds to an object
+        Count          // last value, can be used to chain custom components
     };
 
     enum class ServiceId

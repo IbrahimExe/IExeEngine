@@ -5,7 +5,11 @@
       "Rings": 30,
       "Radius": 2.0,
       "Position": [ 0.0, 0.0, 0.0 ],
-      "Color": [ 0.8, 0.8, 1.0, 1.0 ] 
+      "Color": [ 0.8, 0.8, 1.0, 1.0 ]
+    },
+    "SoundEventComponent": {
+      "FileName": "../../Assets/Audio/photongun1.wav",
+      "Looping": false
     }
   }
 }

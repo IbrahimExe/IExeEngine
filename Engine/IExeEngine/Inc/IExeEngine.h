@@ -23,6 +23,8 @@
 #include "ModelComponent.h"
 #include "AnimatorComponent.h"
 #include "RigidBodyComponent.h"
+#include "SoundEventComponent.h"
+#include "SoundBankComponent.h"
 
 // Services
 #include "Service.h"

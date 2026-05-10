@@ -22,6 +22,34 @@
         "HalfExtents": [ 0.5, 1.0, 0.5 ],
         "Origin": [ 0.0, 1.0, 0.0 ]
       }
+    },
+    "SoundBankComponent": {
+      "SoundEffects": {
+        "ZombieAttack_1": {
+          "FileName": "../../Assets/Audio/ZAttack1.wav",
+          "Looping": false
+        },
+        "ZombieAttack_2": {
+          "FileName": "../../Assets/Audio/ZAttack2.wav",
+          "Looping": false
+        },
+        "ZombieAttack_3": {
+          "FileName": "../../Assets/Audio/ZAttack3.wav",
+          "Looping": false
+        },
+        "ZombieScream": {
+          "FileName": "../../Assets/Audio/ZScream.wav",
+          "Looping": false
+        },
+        "ZombieIdle": {
+          "FileName": "../../Assets/Audio/ZIdle.wav",
+          "Looping": true
+        },
+        "SalsaBG": {
+          "FileName": "../../Assets/Audio/SalsaBG.wav",
+          "Looping": true
+        }
+      }
     }
   }
 }
