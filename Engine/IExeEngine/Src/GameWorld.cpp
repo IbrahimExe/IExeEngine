@@ -172,6 +172,7 @@ void GameWorld::LoadLevel(const std::filesystem::path& levelFile)
         std::string name = gameObject.name.GetString();
         std::string templateFile = gameObject.value["Template"].GetString();
         GameObject* go = CreateGameObject(name, templateFile);
+        GameObjectFactory::OverrideDeserialize(gameObject.value, *go);
         go->Initialize();
     }
 }

@@ -21,16 +21,41 @@
       "Template": "../../Assets/Templates/Objects/transform_obj.json"
     },
     "Camera": {
-      "Template": "../../Assets/Templates/Objects/fps_camera.json"
+      "Template": "../../Assets/Templates/Objects/fps_camera.json",
+      "Components": {
+        "CameraComponent": {
+          "Position": [ 0.0, 5.0, -10.0 ],
+          "LookAt": [ 0.0, 1.0, 1.0 ]
+        }
+      }
     },
     "SphereObj": {
-      "Template": "../../Assets/Templates/Objects/mesh_obj.json"
+      "Template": "../../Assets/Templates/Objects/mesh_obj.json",
+      "Components": {
+        "TransformComponent": {
+          "Position": [ 0.0, 0.0, 0.0 ],
+          "Rotation": [ 0.0, 1.0, 0.0, 1.0 ],
+          "Scale": [ 2.0, 2.0, 2.0 ]
+        }
+      }
     },
     "ModelObj": {
-      "Template": "../../Assets/Templates/Objects/model_obj.json"
+      "Template": "../../Assets/Templates/Objects/model_obj.json",
+      "Components": {
+        "TransformComponent": {
+          "Position": [ 0.0, 0.0, 0.0 ],
+          "Rotation": [ 0.0, 0.0, 0.0, 1.0 ],
+          "Scale": [ 2.0, 2.0, 2.0 ]
+        }
+      }
     },
     "Ground": {
-      "Template": "../../Assets/Templates/Objects/ground.json"
+      "Template": "../../Assets/Templates/Objects/ground.json",
+      "Components": {
+        "TransformComponent": {
+          "Scale": [ 1.0, 1.0, 1.0 ]
+        }
+      }
     }
   }
 }
