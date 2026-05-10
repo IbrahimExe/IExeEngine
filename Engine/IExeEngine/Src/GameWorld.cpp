@@ -165,6 +165,15 @@ void GameWorld::LoadLevel(const std::filesystem::path& levelFile)
 
     uint32_t capacity = static_cast<uint32_t>(doc["Capacity"].GetInt());
     Initialize(capacity);
+
+    auto gameObjects = doc["GameObjects"].GetObj();
+    for (auto& gameObject : gameObjects)
+    {
+        std::string name = gameObject.name.GetString();
+        std::string templateFile = gameObject.value["Template"].GetString();
+        GameObject* go = CreateGameObject(name, templateFile);
+        go->Initialize();
+    }
 }
 
 bool GameWorld::IsValid(const GameObjectHandle& handle)
