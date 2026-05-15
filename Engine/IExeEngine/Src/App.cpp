@@ -39,6 +39,8 @@ void App::Run(const AppConfig& config)
 
 	UIFont::StaticInitialize(UIFont::FontType::Verdana);
 
+	UISpriteRenderer::StaticInitialize();
+
 	// Last Step Before Running
 	ASSERT(mCurrentState != nullptr, "App: Need an app state to run!");
 	mCurrentState->Initialize();
@@ -94,6 +96,8 @@ void App::Run(const AppConfig& config)
 	LOG("App Quit");
 	mCurrentState->Terminate();
 	
+	UISpriteRenderer::StaticTerminate();
+	UIFont::StaticTerminate();
     SoundEffectManager::StaticTerminate();
     AudioSystem::StaticTerminate();
     PhysicsWorld::StaticTerminate();
@@ -104,7 +108,6 @@ void App::Run(const AppConfig& config)
 	SimpleDraw::StaticTerminate();
 	GraphicsSystem::StaticTerminate();
 	InputSystem::StaticTerminate();
-	UIFont::StaticTerminate();
 
 	myWindow.Terminate();
 }

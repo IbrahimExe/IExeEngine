@@ -12,10 +12,14 @@ void UIRenderService::Terminate()
 
 void UIRenderService::Render()
 {
-	for (UIComponent* uiComponent : mUIComponents)
-	{
-		uiComponent->Render();
-	}
+	UISpriteRenderer::Get()->BeginRender();
+
+		for (UIComponent* uiComponent : mUIComponents)
+		{
+			uiComponent->Render();
+		}
+
+	UISpriteRenderer::Get()->EndRender();
 }
 
 void UIRenderService::Register(UIComponent* uiComponent)
