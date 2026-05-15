@@ -37,6 +37,8 @@ void App::Run(const AppConfig& config)
     AudioSystem::StaticInitialize();
     SoundEffectManager::StaticInitialize(L"../../Assets/Audio");
 
+	UIFont::StaticInitialize(UIFont::FontType::Verdana);
+
 	// Last Step Before Running
 	ASSERT(mCurrentState != nullptr, "App: Need an app state to run!");
 	mCurrentState->Initialize();
@@ -102,6 +104,7 @@ void App::Run(const AppConfig& config)
 	SimpleDraw::StaticTerminate();
 	GraphicsSystem::StaticTerminate();
 	InputSystem::StaticTerminate();
+	UIFont::StaticTerminate();
 
 	myWindow.Terminate();
 }
