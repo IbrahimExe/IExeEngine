@@ -68,7 +68,7 @@ void GameState::Render()
 {
 	mGameWorld.Render();
 
-	UIFont::Get()->DrawString(L"Santi is a pedofile", { 300.0f, 30.0f }, Colors::Red, 90.0f);
+	UIFont::Get()->DrawString(L"UI WORKS!", { 300.0f, 30.0f }, Colors::Red, 90.0f);
 }
 
 void GameState::DebugUI()
