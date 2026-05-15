@@ -12,6 +12,7 @@
 #include "RigidBodyComponent.h"
 #include "SoundEventComponent.h"
 #include "SoundBankComponent.h"
+#include "UITextComponent.h"
 
 using namespace IExeEngine;
 
@@ -61,6 +62,10 @@ namespace
         {
             newComponent = gameObject.AddComponent<SoundBankComponent>();
         }
+        else if (componentName == "UITextComponent")
+        {
+            newComponent = gameObject.AddComponent<UITextComponent>();
+        }
         else
         {
             newComponent = TryMakeComponent(componentName, gameObject);
@@ -101,6 +106,10 @@ namespace
         else if (componentName == "RigidBodyComponent")
         {
             component = gameObject.GetComponent<RigidBodyComponent>();
+        }
+        else if (componentName == "UITextComponent")
+        {
+            component = gameObject.GetComponent<UITextComponent>();
         }
         else
         {

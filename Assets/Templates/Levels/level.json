@@ -16,6 +16,9 @@
     },
     "CustomDebugDrawService": {
 
+    },
+    "UIRenderService": {
+
     }
   },
   "GameObjects": {

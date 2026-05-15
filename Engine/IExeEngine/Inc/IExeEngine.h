@@ -26,12 +26,14 @@
 #include "SoundEventComponent.h"
 #include "SoundBankComponent.h"
 #include "UIComponent.h"
+#include "UITextComponent.h"
 
 // Services
 #include "Service.h"
 #include "CameraService.h"
 #include "RenderService.h"
 #include "PhysicsService.h"
+#include "UIRenderService.h"
 
 namespace IExeEngine
 {

@@ -5,6 +5,7 @@
 #include "CameraService.h"
 #include "RenderService.h"
 #include "PhysicsService.h"
+#include "UIRenderService.h"
 
 using namespace IExeEngine;
 
@@ -167,6 +168,10 @@ void GameWorld::LoadLevel(const std::filesystem::path& levelFile)
         else if (serviceName == "PhysicsService")
         {
             newService = AddService<PhysicsService>();
+        }
+        else if (serviceName == "UIRenderService")
+        {
+            newService = AddService<UIRenderService>();
         }
         else
         {

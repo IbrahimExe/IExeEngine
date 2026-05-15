@@ -33,11 +33,10 @@ namespace
         uint8_t a = (uint8_t)(color.a * 255.0f);
         return (a << 24) | (b << 16) | (g << 8) | r;
 
-        //
-
-
-
-
+        // 1111 1111 0000 0000 0000 0000 0000 0000 0000 0000	a
+        // 0000 0000 1111 1111 0000 0000 0000 0000 0000 0000	b
+        // 0000 0000 0000 0000 1111 1111 0000 0000 0000 0000	g
+        // 0000 0000 0000 0000 0000 0000 1111 1111 0000 0000	r
     }
 
     std::unique_ptr<UIFont> sUIFont;
@@ -104,5 +103,5 @@ float UIFont::GetStringWidth(const wchar_t* str, float size) const
     layoutRect.Right = (float)gs->GetBackBufferWidth();
     layoutRect.Bottom = (float)gs->GetBackBufferHeight();
     auto rect = mFontWrapper->MeasureString(str, GetFontFamily(mFontType), size, &layoutRect, FW1_RESTORESTATE);
-    return rect.Right - rect.Left;
+    return rect.Right - rect.Left; // Using the screen to determine how much screen space it has/ needs.
 }
