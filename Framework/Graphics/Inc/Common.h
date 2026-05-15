@@ -9,6 +9,10 @@
 #include <d3dcompiler.h>
 
 #include <DirectXTK/Inc/CommonStates.h>
+#include <DirectXTK/Inc/SpriteBatch.h>
+
+// Fonts
+#include <FW1FontWrapper/Inc/FW1FontWrapper.h>
 
 #include <ImGui/Inc/imgui.h>
 
