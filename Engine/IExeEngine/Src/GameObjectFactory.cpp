@@ -13,6 +13,7 @@
 #include "SoundEventComponent.h"
 #include "SoundBankComponent.h"
 #include "UITextComponent.h"
+#include "UISpriteComponent.h"
 
 using namespace IExeEngine;
 
@@ -66,6 +67,10 @@ namespace
         {
             newComponent = gameObject.AddComponent<UITextComponent>();
         }
+        else if (componentName == "UISpriteComponent")
+        {
+            newComponent = gameObject.GetComponent<UISpriteComponent>();
+        }
         else
         {
             newComponent = TryMakeComponent(componentName, gameObject);
@@ -110,6 +115,10 @@ namespace
         else if (componentName == "UITextComponent")
         {
             component = gameObject.GetComponent<UITextComponent>();
+        }
+        else if (componentName == "UISpriteComponent")
+        {
+            component = gameObject.GetComponent<UISpriteComponent>();
         }
         else
         {
