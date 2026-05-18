@@ -10,8 +10,11 @@ namespace IExeEngine
 		SET_TYPE_ID(ComponentId::UISprite);
 
 		void Initialize() override;
+
 		void Terminate() override;
+
 		void Render() override;
+
 		void Deserialize(const rapidjson::Value& value) override;
 
 		Math::Vector2 GetPosition(bool includeOrigin = true);
@@ -19,7 +22,7 @@ namespace IExeEngine
 	private:
 		std::filesystem::path mTexturePath;
 		Math::Vector2 mPosition;
-		RECT mRect = { 0, 0, 100, 100 };
+		RECT mRect = { 0, 0, 0, 0 };
 		Graphics::UISprite mUISprite;
     };
 }

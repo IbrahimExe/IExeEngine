@@ -26,27 +26,27 @@
     "SoundBankComponent": {
       "SoundEffects": {
         "ZombieAttack_1": {
-          "FileName": "../../Assets/Audio/ZAttack1.wav",
+          "FileName": "ZAttack1.wav",
           "Looping": false
         },
         "ZombieAttack_2": {
-          "FileName": "../../Assets/Audio/ZAttack2.wav",
+          "FileName": "ZAttack2.wav",
           "Looping": false
         },
         "ZombieAttack_3": {
-          "FileName": "../../Assets/Audio/ZAttack3.wav",
+          "FileName": "ZAttack3.wav",
           "Looping": false
         },
         "ZombieScream": {
-          "FileName": "../../Assets/Audio/ZScream.wav",
+          "FileName": "ZScream.wav",
           "Looping": false
         },
         "ZombieIdle": {
-          "FileName": "../../Assets/Audio/ZIdle.wav",
+          "FileName": "ZIdle.wav",
           "Looping": true
         },
         "SalsaBG": {
-          "FileName": "../../Assets/Audio/SalsaBG.wav",
+          "FileName": "SalsaBG.wav",
           "Looping": true
         }
       }
@@ -56,6 +56,11 @@
       "Color": [ 1.0, 1.0, 1.0, 1.0 ],
       "Position": [ 400.0, 200.0 ],
       "Size": 24
+    },
+    "UISpriteComponent": {
+      "Texture": "Images/bloodsplats.png",
+
+      "Pivot": "TopLeft"
     }
   }
 }

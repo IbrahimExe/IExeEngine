@@ -68,9 +68,9 @@ void UISpriteComponent::Deserialize(const rapidjson::Value& value)
 		if (pivot == "TopLeft")				{ mUISprite.SetPivot(Pivot::TopLeft); }
 		else if (pivot == "Top")			{ mUISprite.SetPivot(Pivot::Top); }
 		else if (pivot == "TopRight")		{ mUISprite.SetPivot(Pivot::TopRight); }
-		else if (pivot == "CenterLeft")		{ mUISprite.SetPivot(Pivot::Left); }
-		else if (pivot == "Center")			{ mUISprite.SetPivot(Pivot::Center); }
-		else if (pivot == "CenterRight")	{ mUISprite.SetPivot(Pivot::Right); }
+		else if (pivot == "CentreLeft")		{ mUISprite.SetPivot(Pivot::Left); }
+		else if (pivot == "Centre")			{ mUISprite.SetPivot(Pivot::Centre); }
+		else if (pivot == "CentreRight")	{ mUISprite.SetPivot(Pivot::Right); }
 		else if (pivot == "BottomLeft")		{ mUISprite.SetPivot(Pivot::BottomLeft); }
 		else if (pivot == "Bottom")			{ mUISprite.SetPivot(Pivot::Bottom); }
 		else if (pivot == "BottomRight")	{ mUISprite.SetPivot(Pivot::BottomRight); }

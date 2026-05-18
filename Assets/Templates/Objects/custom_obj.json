@@ -8,7 +8,7 @@
       "Color": [ 0.8, 0.8, 1.0, 1.0 ]
     },
     "SoundEventComponent": {
-      "FileName": "../../Assets/Audio/photongun1.wav",
+      "FileName": "photongun1.wav",
       "Looping": false
     }
   }

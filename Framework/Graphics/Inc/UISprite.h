@@ -12,7 +12,7 @@ namespace IExeEngine::Graphics
 		Top,
 		TopRight,
 		Left,
-		Center,
+		Centre,
 		Right,
 		BottomLeft,
 		Bottom,
@@ -66,7 +66,7 @@ namespace IExeEngine::Graphics
 		DirectX::XMFLOAT2 mScale = { 1.0f, 1.0f };
 		DirectX::XMVECTOR mColor = DirectX::Colors::White;
 		float mRotation = 0.0f;
-		Pivot mPivot = Pivot::Center;
+		Pivot mPivot = Pivot::Centre;
 		DirectX::SpriteEffects mFlip = DirectX::SpriteEffects_None;
 	};
 }

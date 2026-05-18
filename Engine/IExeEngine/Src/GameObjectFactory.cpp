@@ -69,7 +69,7 @@ namespace
         }
         else if (componentName == "UISpriteComponent")
         {
-            newComponent = gameObject.GetComponent<UISpriteComponent>();
+            newComponent = gameObject.AddComponent<UISpriteComponent>();
         }
         else
         {
