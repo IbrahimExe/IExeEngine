@@ -141,6 +141,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Levels", "Levels", "{A56BEE
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FW1FontWrapper", "External\FW1FontWrapper\FW1FontWrapper.vcxproj", "{0D034612-14E2-44E7-993A-72344A2CA7BD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{B8C32562-2FBB-42C6-96F0-1DDAD1D45842}"
+	ProjectSection(SolutionItems) = preProject
+		Assets\Templates\UI\hud_screen.json = Assets\Templates\UI\hud_screen.json
+		Assets\Templates\UI\ui_sprite.json = Assets\Templates\UI\ui_sprite.json
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -706,6 +712,7 @@ Global
 		{D4F649C7-5866-4941-8124-B91F53F93AA6} = {59B28DF0-7CC6-463F-B15F-9911D83C07C1}
 		{A56BEE60-F02C-461F-A500-3F478035014B} = {C95D5A12-9D9F-4DA0-9AB4-D0FFD5B059EB}
 		{0D034612-14E2-44E7-993A-72344A2CA7BD} = {0DC1D64B-DE75-45C2-AF87-D470446BD4EB}
+		{B8C32562-2FBB-42C6-96F0-1DDAD1D45842} = {C95D5A12-9D9F-4DA0-9AB4-D0FFD5B059EB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C84562D2-23AD-4C29-92D2-1A4C470BECEF}

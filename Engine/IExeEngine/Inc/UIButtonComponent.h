@@ -13,7 +13,7 @@ namespace IExeEngine
         Count
     };
 
-    using ButtonCallBack = std::function<void()>;
+    using ButtonCallback = std::function<void()>;
 
     class UIButtonComponent : public UIComponent
     {
@@ -27,7 +27,7 @@ namespace IExeEngine
         void Deserialize(const rapidjson::Value& value) override;
 
         Math::Vector2 GetPosition(bool includeOrigin = true);
-        void SetCallBack(ButtonCallBack cb);
+        void SetCallback(ButtonCallback cb);
 
     private:
         void OnClick();
@@ -37,10 +37,10 @@ namespace IExeEngine
             std::string texture;
             Graphics::UISprite sprite;
         };
-        using ButtonStates = std::array < ButtonStateEntry, static_cast<uint32_t>(ButtonState::Count)>;
+        using ButtonStates = std::array<ButtonStateEntry, static_cast<uint32_t>(ButtonState::Count)>;
         ButtonStates mButtonStates;
 
-        ButtonCallBack mCallBack = nullptr;
+        ButtonCallback mCallback = nullptr;
         DirectX::XMFLOAT2 mPosition = { 0.0f, 0.0f };
         ButtonState mCurrentState = ButtonState::Default;
     };

@@ -1,0 +1,9 @@
+{
+  "Components": {
+    "UISpriteComponent": {
+      "Texture": "Images/bloodsplats.png",
+      "Position": [ 40.0, 40.0 ],
+      "Pivot": "TopLeft"
+    }
+  }
+}

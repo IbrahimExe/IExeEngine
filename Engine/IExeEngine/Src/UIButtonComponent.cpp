@@ -11,7 +11,13 @@ using namespace IExeEngine::Input;
 
 void UIButtonComponent::Initialize()
 {
-    
+    for (ButtonStateEntry& buttonState : mButtonStates)
+    {
+        if (nullptr)
+        {
+            
+        }
+    }
 }
 
 void UIButtonComponent::Terminate()
@@ -39,7 +45,7 @@ Math::Vector2 UIButtonComponent::GetPosition(bool includeOrigin)
     return Math::Vector2();
 }
 
-void UIButtonComponent::SetCallBack(ButtonCallBack cb)
+void UIButtonComponent::SetCallback(ButtonCallback cb)
 {
 
 }
