@@ -28,6 +28,7 @@
 #include "UIComponent.h"
 #include "UITextComponent.h"
 #include "UISpriteComponent.h"
+#include "UIButtonComponent.h"
 
 // Services
 #include "Service.h"

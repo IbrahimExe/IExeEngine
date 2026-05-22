@@ -15,6 +15,7 @@
 #include "SoundBankComponent.h"
 #include "UITextComponent.h"
 #include "UISpriteComponent.h"
+#include "UIButtonComponent.h"
 
 using namespace IExeEngine;
 
@@ -72,6 +73,10 @@ namespace
         {
             newComponent = gameObject.AddComponent<UISpriteComponent>();
         }
+        else if (componentName == "UIButtonComponent")
+        {
+            newComponent = gameObject.AddComponent<UIButtonComponent>();
+        }
         else
         {
             newComponent = TryMakeComponent(componentName, gameObject);
@@ -120,6 +125,10 @@ namespace
         else if (componentName == "UISpriteComponent")
         {
             component = gameObject.GetComponent<UISpriteComponent>();
+        }
+        else if (componentName == "UIButtonComponent")
+        {
+            component = gameObject.GetComponent<UIButtonComponent>();
         }
         else
         {

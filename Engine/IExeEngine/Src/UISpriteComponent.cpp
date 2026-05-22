@@ -32,7 +32,22 @@ void UISpriteComponent::Terminate()
 
 void UISpriteComponent::Render()
 {
-	UISpriteRenderer::Get()->Render(mUISprite);
+	//UISpriteRenderer::Get()->Render(mUISprite);
+	Math::Vector2 worldPos = GetPosition(false);
+	GameObject* parent = GetOwner().GetParent();
+	while (parent != nullptr)
+	{
+		UISpriteComponent* spriteComponent = parent->GetComponent<UISpriteComponent>();
+		if (spriteComponent != nullptr)
+		{
+			worldPos += spriteComponent->GetPosition();
+		}
+
+		parent = parent->GetParent();
+	}
+
+    mUISprite.SetPosition({ worldPos.x, worldPos.y });
+    UISpriteRenderer::Get()->Render(mUISprite);
 }
 
 void UISpriteComponent::Deserialize(const rapidjson::Value& value)
