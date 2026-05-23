@@ -4,6 +4,7 @@
 #include "GameObject.h"
 #include "GameWorld.h"
 #include "UIRenderService.h"
+#include "UIButtonComponent.h"
 
 #include "SaveUtil.h"
 
@@ -41,6 +42,16 @@ void UISpriteComponent::Render()
 		if (spriteComponent != nullptr)
 		{
 			worldPos += spriteComponent->GetPosition();
+		}
+		else
+		{
+			UIButtonComponent* buttonComponent = parent->GetComponent<UIButtonComponent>();
+			if (buttonComponent != nullptr)
+			{
+				// We need to add the buttons position too as the button component is what is actually rendering the sprite,
+				// so the sprite component's position is relative to the button component, not the other way around
+				worldPos += buttonComponent->GetPosition();
+			}
 		}
 
 		parent = parent->GetParent();
