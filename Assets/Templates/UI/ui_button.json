@@ -1,0 +1,23 @@
+{
+  "Components": {
+    "UIButtonComponent": {
+      "Position": [ 0.0, 0.0 ],
+      "Pivot": "Centre",
+      "Default": {
+        "Texture": "Images/blue.jpg"
+      },
+      "Hover": {
+        "Texture": "Images/cyan.jpg",
+        "Scale": [ 1.25, 1.25 ]
+      },
+      "Click": {
+        "Texture": "Images/white.jpg",
+        "Scale": [ 0.8, 0.8 ]
+      },
+      "Disabled": {
+        "Texture": "Images/black.jpg",
+        "Color": [ 0.3, 0.3, 0.3, 0.5 ]
+      }
+    }
+  }
+}

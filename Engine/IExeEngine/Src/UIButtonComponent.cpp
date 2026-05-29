@@ -18,6 +18,7 @@ void UIButtonComponent::Initialize()
 		}
 	}
 
+	//mCurrentState = ButtonState::Disabled;
 	UIRenderService* uiRenderService = GetOwner().GetWorld().GetService<UIRenderService>();
 	uiRenderService->Register(this);
 }
@@ -166,11 +167,11 @@ void UIButtonComponent::Deserialize(const rapidjson::Value& value)
 		if (buttonStateObj.HasMember("Flip"))
 		{
 			std::string flip = value["Flip"].GetString();
-			if (flip == "None") { mButtonStates[i].sprite.SetFlip(Flip::None); }
-			else if (flip == "Horizontal") { mButtonStates[i].sprite.SetFlip(Flip::Horizontal); }
-			else if (flip == "Vertical") { mButtonStates[i].sprite.SetFlip(Flip::Vertical); }
-			else if (flip == "Both") { mButtonStates[i].sprite.SetFlip(Flip::Both); }
-			else { ASSERT(false, "UISpriteComponent: invalid flip %s", flip.c_str()); }
+			if (flip == "None")				{ mButtonStates[i].sprite.SetFlip(Flip::None); }
+			else if (flip == "Horizontal")	{ mButtonStates[i].sprite.SetFlip(Flip::Horizontal); }
+			else if (flip == "Vertical")	{ mButtonStates[i].sprite.SetFlip(Flip::Vertical); }
+			else if (flip == "Both")		{ mButtonStates[i].sprite.SetFlip(Flip::Both); }
+			else { ASSERT(false, "UISpriteComponent: Invalid flip %s!", flip.c_str()); }
 		}
 	}
 }

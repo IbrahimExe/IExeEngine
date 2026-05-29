@@ -144,6 +144,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{B8C32562-2FBB-42C6-96F0-1DDAD1D45842}"
 	ProjectSection(SolutionItems) = preProject
 		Assets\Templates\UI\hud_screen.json = Assets\Templates\UI\hud_screen.json
+		Assets\Templates\UI\ui_button.json = Assets\Templates\UI\ui_button.json
 		Assets\Templates\UI\ui_sprite.json = Assets\Templates\UI\ui_sprite.json
 	EndProjectSection
 EndProject
