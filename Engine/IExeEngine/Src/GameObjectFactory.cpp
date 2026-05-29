@@ -16,6 +16,7 @@
 #include "UITextComponent.h"
 #include "UISpriteComponent.h"
 #include "UIButtonComponent.h"
+#include "PlayerControllerComponent.h"
 
 using namespace IExeEngine;
 
@@ -77,6 +78,10 @@ namespace
         {
             newComponent = gameObject.AddComponent<UIButtonComponent>();
         }
+        else if (componentName == "PlayerControllerComponent")
+        {
+            newComponent = gameObject.AddComponent<PlayerControllerComponent>();
+        }
         else
         {
             newComponent = TryMakeComponent(componentName, gameObject);
@@ -129,6 +134,10 @@ namespace
         else if (componentName == "UIButtonComponent")
         {
             component = gameObject.GetComponent<UIButtonComponent>();
+        }
+        else if (componentName == "PlayerControllerComponent")
+        {
+            component = gameObject.GetComponent<PlayerControllerComponent>();
         }
         else
         {
