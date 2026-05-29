@@ -1,0 +1,61 @@
+{
+  "Components": {
+    "TransformComponent": {
+      "Position": [ 0.0, 0.0, 0.0 ],
+      "Rotation": [ 0.0, 0.0, 0.0, 1.0 ],
+      "Scale": [ 1.0, 1.0, 1.0 ]
+    },
+    "ModelComponent": {
+      "CastShadow": true,
+      "FileName": "../../Assets/Models/parasite/parasite.model",
+      "Animations": [
+        "../../Assets/Models/parasite/samba.animset"
+      ]
+    },
+    "AnimatorComponent": {
+
+    },
+    "RigidBodyComponent": {
+      "Mass": 1.0,
+      "ColliderData": {
+        "Shape": "Hull",
+        "HalfExtents": [ 0.5, 1.0, 0.5 ],
+        "Origin": [ 0.0, 1.0, 0.0 ]
+      }
+    },
+    "PlayerControllerComponent": {
+      "mShiftSpeed": 10.0,
+      "mMoveSpeed": 1.0,
+      "mTurnSpeed": 0.1,
+      "mJumpSpeed": 10.0
+    },
+    "SoundBankComponent": {
+      "SoundEffects": {
+        "ZombieAttack_1": {
+          "FileName": "ZAttack1.wav",
+          "Looping": false
+        },
+        "ZombieAttack_2": {
+          "FileName": "ZAttack2.wav",
+          "Looping": false
+        },
+        "ZombieAttack_3": {
+          "FileName": "ZAttack3.wav",
+          "Looping": false
+        },
+        "ZombieScream": {
+          "FileName": "ZScream.wav",
+          "Looping": false
+        },
+        "ZombieIdle": {
+          "FileName": "ZIdle.wav",
+          "Looping": true
+        },
+        "SalsaBG": {
+          "FileName": "SalsaBG.wav",
+          "Looping": true
+        }
+      }
+    }
+  }
+}

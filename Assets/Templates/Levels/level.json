@@ -64,6 +64,12 @@
     },
     "CustomDebugDrawObj": {
       "Template": "../../Assets/Templates/Objects/custom_obj.json"
+    },
+    "HUD": {
+      "Template": "../../Assets/Templates/UI/hud_screen.json"
+    },
+    "Player": {
+      "Template": "../../Assets/Templates/Objects/player_obj.json"
     }
   }
 }

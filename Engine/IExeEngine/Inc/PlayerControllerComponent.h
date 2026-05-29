@@ -5,11 +5,13 @@
 namespace IExeEngine
 {
     class TransformComponent;
-    class RidgidBodyComponent;
+    class RigidBodyComponent;
 
     class PlayerControllerComponent : public Component
     {
     public:
+        SET_TYPE_ID(ComponentId::PlayerController);
+
         void Initialize() override;
 
         void Terminate() override;
@@ -22,10 +24,11 @@ namespace IExeEngine
 
     private:
         TransformComponent* mTransformComponent = nullptr;
-        RidgidBodyComponent* mRidgidBodyComponent = nullptr;
+        RigidBodyComponent* mRigidBodyComponent = nullptr;
 
         float mShiftSpeed = 10.0f;
         float mMoveSpeed = 2.0f;
         float mTurnSpeed = 0.1f;
+        float mJumpSpeed = 20.0f;
     };
 }
