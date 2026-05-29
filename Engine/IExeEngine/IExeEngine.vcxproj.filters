@@ -117,6 +117,9 @@
     <ClInclude Include="Inc\PlayerControllerComponent.h">
       <Filter>Inc\Components</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\TPSCameraComponent.h">
+      <Filter>Inc\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Precompiled.cpp">
@@ -192,6 +195,9 @@
       <Filter>Src\Components</Filter>
     </ClCompile>
     <ClCompile Include="Src\PlayerControllerComponent.cpp">
+      <Filter>Src\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\TPSCameraComponent.cpp">
       <Filter>Src\Components</Filter>
     </ClCompile>
   </ItemGroup>

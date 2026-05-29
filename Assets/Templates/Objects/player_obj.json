@@ -24,10 +24,17 @@
       }
     },
     "PlayerControllerComponent": {
-      "mShiftSpeed": 10.0,
-      "mMoveSpeed": 1.0,
-      "mTurnSpeed": 0.1,
-      "mJumpSpeed": 10.0
+      "ShiftSpeed": 10.0,
+      "MoveSpeed": 1.0,
+      "TurnSpeed": 0.1,
+      "JumpSpeed": 10.0
+    },
+    "CameraComponent": {
+
+    },
+    "TPSCameraComponent": {
+      "Offset": [ 0.20, 1.80, -2.0 ],
+      "Smoothing": 2.0
     },
     "SoundBankComponent": {
       "SoundEffects": {

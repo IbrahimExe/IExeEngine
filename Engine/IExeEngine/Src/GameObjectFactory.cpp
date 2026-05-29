@@ -17,6 +17,7 @@
 #include "UISpriteComponent.h"
 #include "UIButtonComponent.h"
 #include "PlayerControllerComponent.h"
+#include "TPSCameraComponent.h"
 
 using namespace IExeEngine;
 
@@ -82,6 +83,10 @@ namespace
         {
             newComponent = gameObject.AddComponent<PlayerControllerComponent>();
         }
+        else if (componentName == "TPSCameraComponent")
+        {
+            newComponent = gameObject.AddComponent<TPSCameraComponent>();
+        }
         else
         {
             newComponent = TryMakeComponent(componentName, gameObject);
@@ -138,6 +143,10 @@ namespace
         else if (componentName == "PlayerControllerComponent")
         {
             component = gameObject.GetComponent<PlayerControllerComponent>();
+        }
+        else if (componentName == "TPSCameraComponent")
+        {
+            component = gameObject.GetComponent<TPSCameraComponent>();
         }
         else
         {

@@ -19,7 +19,10 @@ namespace IExeEngine
 
         virtual void Initialize() {}
         virtual void Terminate() {}
+
         virtual void Update(float deltaTime) {}
+        virtual void LateUpdate(float deltaTime) {}
+
         virtual void DebugUI() {}
 
         // Will read in data, apply to the object

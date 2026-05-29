@@ -9,7 +9,7 @@ namespace IExeEngine
         Transform,          // transform component for local data
         Camera,             // contains the camera for viewing
         FPSCamera,          // Move the camera component with FPS controls
-        TPCamera,           // Camera that hovers over a controlled object
+        TPCamera,           // Camera that hovers over a controlled object (3rd Person)
         Mesh,               // Add a mesh shape on the game object to render
         Model,              // Add a model to the game object to render
         Animator,           // Adds an animation controller to the game object

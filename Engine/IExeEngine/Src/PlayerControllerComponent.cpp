@@ -16,6 +16,7 @@ void PlayerControllerComponent::Initialize()
 		"PlayerControllerComponent: No TransformComponent or RigidBodyComponent found!");
 
 	// InputSystem::Get()->ShowCursor(false);
+	// InputSystem::Get()->SetMouseClipToWindow(true);
 }
 
 void PlayerControllerComponent::Terminate()

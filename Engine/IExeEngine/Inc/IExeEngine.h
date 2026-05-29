@@ -30,6 +30,7 @@
 #include "UISpriteComponent.h"
 #include "UIButtonComponent.h"
 #include "PlayerControllerComponent.h"
+#include "TPSCameraComponent.h"
 
 // Services
 #include "Service.h"
