@@ -116,7 +116,9 @@ LRESULT CALLBACK InputSystem::InputSystemMessageHandler(HWND window, UINT messag
 				{
 					int width = rect.right - rect.left;
 					int height = rect.bottom - rect.top;
-					SetCursorPos(rect.left + (width / 2), rect.top + (height / 2));
+					sInputSystem->mPrevMouseX = (width / 2);
+					sInputSystem->mPrevMouseY = (height / 2);
+					SetCursorPos(sInputSystem->mPrevMouseX, sInputSystem->mPrevMouseY);
 				}
 
 				break;
@@ -185,6 +187,7 @@ void InputSystem::Initialize(HWND window)
 	sWindowMessageHandler.Hook(window, InputSystemMessageHandler);
 
 	mInitialized = true;
+	mWindow = window;
 
 	LOG("InputSystem -- System initialized.");
 }

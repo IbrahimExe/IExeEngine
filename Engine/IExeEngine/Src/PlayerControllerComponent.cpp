@@ -58,7 +58,11 @@ void PlayerControllerComponent::Update(float deltaTime)
 		}
 	}
 
-	float turnInput = input->GetMouseMoveX() * turnSpeed;
+	float turnInput = 0.0f;
+	if (input->IsMouseDown(MouseButton::RBUTTON))
+	{
+		turnInput = input->GetMouseMoveX() * turnSpeed;
+	}
 
 	Math::Matrix4 matrix = mTransformComponent->GetMatrix4();
 	Math::Vector3 forward = Math::GetLook(matrix);
