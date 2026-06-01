@@ -27,7 +27,7 @@
       "ShiftSpeed": 10.0,
       "MoveSpeed": 1.0,
       "TurnSpeed": 0.1,
-      "JumpSpeed": 10.0
+      "JumpSpeed": 4.0
     },
     "CameraComponent": {
 

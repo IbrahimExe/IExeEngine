@@ -39,6 +39,6 @@ void TPSCameraComponent::Deserialize(const rapidjson::Value& value)
 void TPSCameraComponent::Serialize(rapidjson::Document& doc, rapidjson::Value& value, const rapidjson::Value& originalValue)
 {
 	rapidjson::Value componentValue(rapidjson::kObjectType);
-	// compare with original, if different, save current value
+	// Compare with original, if different, save current value
 	value.AddMember("TPSCameraComponent", componentValue, doc.GetAllocator());
 }

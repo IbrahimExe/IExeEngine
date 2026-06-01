@@ -111,6 +111,14 @@ LRESULT CALLBACK InputSystem::InputSystemMessageHandler(HWND window, UINT messag
 				sInputSystem->mMouseRightEdge = mouseX + 1 >= rect.right;
 				sInputSystem->mMouseTopEdge = mouseY <= rect.top;
 				sInputSystem->mMouseBottomEdge = mouseY + 1 >= rect.bottom;
+
+				if (sInputSystem->IsMouseClipToWindow())
+				{
+					int width = rect.right - rect.left;
+					int height = rect.bottom - rect.top;
+					SetCursorPos(rect.left + (width / 2), rect.top + (height / 2));
+				}
+
 				break;
 			}
 			case WM_KEYDOWN:
