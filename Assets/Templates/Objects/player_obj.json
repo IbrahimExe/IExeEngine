@@ -2,7 +2,7 @@
   "Components": {
     "TransformComponent": {
       "Position": [ 0.0, 0.0, 0.0 ],
-      "Rotation": [ 0.0, 0.0, 0.0, 1.0 ],
+      "Rotation": [ 0.0, 90.0, 0.0, 1.0 ],
       "Scale": [ 1.0, 1.0, 1.0 ]
     },
     "ModelComponent": {
