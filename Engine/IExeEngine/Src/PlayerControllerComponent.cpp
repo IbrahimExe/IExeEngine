@@ -106,5 +106,3 @@ void PlayerControllerComponent::Deserialize(const rapidjson::Value& value)
 	SaveUtil::ReadFloat("TurnSpeed", mTurnSpeed, value);
 	SaveUtil::ReadFloat("JumpSpeed", mJumpSpeed, value);
 }
-
-// Add Ability for Parallel Programming here, or with the Physics Engine

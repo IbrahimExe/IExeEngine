@@ -33,7 +33,7 @@
 
     },
     "TPSCameraComponent": {
-      "Offset": [ 0.20, 1.80, -2.0 ],
+      "Offset": [ 0.20, 1.80, -4.0 ],
       "Smoothing": 2.0
     },
     "SoundBankComponent": {
