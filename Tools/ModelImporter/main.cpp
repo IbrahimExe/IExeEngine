@@ -326,6 +326,10 @@ int main(int argc, char* argv[])
             bone->toParentTransform._43 *= args.scale;
         }
 
+        // -- For Model Rotation (Face Model toward the camera when importing) --
+        Math::Matrix4 rotMatrix = Math::Matrix4::RotationY(Math::Constants::Pi);
+        model.skeleton->root->toParentTransform = rotMatrix * model.skeleton->root->toParentTransform;
+
         if (!args.animOnly)
         {
             printf("Reading Mesh Data...\n");

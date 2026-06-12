@@ -96,7 +96,7 @@ struct VS_OUTPUT
 
 VS_OUTPUT VS(VS_INPUT input)
 {
-    // Matrix to multiply to get the vertex in world space
+    // Matrix to multiply to get the vertwex in world space
     matrix toWorld = world;
     // Matrix to multiply to get the vertex in NDC space 
     matrix toNDC = wvp;
