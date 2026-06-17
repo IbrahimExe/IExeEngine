@@ -167,6 +167,7 @@
     <ClInclude Include="Inc\UIRenderService.h" />
     <ClInclude Include="Inc\UISpriteComponent.h" />
     <ClInclude Include="Inc\UITextComponent.h" />
+    <ClInclude Include="Inc\ZombieControllerComponent.h" />
     <ClInclude Include="Src\Precompiled.h" />
   </ItemGroup>
   <ItemGroup>
@@ -198,6 +199,7 @@
     <ClCompile Include="Src\UIRenderService.cpp" />
     <ClCompile Include="Src\UISpriteComponent.cpp" />
     <ClCompile Include="Src\UITextComponent.cpp" />
+    <ClCompile Include="Src\ZombieControllerComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Framework\Audio\Audio.vcxproj">

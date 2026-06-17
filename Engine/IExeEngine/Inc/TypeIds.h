@@ -15,6 +15,8 @@ namespace IExeEngine
         Animator,           // Adds an animation controller to the game object
         RigidBody,          // Adds a physics object to the game object
         PlayerController,   // Input used to move a character/ mesh/ model in the world
+        ZombieController,   // Camera & Input controls for the zombie type character
+        HumanEnemy,         // Logic for a Human Enemy Character (If time permits)
         SoundEffect,        // Adds a sound effect to an object
         SoundBank,          // Adds a group of sounds to an object
         UIText,             // Adds a UI Text component

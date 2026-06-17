@@ -31,6 +31,7 @@
 #include "UIButtonComponent.h"
 #include "PlayerControllerComponent.h"
 #include "TPSCameraComponent.h"
+#include "ZombieControllerComponent.h"
 
 // Services
 #include "Service.h"
