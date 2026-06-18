@@ -40,3 +40,8 @@ Knight Animations:
 -animOnly 1 -scale 0.01 ../../Assets/Models/Knight/Punch_Knight.fbx ../../Assets/Models/Knight/Punch_Knight.model
 -animOnly 1 -scale 0.01 ../../Assets/Models/Knight/SeriousSprint_Knight.fbx ../../Assets/Models/Knight/SeriousSprint_Knight.model
 -animOnly 1 -scale 0.01 ../../Assets/Models/Knight/WeirdRun_Knight.fbx ../../Assets/Models/Knight/WeirdRun_Knight.model
+
+Gameplay Animations:
+-animOnly 1 -scale 0.01 ../../Assets/Models/parasite/ZIdle.fbx ../../Assets/Models/parasite/ZIdle.model
+-animOnly 1 -scale 0.01 ../../Assets/Models/parasite/ZAttack.fbx ../../Assets/Models/parasite/ZAttack.model
+-animOnly 1 -scale 0.01 ../../Assets/Models/parasite/ZWalk.fbx ../../Assets/Models/parasite/ZWalk.model

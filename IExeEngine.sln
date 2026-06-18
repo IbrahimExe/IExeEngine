@@ -129,6 +129,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Objects", "Objects", "{DAF9
 		Assets\Templates\Objects\player_obj.json = Assets\Templates\Objects\player_obj.json
 		Assets\Templates\Objects\simple_mesh.json = Assets\Templates\Objects\simple_mesh.json
 		Assets\Templates\Objects\transform_obj.json = Assets\Templates\Objects\transform_obj.json
+		Assets\Templates\Objects\zombie_obj.json = Assets\Templates\Objects\zombie_obj.json
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "25_HelloGameObjectFactory", "VGP336\25_HelloGameObjectFactory\25_HelloGameObjectFactory.vcxproj", "{CC5C32FB-14DC-43F4-8168-0B452ABDCBD3}"

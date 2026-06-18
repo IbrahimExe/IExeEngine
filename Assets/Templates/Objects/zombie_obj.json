@@ -1,0 +1,69 @@
+{
+  "Components": {
+    "TransformComponent": {
+      "Position": [ 0.0, 0.0, 0.0 ],
+      "Rotation": [ 0.0, 0.0, 0.0, 1.0 ],
+      "Scale": [ 1.0, 1.0, 1.0 ]
+    },
+    "ModelComponent": {
+      "CastShadow": true,
+      "FileName": "../../Assets/Models/parasite/parasite.model",
+      "Animations": [
+        "../../Assets/Models/parasite/ZIdle.animset",
+        "../../Assets/Models/parasite/ZWalk.animset",
+        "../../Assets/Models/parasite/ZAttack.animset"
+      ]
+    },
+    "AnimatorComponent": {},
+    "RigidBodyComponent": {
+      "Mass": 1.0,
+      "ColliderData": {
+        "Shape": "Hull",
+        "HalfExtents": [ 0.5, 1.0, 0.5 ],
+        "Origin": [ 0.0, 1.0, 0.0 ]
+      }
+    },
+    "ZombieControllerComponent": {
+      "MoveSpeed": 1.5,
+      "TurnSpeed": 0.1,
+      "AttackRange": 2.5,
+      "AttackForce": 20.0,
+      "AttackDuration": 1.2,
+      "AttackCooldown": 2.0,
+      "IdleAnimIndex": 0,
+      "WalkAnimIndex": 1,
+      "AttackAnimIndex": 2
+    },
+    "CameraComponent": {
+
+    },
+    "TPSCameraComponent": {
+      "Offset": [ 0.80, 1.80, -2.80 ],
+      "Smoothing": 5.0
+    },
+    "SoundBankComponent": {
+      "SoundEffects": {
+        "ZombieAttack_1": {
+          "FileName": "ZAttack1.wav",
+          "Looping": false
+        },
+        "ZombieAttack_2": {
+          "FileName": "ZAttack2.wav",
+          "Looping": false
+        },
+        "ZombieAttack_3": {
+          "FileName": "ZAttack3.wav",
+          "Looping": false
+        },
+        "ZombieScream": {
+          "FileName": "ZScream.wav",
+          "Looping": false
+        },
+        "ZombieIdle": {
+          "FileName": "ZIdle.wav",
+          "Looping": true
+        }
+      }
+    }
+  }
+}

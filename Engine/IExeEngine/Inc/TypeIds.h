@@ -5,7 +5,7 @@ namespace IExeEngine
     enum class ComponentId 
     {
         Invalid,       // default value, not a valid component
-                       
+               
         Transform,          // transform component for local data
         Camera,             // contains the camera for viewing
         FPSCamera,          // Move the camera component with FPS controls
