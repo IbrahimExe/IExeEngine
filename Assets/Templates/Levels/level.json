@@ -60,7 +60,7 @@
       "Template": "../../Assets/Templates/UI/hud_screen.json"
     },
     "Player": {
-      "Template": "../../Assets/Templates/Objects/zombie_obj.json"
+      "Template": "../../Assets/Templates/Objects/player_obj.json"
     }
   }
 }

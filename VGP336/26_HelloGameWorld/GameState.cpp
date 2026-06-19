@@ -43,9 +43,10 @@ Component* GetCustomComponent(const std::string& componentName, GameObject& game
 
 void GameState::Initialize()
 {
-	mLevelFile = L"../../Assets/Templates/Levels/level.json";
+	mLevelFile = L"../../Assets/Templates/Levels/zombiesVsPlants.json";
 
-	// Set a callback to try make a custom service (any service that is NOT part of the engine and unique to the project)
+	// Set a callback to try make a custom service
+	// (any service that is NOT part of the engine and unique to the project)
 	GameWorld::SetCustomService(MakeCustomService);
 	// Sets callbacks to try make/ get a custom component (any component that is NOT part of the engine)
 	GameObjectFactory::SetCustomMake(MakeCustomComponent);

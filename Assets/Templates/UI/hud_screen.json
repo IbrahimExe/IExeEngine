@@ -1,47 +1,10 @@
 {
   "Components": {
-    "UISpriteComponent": {
-      "Texture": "Images/cyan.jpg",
-      "Position": [ 40.0, 40.0 ],
-      "Pivot": "TopLeft",
-      "Rect": [ 0, 0, 200, 400 ]
-    }
-  },
-  "Children": {
-    "Icon0": {
-      "Template": "../../Assets/Templates/UI/ui_sprite.json",
-      "Components": {
-        "UISpriteComponent": {
-          "Texture": "Images/yellow.jpg",
-          "Position": [ 20.0, 20.0 ]
-        }
-      }
-    },
-    "Icon1": {
-      "Template": "../../Assets/Templates/UI/ui_sprite.json",
-      "Components": {
-        "UISpriteComponent": {
-          "Texture": "Images/crosshair.png",
-          "Position": [ 20.0, 120.0 ]
-        }
-      }
-    },
-    "Icon2": {
-      "Template": "../../Assets/Templates/UI/ui_sprite.json",
-      "Components": {
-        "UISpriteComponent": {
-          "Texture": "Images/white.jpg",
-          "Position": [ 20.0, 240.0 ]
-        }
-      }
-    },
-    "Button0": {
-      "Template": "../../Assets/Templates/UI/ui_button.json",
-      "Components": {
-        "UIButtonComponent": {
-          "Position": [ 160.0, 60.0 ]
-        }
-      }
+    "UITextComponent": {
+      "Text": "Move around with W,A,S & D  Attack with SPACE",
+      "Color": [ 1.0, 1.0, 1.0, 1.0 ],
+      "Position": [ 620.0, 20.0 ],
+      "Size": 24
     }
   }
 }

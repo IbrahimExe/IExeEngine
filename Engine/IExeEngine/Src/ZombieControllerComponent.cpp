@@ -150,8 +150,8 @@ void ZombieControllerComponent::TransitionToState(ZombieState newState)
         }
         if (mSoundBankComponent != nullptr)
         {
-            mSoundBankComponent->Stop("ZombieIdle"); // Reset before replaying
-            mSoundBankComponent->Play("ZombieIdle");
+            mSoundBankComponent->Stop("ZIdle.wav"); // Reset before replaying
+            mSoundBankComponent->Play("ZIdle.wav");
         }
         break;
     }
@@ -165,7 +165,7 @@ void ZombieControllerComponent::TransitionToState(ZombieState newState)
         }
         if (mSoundBankComponent != nullptr)
         {
-            mSoundBankComponent->Stop("ZombieIdle"); // Footstep loop stops while walking sound plays
+            mSoundBankComponent->Stop("ZIdle.wav"); // Footstep loop stops while walking sound plays
         }
         break;
     }
@@ -184,8 +184,8 @@ void ZombieControllerComponent::TransitionToState(ZombieState newState)
 
         if (mSoundBankComponent != nullptr)
         {
-            mSoundBankComponent->Stop("ZombieIdle");
-            mSoundBankComponent->Play("ZombieScream");                // Scream on attack trigger
+            mSoundBankComponent->Stop("ZIdle.wav");
+            mSoundBankComponent->Play("ZScream.wav");                // Scream on attack trigger
             mSoundBankComponent->Play(GetRandomAttackSound());        // Random swing sound
         }
 
@@ -268,13 +268,8 @@ void ZombieControllerComponent::Deserialize(const rapidjson::Value& value)
     SaveUtil::ReadFloat("AttackDuration", mAttackDuration, value);
     SaveUtil::ReadFloat("AttackCooldown", mAttackCooldown, value);
 
-    float idleIdx = static_cast<float>(mIdleAnimIndex);
-    float walkIdx = static_cast<float>(mWalkAnimIndex);
-    float atkIdx = static_cast<float>(mAttackAnimIndex);
-    SaveUtil::ReadFloat("IdleAnimIndex", idleIdx, value);
-    SaveUtil::ReadFloat("WalkAnimIndex", walkIdx, value);
-    SaveUtil::ReadFloat("AttackAnimIndex", atkIdx, value);
-    mIdleAnimIndex = static_cast<int>(idleIdx);
-    mWalkAnimIndex = static_cast<int>(walkIdx);
-    mAttackAnimIndex = static_cast<int>(atkIdx);
+    // Correctly use ReadInt now that we know it exists
+    SaveUtil::ReadInt("IdleAnimIndex", mIdleAnimIndex, value);
+    SaveUtil::ReadInt("WalkAnimIndex", mWalkAnimIndex, value);
+    SaveUtil::ReadInt("AttackAnimIndex", mAttackAnimIndex, value);
 }

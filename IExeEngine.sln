@@ -139,6 +139,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Levels", "Levels", "{A56BEE60-F02C-461F-A500-3F478035014B}"
 	ProjectSection(SolutionItems) = preProject
 		Assets\Templates\Levels\level.json = Assets\Templates\Levels\level.json
+		Assets\Templates\Levels\zombiesVsPlants.json = Assets\Templates\Levels\zombiesVsPlants.json
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FW1FontWrapper", "External\FW1FontWrapper\FW1FontWrapper.vcxproj", "{0D034612-14E2-44E7-993A-72344A2CA7BD}"
