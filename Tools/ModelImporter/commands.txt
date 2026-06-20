@@ -41,7 +41,15 @@ Knight Animations:
 -animOnly 1 -scale 0.01 ../../Assets/Models/Knight/SeriousSprint_Knight.fbx ../../Assets/Models/Knight/SeriousSprint_Knight.model
 -animOnly 1 -scale 0.01 ../../Assets/Models/Knight/WeirdRun_Knight.fbx ../../Assets/Models/Knight/WeirdRun_Knight.model
 
-Gameplay Animations:
+Zombie Gameplay Animations:
 -animOnly 1 -scale 0.01 ../../Assets/Models/parasite/ZIdle.fbx ../../Assets/Models/parasite/ZIdle.model
 -animOnly 1 -scale 0.01 ../../Assets/Models/parasite/ZAttack.fbx ../../Assets/Models/parasite/ZAttack.model
 -animOnly 1 -scale 0.01 ../../Assets/Models/parasite/ZWalk.fbx ../../Assets/Models/parasite/ZWalk.model
+
+Plant Model:
+-animOnly 1 -scale 0.01 ../../Assets/Models/PlantGirl/plant.fbx ../../Assets/Models/PlantGirl/plant.model
+
+Plant Gameplay Animations:
+-animOnly 1 -scale 0.01 ../../Assets/Models/PlantGirl/PDie.fbx ../../Assets/Models/PlantGirl/PDie.model
+-animOnly 1 -scale 0.01 ../../Assets/Models/PlantGirl/PHitReact.fbx ../../Assets/Models/PlantGirl/PHitReact.model
+-animOnly 1 -scale 0.01 ../../Assets/Models/PlantGirl/PIdle.fbx ../../Assets/Models/PlantGirl/PIdle.model
