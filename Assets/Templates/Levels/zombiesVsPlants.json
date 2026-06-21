@@ -40,7 +40,7 @@
       "Template": "../../Assets/Templates/Objects/zombie_obj.json"
     },
     "PlantEnemy": {
-      "Template": "../../Assets/Templates/Objects/model_obj.json",
+      "Template": "../../Assets/Templates/Objects/plant_obj.json",
       "Components": {
         "TransformComponent": {
           "Position": [ -3.0, 0.0, 0.0 ],

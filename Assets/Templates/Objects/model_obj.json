@@ -7,7 +7,7 @@
     },
     "ModelComponent": {
       "CastShadow": true,
-      "FileName": "../../Assets/Models/PlantGirl/plant.model",
+      "FileName": "../../Assets/Models/parasite/parasite.model",
       "Animations": [
         "../../Assets/Models/parasite/samba.animset"
       ]
