@@ -9,6 +9,9 @@
       "CastShadow": true,
       "FileName": "../../Assets/Models/PlantGirl/plant.model",
       "Animations": [
+        "../../Assets/Models/PlantGirl/PIdle.animset",
+        "../../Assets/Models/PlantGirl/PHitReact.animset",
+        "../../Assets/Models/PlantGirl/PDie.animset"
       ]
     },
     "AnimatorComponent": {
