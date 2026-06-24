@@ -207,6 +207,16 @@ an interesting scene from a very British movie.
 [Animation Inspiration](https://www.youtube.com/watch?v=gHdDxKy2QW0)
 <div align="center">
 
+
+<div align="center">
+
+# Game-Play Programming
+
+Having added different elements, such as the Bullet Engine (For Physics Simulations and Rigid Body calculations), I've now tried to use everything thats been implemented in the engine so far to create a gameplay component. 
+
+<div align="center">
+
+
 ### 🖥️ GitHub Link
 [🔗 View Repository on GitHub](https://github.com/IbrahimExe/IExeEngine)
 
