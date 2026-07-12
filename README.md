@@ -212,7 +212,10 @@ an interesting scene from a very British movie.
 
 # Game-Play Programming
 
-Having added different elements, such as the Bullet Engine (For Physics Simulations and Rigid Body calculations), I've now tried to use everything thats been implemented in the engine so far to create a gameplay component. 
+Having added different elements, such as the Bullet Engine (For Physics Simulations and Rigid Body calculations), I've now tried to use everything thats been implemented in the engine so far to create a gameplay component.
+
+
+Ive essentially created a 3rd Person character component, with its own animations, sounds and attack logic.
 
 <div align="center">
 
