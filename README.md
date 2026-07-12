@@ -217,6 +217,8 @@ Having added different elements, such as the Bullet Engine (For Physics Simulati
 
 Ive essentially created a 3rd Person character component, with its own animations, sounds and attack logic.
 
+> Gameplay gif coming soon when Im not lazy and actually record it lol 
+
 <div align="center">
 
 
