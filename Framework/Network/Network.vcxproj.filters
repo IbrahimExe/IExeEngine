@@ -21,12 +21,24 @@
     <ClInclude Include="Inc\NetworkElement.h">
       <Filter>Inc</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\Server.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\Client.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Precomiled.cpp">
       <Filter>Src</Filter>
     </ClCompile>
     <ClCompile Include="Src\NetworkElement.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Server.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Client.cpp">
       <Filter>Src</Filter>
     </ClCompile>
   </ItemGroup>
