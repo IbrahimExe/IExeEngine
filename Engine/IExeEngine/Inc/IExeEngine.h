@@ -39,6 +39,7 @@
 #include "RenderService.h"
 #include "PhysicsService.h"
 #include "UIRenderService.h"
+#include "NetworkService.h"
 
 namespace IExeEngine
 {

@@ -150,6 +150,7 @@
     <ClInclude Include="Inc\IExeEngine.h" />
     <ClInclude Include="Inc\MeshComponent.h" />
     <ClInclude Include="Inc\ModelComponent.h" />
+    <ClInclude Include="Inc\NetworkService.h" />
     <ClInclude Include="Inc\PhysicsService.h" />
     <ClInclude Include="Inc\PlayerControllerComponent.h" />
     <ClInclude Include="Inc\RenderObjectComponent.h" />
@@ -182,6 +183,7 @@
     <ClCompile Include="Src\IExeEngine.cpp" />
     <ClCompile Include="Src\MeshComponent.cpp" />
     <ClCompile Include="Src\ModelComponent.cpp" />
+    <ClCompile Include="Src\NetworkService.cpp" />
     <ClCompile Include="Src\PhysicsService.cpp" />
     <ClCompile Include="Src\PlayerControllerComponent.cpp" />
     <ClCompile Include="Src\Precompiled.cpp">
@@ -216,6 +218,9 @@
     </ProjectReference>
     <ProjectReference Include="..\..\Framework\Math\Math.vcxproj">
       <Project>{e2f0ccaf-3354-48f8-a1b4-d89487c6ba41}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\Network\Network.vcxproj">
+      <Project>{66937a0e-c206-47c5-8333-a1c2e1d85751}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\Framework\Physics\Physics.vcxproj">
       <Project>{8a5cfebb-88f4-4584-806b-4b5a1e088ab5}</Project>

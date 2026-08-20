@@ -32,6 +32,7 @@ namespace IExeEngine
         Render,             // Renders the renderobjects into the world
         Physics,            // Registers & monitors physics objects
         UIRender,           // Renders UI components
+        Network,            // Manages the network capabilities
         Count               // Last value, can be used to chain custom services
     };
 }
