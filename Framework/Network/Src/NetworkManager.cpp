@@ -86,7 +86,7 @@ void NetworkManager::StartNetwork(bool server, const std::string& serverAddress)
 		mNetwork = new Client(mPort);
 		mNetwork->Initialize(mWindow, serverAddress);
 
-		std::string msg = "Client: Connected";
+		std::string msg = "Client:connected";
 		SendMsg(msg.c_str(), msg.size());
 	}
 
