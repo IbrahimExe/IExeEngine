@@ -1,0 +1,39 @@
+{
+  "Capacity": 100,
+  "Services": {
+    "CameraService": {
+
+    },
+    "RenderService": {
+      "Direction": [ 1.0, -1.0, 1.0 ],
+      "Ambient": [ 0.3, 0.3, 0.3, 1.0 ],
+      "Diffuse": [ 0.7, 0.7, 0.7, 1.0 ],
+      "Specular": [ 0.5, 0.5, 0.5, 1.0 ],
+      "ShadowSize": 10.0
+    },
+    "PhysicsService": {
+      "Gravity": [ 0.0, -9.81, 0.0 ]
+    },
+    "NetworkService": {
+
+    },
+    "UIRenderService": {
+
+    }
+  },
+  "GameObjects": {
+    "Ground": {
+      "Template": "../../Assets/Templates/Objects/ground.json",
+      "Components": {
+        "MeshComponent": {
+          "Textures": {
+            "DiffuseMap": "../../Assets/Textures/misc/basketball.jpg"
+          }
+        }
+      }
+    },
+    "Player": {
+      "Template": "../../Assets/Templates/Objects/player_obj.json"
+    }
+  }
+}

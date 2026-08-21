@@ -140,6 +140,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Levels", "Levels", "{A56BEE60-F02C-461F-A500-3F478035014B}"
 	ProjectSection(SolutionItems) = preProject
 		Assets\Templates\Levels\level.json = Assets\Templates\Levels\level.json
+		Assets\Templates\Levels\level_mp.json = Assets\Templates\Levels\level_mp.json
 		Assets\Templates\Levels\zombiesVsPlants.json = Assets\Templates\Levels\zombiesVsPlants.json
 	EndProjectSection
 EndProject
