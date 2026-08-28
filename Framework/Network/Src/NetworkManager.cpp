@@ -4,6 +4,7 @@
 #include "Client.h"
 #include "Server.h"
 #include "NetworkEvents.h"
+#include "NetworkController.h"
 
 using namespace IExeEngine;
 using namespace IExeEngine::Network;
@@ -202,12 +203,28 @@ void NetworkManager::Update(float deltaTime)
 	break;
 	case EventType::SetPosition:
 	{
-
+		int eventType = 0;
+		char senderId[100];
+		Math::Vector3 position;
+		sscanf_s(data, "%d %s %f %f %f", &eventType, senderId, (unsigned int)sizeof(senderId), &position.x, &position.y, &position.z);
+		auto itr = mNetworkControllers.find(senderId);
+		if (itr != mNetworkControllers.end())
+		{
+			itr->second->SetPosition(position);
+		}
 	}
 	break;
 	case EventType::Input:
 	{
-
+		int eventType = 0;
+		EventInput input;
+		char senderId[100];
+		sscanf_s(data, "%d %s %d %d %d %d", &eventType, senderId, (unsigned int)sizeof(senderId), &input.moveX, &input.moveY, &input.jump, &input.shiftSpeed);
+		auto itr = mNetworkControllers.find(senderId);
+		if (itr != mNetworkControllers.end())
+		{
+			itr->second->SetInput(input);
+		}
 	}
 	break;
 	default:
@@ -281,10 +298,25 @@ void NetworkManager::SendMsg(const char* msg, int length)
 
 const std::string& NetworkManager::GetLocalId() const
 {
-	// TODO: insert return statement here
+	ASSERT(!mPlayerIds.empty(), "NetworkManager: No Players are added!");
+	return mPlayerIds[0];
 }
 
 const std::vector<std::string>& NetworkManager::GetPlayerIds() const
 {
-	// TODO: insert return statement here
+	return mPlayerIds;
+}
+
+void NetworkManager::SetNetworkController(const std::string& id, NetworkController* networkController)
+{
+	mNetworkControllers[id] = networkController;
+}
+
+void NetworkManager::RemoveNetworkController(const std::string& id)
+{
+	auto itr = mNetworkControllers.find(id);
+	if (itr != mNetworkControllers.end())
+	{
+		mNetworkControllers.erase(itr);
+	}
 }

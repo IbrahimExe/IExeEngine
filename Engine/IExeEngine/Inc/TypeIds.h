@@ -16,6 +16,7 @@ namespace IExeEngine
         RigidBody,          // Adds a physics object to the game object
         PlayerController,   // Input used to move a character/ mesh/ model in the world
         ZombieController,   // Camera & Input controls for the zombie type character
+        NetworkController,  // Adds network controller to a character/mesh/model local as well as remote updates
         HumanEnemy,         // Logic for a Human Enemy Character (If time permits)
         SoundEffect,        // Adds a sound effect to an object
         SoundBank,          // Adds a group of sounds to an object

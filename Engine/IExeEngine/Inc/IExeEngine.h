@@ -32,6 +32,7 @@
 #include "PlayerControllerComponent.h"
 #include "TPSCameraComponent.h"
 #include "ZombieControllerComponent.h"
+#include "NetworkControllerComponent.h"
 
 // Services
 #include "Service.h"

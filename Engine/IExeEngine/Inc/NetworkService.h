@@ -4,6 +4,8 @@
 
 namespace IExeEngine
 {
+	class NetworkControllerComponent;
+
 	class NetworkService final : public Service
 	{
 	public:
@@ -13,10 +15,14 @@ namespace IExeEngine
 		void DebugUI() override;
 		void Deserialize(const rapidjson::Value& value) override;
 
+		void RegisterPlayer(NetworkControllerComponent* networkController);
+		void UnregisterPlayer(NetworkControllerComponent* networkController);
+
 	private:
 		struct PlayerEntry
 		{
 			std::string id;
+			NetworkControllerComponent* networkComponent = nullptr;
 		};
 
 		std::vector<PlayerEntry> mPlayers;

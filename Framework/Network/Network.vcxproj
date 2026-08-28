@@ -138,6 +138,7 @@
     <ClInclude Include="Inc\Client.h" />
     <ClInclude Include="Inc\Common.h" />
     <ClInclude Include="Inc\Network.h" />
+    <ClInclude Include="Inc\NetworkController.h" />
     <ClInclude Include="Inc\NetworkElement.h" />
     <ClInclude Include="Inc\NetworkEvents.h" />
     <ClInclude Include="Inc\NetworkManager.h" />
@@ -146,6 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Client.cpp" />
+    <ClCompile Include="Src\NetworkController.cpp" />
     <ClCompile Include="Src\NetworkElement.cpp" />
     <ClCompile Include="Src\NetworkManager.cpp" />
     <ClCompile Include="Src\Precomiled.cpp">

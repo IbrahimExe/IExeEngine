@@ -6,6 +6,8 @@ namespace IExeEngine::Network
 {
 	class NetworkManager;
 
+	class NetworkController;
+
 	class NetworkManager final
 	{
 	public:
@@ -28,6 +30,9 @@ namespace IExeEngine::Network
 		const std::string& GetLocalId() const;
 		const std::vector<std::string>& GetPlayerIds() const;
 
+		void SetNetworkController(const std::string& id, NetworkController* networkController);
+		void RemoveNetworkController(const std::string& id);
+
 	private:
 		static LRESULT CALLBACK NetworkManagerMessageHandler(HWND window, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -41,5 +46,6 @@ namespace IExeEngine::Network
 		std::string mWriteMessage;
 		std::vector<std::string> mPlayerIds;
 		std::unordered_map<std::string, float> mNextSetIdAttempt;
+		std::unordered_map<std::string, NetworkController*> mNetworkControllers;
 	};
 }
