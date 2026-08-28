@@ -3,6 +3,7 @@
 
 #include "Client.h"
 #include "Server.h"
+#include "NetworkEvents.h"
 
 using namespace IExeEngine;
 using namespace IExeEngine::Network;
@@ -92,6 +93,8 @@ void NetworkManager::StartNetwork(bool server, const std::string& serverAddress)
 
 		// Give local computer IPV4 address
 		mServerAddress = std::string(inet_ntoa(addr));
+
+		mPlayerIds.push_back("Server");
 	}
 	else
 	{
@@ -100,6 +103,13 @@ void NetworkManager::StartNetwork(bool server, const std::string& serverAddress)
 
 		std::string msg = "Client:connected";
 		SendMsg(msg.c_str(), msg.size());
+
+        mPlayerIds.push_back("Client"); // Client by default but can be overwritten by server if server sends a SetId event
+
+		char msgData[100];
+		// Message Format: eventType sender data
+		sprintf_s(msgData, "%d %s", (int)EventType::Connected, GetLocalId().c_str());
+		SendMsg(msgData, 100);
 	}
 
 	mConnected = false;
@@ -116,6 +126,22 @@ void NetworkManager::Update(float deltaTime)
 		return;
 	}
 
+    // Even if we dont get messages, 
+	// we still need to update the network element to handle timeouts and other network events
+	for (auto& nextSetData : mNextSetIdAttempt)
+	{
+		nextSetData.second -= deltaTime;
+		if (nextSetData.second <= 0.0f)
+		{
+			nextSetData.second = 0.5f;
+			// Send SetId again since we dont know if player got already
+			char msgData[100];
+			// Message format: eventType sender data
+			sprintf_s(msgData, "%d %s %s", (int)EventType::SetId, GetLocalId().c_str(), nextSetData.first.c_str());
+			SendMsg(msgData, 100);
+		}
+	}
+
 	// If no data -> return
 	if (mNetwork->GetDataLength() <= 0)
 	{
@@ -125,6 +151,69 @@ void NetworkManager::Update(float deltaTime)
 	const char* data = mNetwork->GetData();
 	LOG("[Network] %s", data);
 	mConnected = true; // If data is received, we may assume we are connected
+    EventType event = (EventType)(data[0] - '0');
+	switch (event)
+	{
+		// Only done by SERVER (Client was connected)
+	case EventType::Connected:
+	{
+		char msgData[100];
+		std::string clientId = "Client" + std::to_string(mPlayerIds.size());
+		// Message Format: eventType sender data
+		sprintf_s(msgData, "%d %s %s", (int)EventType::SetId, GetLocalId().c_str(), clientId.c_str());
+		SendMsg(msgData, 100);
+		mNextSetIdAttempt[clientId] = 0.5f;
+	}
+	break;
+	case EventType::SetId:
+	{
+		// Consume data
+		int eventType = 0;
+		char senderId[100];
+		char localId[100];
+		sscanf_s(data, "%d %s %s", &eventType, senderId, (unsigned int)sizeof(senderId), localId, (unsigned int)sizeof(localId));
+		mPlayerIds[0] = localId;
+		if (std::find(mPlayerIds.begin(), mPlayerIds.end(), senderId) == mPlayerIds.end())
+		{
+			mPlayerIds.push_back(senderId);
+		}
+
+		char msgData[100];
+		sprintf_s(msgData, "%d %s", (int)EventType::IdRecieved, GetLocalId().c_str());
+		SendMsg(msgData, 100);
+	}
+	break;
+	// Only done by Server
+	case EventType::IdRecieved:
+	{
+		int eventType = 0;
+		char senderId[100];
+		sscanf_s(data, "%d %s", &eventType, senderId, sizeof(senderId));
+		auto itr = mNextSetIdAttempt.find(senderId);
+		if (itr != mNextSetIdAttempt.end())
+		{
+			mNextSetIdAttempt.erase(itr);
+		}
+		if (std::find(mPlayerIds.begin(), mPlayerIds.end(), senderId) == mPlayerIds.end())
+		{
+			mPlayerIds.push_back(senderId);
+		}
+	}
+	break;
+	case EventType::SetPosition:
+	{
+
+	}
+	break;
+	case EventType::Input:
+	{
+
+	}
+	break;
+	default:
+		ASSERT(false, "NetworkManager: Invalid network event!");
+		break;
+	}
 
 	// TODO: Handle all the messages that come and apply effects
 
@@ -150,6 +239,8 @@ void NetworkManager::DebugUI()
 	{
 		if (mConnected || (mServer && mNetwork != nullptr))
 		{
+			ImGui::LabelText("LocalId", GetLocalId().c_str());
+
 			if (mServer)
 			{
 				ImGui::LabelText("Element", "Server");
@@ -186,4 +277,14 @@ void NetworkManager::ReceiveMsg()
 void NetworkManager::SendMsg(const char* msg, int length)
 {
 	mNetwork->SendMsg(msg, length);
+}
+
+const std::string& NetworkManager::GetLocalId() const
+{
+	// TODO: insert return statement here
+}
+
+const std::vector<std::string>& NetworkManager::GetPlayerIds() const
+{
+	// TODO: insert return statement here
 }

@@ -25,6 +25,9 @@ namespace IExeEngine::Network
 		void ReceiveMsg();
 		void SendMsg(const char* msg, int length);
 
+		const std::string& GetLocalId() const;
+		const std::vector<std::string>& GetPlayerIds() const;
+
 	private:
 		static LRESULT CALLBACK NetworkManagerMessageHandler(HWND window, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -36,5 +39,7 @@ namespace IExeEngine::Network
 		NetworkElement* mNetwork = nullptr;
 		HWND mWindow = nullptr;
 		std::string mWriteMessage;
+		std::vector<std::string> mPlayerIds;
+		std::unordered_map<std::string, float> mNextSetIdAttempt;
 	};
 }

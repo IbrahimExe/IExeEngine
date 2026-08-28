@@ -139,6 +139,7 @@
     <ClInclude Include="Inc\Common.h" />
     <ClInclude Include="Inc\Network.h" />
     <ClInclude Include="Inc\NetworkElement.h" />
+    <ClInclude Include="Inc\NetworkEvents.h" />
     <ClInclude Include="Inc\NetworkManager.h" />
     <ClInclude Include="Inc\Server.h" />
     <ClInclude Include="Src\Precompiled.h" />
