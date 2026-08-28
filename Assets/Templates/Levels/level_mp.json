@@ -15,8 +15,9 @@
       "Gravity": [ 0.0, -9.81, 0.0 ]
     },
     "NetworkService": {
-
-    },
+      {
+        "PlayerTemplate": "../../Assets/Templates/Objects/player_obj_mp_remote.json"
+      },
     "UIRenderService": {
 
     }
@@ -33,7 +34,7 @@
       }
     },
     "Player": {
-      "Template": "../../Assets/Templates/Objects/player_obj.json"
+      "Template": "../../Assets/Templates/Objects/player_obj_mp_local.json"
     }
   }
 }

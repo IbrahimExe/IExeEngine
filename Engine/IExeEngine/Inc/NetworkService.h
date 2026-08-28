@@ -11,5 +11,15 @@ namespace IExeEngine
 
 		void Update(float deltatime) override;
 		void DebugUI() override;
+		void Deserialize(const rapidjson::Value& value) override;
+
+	private:
+		struct PlayerEntry
+		{
+			std::string id;
+		};
+
+		std::vector<PlayerEntry> mPlayers;
+		std::filesystem::path mPlayerTemplate;
 	};
 }
