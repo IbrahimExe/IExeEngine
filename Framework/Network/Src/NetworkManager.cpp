@@ -16,7 +16,7 @@ namespace
 
 LRESULT CALLBACK NetworkManager::NetworkManagerMessageHandler(HWND window, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-	if (!sNetworkManager)
+	if (sNetworkManager != nullptr)
 	{
 		switch (msg)
 		{
