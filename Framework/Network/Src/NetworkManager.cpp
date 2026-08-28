@@ -80,6 +80,18 @@ void NetworkManager::StartNetwork(bool server, const std::string& serverAddress)
 	{
 		mNetwork = new Server(mPort);
 		mNetwork->Initialize(mWindow, "");
+
+		char hostname[256];
+		gethostname(hostname, sizeof(hostname));
+
+		struct hostent* host = gethostbyname(hostname);
+		ASSERT(host != nullptr, "NetworkManager: failed to get hostname~");
+
+		struct in_addr addr;
+		memcpy(&addr, host->h_addr_list[0], sizeof(struct in_addr));
+
+		// Give local computer IPV4 address
+		mServerAddress = std::string(inet_ntoa(addr));
 	}
 	else
 	{
@@ -136,7 +148,7 @@ void NetworkManager::DebugUI()
 {
 	if (ImGui::CollapsingHeader("Network", ImGuiTreeNodeFlags_DefaultOpen))
 	{
-		if (mConnected)
+		if (mConnected || (mServer && mNetwork != nullptr))
 		{
 			if (mServer)
 			{
