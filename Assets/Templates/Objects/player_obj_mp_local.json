@@ -25,37 +25,9 @@
     },
     "NetworkControllerComponent": {
       "ShiftSpeed": 10.0,
-      "MoveSpeed": 1.0,
+      "MoveSpeed": 5.0,
       "TurnSpeed": 0.1,
-      "JumpSpeed": 4.0
-    },
-    "SoundBankComponent": {
-      "SoundEffects": {
-        "ZombieAttack_1": {
-          "FileName": "ZAttack1.wav",
-          "Looping": false
-        },
-        "ZombieAttack_2": {
-          "FileName": "ZAttack2.wav",
-          "Looping": false
-        },
-        "ZombieAttack_3": {
-          "FileName": "ZAttack3.wav",
-          "Looping": false
-        },
-        "ZombieScream": {
-          "FileName": "ZScream.wav",
-          "Looping": false
-        },
-        "ZombieIdle": {
-          "FileName": "ZIdle.wav",
-          "Looping": true
-        },
-        "SalsaBG": {
-          "FileName": "SalsaBG.wav",
-          "Looping": true
-        }
-      }
+      "JumpSpeed": 10.0
     }
   }
 }

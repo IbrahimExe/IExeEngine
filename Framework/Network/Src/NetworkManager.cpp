@@ -87,7 +87,7 @@ void NetworkManager::StartNetwork(bool server, const std::string& serverAddress)
 		gethostname(hostname, sizeof(hostname));
 
 		struct hostent* host = gethostbyname(hostname);
-		ASSERT(host != nullptr, "NetworkManager: failed to get hostname~");
+		ASSERT(host != nullptr, "NetworkManager: Failed to get hostname!");
 
 		struct in_addr addr;
 		memcpy(&addr, host->h_addr_list[0], sizeof(struct in_addr));

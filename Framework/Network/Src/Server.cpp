@@ -87,7 +87,7 @@ void Server::Terminate()
 
 void Server::ReceiveMsg()
 {
-	if (!mInitialized || mMsgConnection == INVALID_SOCKET)
+	if (!mInitialized || mMsgConnection == INVALID_SOCKET || !mConnected)
 	{
 		return;
 	}

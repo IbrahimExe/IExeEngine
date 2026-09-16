@@ -164,7 +164,7 @@ namespace
         }
         else if (componentName == "NetworkControllerComponent")
         {
-            component = gameObject.AddComponent<NetworkControllerComponent>();
+            component = gameObject.GetComponent<NetworkControllerComponent>();
         }
         else
         {

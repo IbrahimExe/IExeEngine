@@ -58,7 +58,7 @@ void NetworkService::Deserialize(const rapidjson::Value& value)
 	std::string playerTemplate;
 	SaveUtil::ReadString("PlayerTemplate", playerTemplate, value);
 	mPlayerTemplate = playerTemplate;
-	ASSERT(!mPlayerTemplate.empty(), "NetworkService: player template is required");
+	ASSERT(!mPlayerTemplate.empty(), "NetworkService: player template is required!");
 }
 
 void NetworkService::RegisterPlayer(NetworkControllerComponent* networkController)
