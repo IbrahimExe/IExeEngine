@@ -50,7 +50,7 @@ void Server::Initialize(HWND handle, const std::string& serverAddress)
 
 	mServerAddr = {};
 	mServerAddr.sin_family = AF_INET;
-	mServerAddr.sin_port = htons(mPort);
+	mServerAddr.sin_port = htons(0);
 	mServerAddr.sin_addr.s_addr = htonl(INADDR_ANY);
 	if (bind(mMsgConnection, reinterpret_cast<const sockaddr*>(&mServerAddr), sizeof(mServerAddr)) == SOCKET_ERROR)
 	{

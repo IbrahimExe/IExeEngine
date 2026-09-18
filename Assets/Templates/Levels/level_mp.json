@@ -19,24 +19,24 @@
     },
     "UIRenderService": {
 
-    },
-    "GameObjects": {
-      "Ground": {
-        "Template": "../../Assets/Templates/Objects/ground.json",
-        "Components": {
-          "MeshComponent": {
-            "Textures": {
-              "DiffuseMap": "../../Assets/Textures/misc/basketball.jpg"
-            }
+    }
+  },
+  "GameObjects": {
+    "Ground": {
+      "Template": "../../Assets/Templates/Objects/ground.json",
+      "Components": {
+        "MeshComponent": {
+          "Textures": {
+            "DiffuseMap": "../../Assets/Textures/misc/basketball.jpg"
           }
         }
-      },
-      "Player": {
-        "Template": "../../Assets/Templates/Objects/player_obj_mp_local.json"
-      },
-      "Camera": {
-        "Template": "../../Assets/Templates/Objects/static_camera.json"
       }
+    },
+    "Player": {
+      "Template": "../../Assets/Templates/Objects/player_obj_mp_local.json"
+    },
+    "Camera": {
+      "Template": "../../Assets/Templates/Objects/static_camera.json"
     }
   }
 }

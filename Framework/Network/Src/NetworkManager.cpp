@@ -102,9 +102,6 @@ void NetworkManager::StartNetwork(bool server, const std::string& serverAddress)
 		mNetwork = new Client(mPort);
 		mNetwork->Initialize(mWindow, serverAddress);
 
-		std::string msg = "Client:connected";
-		SendMsg(msg.c_str(), msg.size());
-
         mPlayerIds.push_back("Client"); // Client by default but can be overwritten by server if server sends a SetId event
 
 		char msgData[100];
