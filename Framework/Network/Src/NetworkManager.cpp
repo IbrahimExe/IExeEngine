@@ -41,7 +41,9 @@ LRESULT CALLBACK NetworkManager::NetworkManagerMessageHandler(HWND window, UINT 
 				}
 				}
 			}
+			break;
 		}
+
 		}
 	}
 	return sWindowsMessageHandler.ForwardMessage(window, msg, wParam, lParam);
