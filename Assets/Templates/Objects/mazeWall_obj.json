@@ -26,7 +26,7 @@
       "Mass": 9999.0,
       "ColliderData": {
         "Shape": "Box",
-        "HalfExtents": [ 1, 1, 1 ]
+        "HalfExtents": [ 0.5, 0.5, 0.5 ]
       }
     }
   }

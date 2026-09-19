@@ -11,19 +11,50 @@
       "Template": "../../Assets/Templates/Objects/mazeWall_obj.json",
       "Components": {
         "TransformComponent": {
-          "Position": [ 0.0, 1.0, -12.0 ],
+          "Position": [ 0.0, 1.0, -10.0 ],
           "Rotation": [ 0.0, 0.0, 0.0, 1.0 ],
-          "Scale": [ 24.0, 2.0, 1.0 ]
+          "Scale": [ 20.0, 2.0, 1.0 ]
+        },
+        "RigidBodyComponent": {
+          "Mass": 9999.0,
+          "ColliderData": {
+            "Shape": "Box",
+            "HalfExtents": [ 10.0, 1.0, 0.5 ]
+          }
         }
       }
     },
-    "Outer_South": {
+    "Outer_South_Left": {
       "Template": "../../Assets/Templates/Objects/mazeWall_obj.json",
       "Components": {
         "TransformComponent": {
-          "Position": [ 0.0, 1.0, 12.0 ],
+          "Position": [ -6.0, 1.0, 10.0 ],
           "Rotation": [ 0.0, 0.0, 0.0, 1.0 ],
-          "Scale": [ 24.0, 2.0, 1.0 ]
+          "Scale": [ 8.0, 2.0, 1.0 ]
+        },
+        "RigidBodyComponent": {
+          "Mass": 9999.0,
+          "ColliderData": {
+            "Shape": "Box",
+            "HalfExtents": [ 4.0, 1.0, 0.5 ]
+          }
+        }
+      }
+    },
+    "Outer_South_Right": {
+      "Template": "../../Assets/Templates/Objects/mazeWall_obj.json",
+      "Components": {
+        "TransformComponent": {
+          "Position": [ 6.0, 1.0, 10.0 ],
+          "Rotation": [ 0.0, 0.0, 0.0, 1.0 ],
+          "Scale": [ 8.0, 2.0, 1.0 ]
+        },
+        "RigidBodyComponent": {
+          "Mass": 9999.0,
+          "ColliderData": {
+            "Shape": "Box",
+            "HalfExtents": [ 4.0, 1.0, 0.5 ]
+          }
         }
       }
     },
@@ -31,9 +62,16 @@
       "Template": "../../Assets/Templates/Objects/mazeWall_obj.json",
       "Components": {
         "TransformComponent": {
-          "Position": [ -12.0, 1.0, 0.0 ],
+          "Position": [ -10.0, 1.0, 0.0 ],
           "Rotation": [ 0.0, 0.0, 0.0, 1.0 ],
-          "Scale": [ 1.0, 2.0, 24.0 ]
+          "Scale": [ 1.0, 2.0, 20.0 ]
+        },
+        "RigidBodyComponent": {
+          "Mass": 9999.0,
+          "ColliderData": {
+            "Shape": "Box",
+            "HalfExtents": [ 0.5, 1.0, 10.0 ]
+          }
         }
       }
     },
@@ -41,29 +79,67 @@
       "Template": "../../Assets/Templates/Objects/mazeWall_obj.json",
       "Components": {
         "TransformComponent": {
-          "Position": [ 12.0, 1.0, 0.0 ],
+          "Position": [ 10.0, 1.0, 0.0 ],
           "Rotation": [ 0.0, 0.0, 0.0, 1.0 ],
-          "Scale": [ 1.0, 2.0, 24.0 ]
+          "Scale": [ 1.0, 2.0, 20.0 ]
+        },
+        "RigidBodyComponent": {
+          "Mass": 9999.0,
+          "ColliderData": {
+            "Shape": "Box",
+            "HalfExtents": [ 0.5, 1.0, 10.0 ]
+          }
         }
       }
     },
-    "Inner_Wall_1": {
+    "Wall_1": {
       "Template": "../../Assets/Templates/Objects/mazeWall_obj.json",
       "Components": {
         "TransformComponent": {
-          "Position": [ -4.0, 1.0, -4.0 ],
+          "Position": [ -3.0, 1.0, -4.0 ],
           "Rotation": [ 0.0, 0.0, 0.0, 1.0 ],
-          "Scale": [ 16.0, 2.0, 1.0 ]
+          "Scale": [ 14.0, 2.0, 1.0 ]
+        },
+        "RigidBodyComponent": {
+          "Mass": 9999.0,
+          "ColliderData": {
+            "Shape": "Box",
+            "HalfExtents": [ 7.0, 1.0, 0.5 ]
+          }
         }
       }
     },
-    "Inner_Wall_2": {
+    "Wall_2": {
       "Template": "../../Assets/Templates/Objects/mazeWall_obj.json",
       "Components": {
         "TransformComponent": {
-          "Position": [ 4.0, 1.0, 4.0 ],
+          "Position": [ 4.0, 1.0, 1.0 ],
           "Rotation": [ 0.0, 0.0, 0.0, 1.0 ],
-          "Scale": [ 16.0, 2.0, 1.0 ]
+          "Scale": [ 1.0, 2.0, 10.0 ]
+        },
+        "RigidBodyComponent": {
+          "Mass": 9999.0,
+          "ColliderData": {
+            "Shape": "Box",
+            "HalfExtents": [ 0.5, 1.0, 5.0 ]
+          }
+        }
+      }
+    },
+    "Wall_3": {
+      "Template": "../../Assets/Templates/Objects/mazeWall_obj.json",
+      "Components": {
+        "TransformComponent": {
+          "Position": [ -5.0, 1.0, 7.0 ],
+          "Rotation": [ 0.0, 0.0, 0.0, 1.0 ],
+          "Scale": [ 10.0, 2.0, 1.0 ]
+        },
+        "RigidBodyComponent": {
+          "Mass": 9999.0,
+          "ColliderData": {
+            "Shape": "Box",
+            "HalfExtents": [ 5.0, 1.0, 0.5 ]
+          }
         }
       }
     }
