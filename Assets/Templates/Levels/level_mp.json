@@ -27,7 +27,7 @@
       "Components": {
         "MeshComponent": {
           "Textures": {
-            "DiffuseMap": "../../Assets/Textures/misc/basketball.jpg"
+            "DiffuseMap": "../../Assets/Textures/misc/cardboard.jpg"
           }
         }
       }
