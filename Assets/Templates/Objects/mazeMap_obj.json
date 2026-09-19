@@ -1,0 +1,71 @@
+{
+  "Components": {
+    "TransformComponent": {
+      "Position": [ 0.0, 0.0, 0.0 ],
+      "Rotation": [ 0.0, 0.0, 0.0, 1.0 ],
+      "Scale": [ 1.0, 1.0, 1.0 ]
+    }
+  },
+  "Children": {
+    "Outer_North": {
+      "Template": "../../Assets/Templates/Objects/mazeWall_obj.json",
+      "Components": {
+        "TransformComponent": {
+          "Position": [ 0.0, 1.0, -12.0 ],
+          "Rotation": [ 0.0, 0.0, 0.0, 1.0 ],
+          "Scale": [ 24.0, 2.0, 1.0 ]
+        }
+      }
+    },
+    "Outer_South": {
+      "Template": "../../Assets/Templates/Objects/mazeWall_obj.json",
+      "Components": {
+        "TransformComponent": {
+          "Position": [ 0.0, 1.0, 12.0 ],
+          "Rotation": [ 0.0, 0.0, 0.0, 1.0 ],
+          "Scale": [ 24.0, 2.0, 1.0 ]
+        }
+      }
+    },
+    "Outer_West": {
+      "Template": "../../Assets/Templates/Objects/mazeWall_obj.json",
+      "Components": {
+        "TransformComponent": {
+          "Position": [ -12.0, 1.0, 0.0 ],
+          "Rotation": [ 0.0, 0.0, 0.0, 1.0 ],
+          "Scale": [ 1.0, 2.0, 24.0 ]
+        }
+      }
+    },
+    "Outer_East": {
+      "Template": "../../Assets/Templates/Objects/mazeWall_obj.json",
+      "Components": {
+        "TransformComponent": {
+          "Position": [ 12.0, 1.0, 0.0 ],
+          "Rotation": [ 0.0, 0.0, 0.0, 1.0 ],
+          "Scale": [ 1.0, 2.0, 24.0 ]
+        }
+      }
+    },
+    "Inner_Wall_1": {
+      "Template": "../../Assets/Templates/Objects/mazeWall_obj.json",
+      "Components": {
+        "TransformComponent": {
+          "Position": [ -4.0, 1.0, -4.0 ],
+          "Rotation": [ 0.0, 0.0, 0.0, 1.0 ],
+          "Scale": [ 16.0, 2.0, 1.0 ]
+        }
+      }
+    },
+    "Inner_Wall_2": {
+      "Template": "../../Assets/Templates/Objects/mazeWall_obj.json",
+      "Components": {
+        "TransformComponent": {
+          "Position": [ 4.0, 1.0, 4.0 ],
+          "Rotation": [ 0.0, 0.0, 0.0, 1.0 ],
+          "Scale": [ 16.0, 2.0, 1.0 ]
+        }
+      }
+    }
+  }
+}

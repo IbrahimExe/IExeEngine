@@ -23,7 +23,7 @@
       }
     },
     "RigidBodyComponent": {
-      "Mass": 1000.0,
+      "Mass": 9999.0,
       "ColliderData": {
         "Shape": "Box",
         "HalfExtents": [ 1, 1, 1 ]

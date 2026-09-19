@@ -37,6 +37,9 @@
     },
     "Camera": {
       "Template": "../../Assets/Templates/Objects/static_camera.json"
+    },
+    "MazeMap": {
+      "Template": "../../Assets/Templates/Objects/mazeMap_obj.json"
     }
   }
 }
