@@ -32,6 +32,7 @@
 #include "PlayerControllerComponent.h"
 #include "TPSCameraComponent.h"
 #include "ZombieControllerComponent.h"
+#include "NetworkControllerComponent.h"
 
 // Services
 #include "Service.h"
@@ -39,6 +40,7 @@
 #include "RenderService.h"
 #include "PhysicsService.h"
 #include "UIRenderService.h"
+#include "NetworkService.h"
 
 namespace IExeEngine
 {

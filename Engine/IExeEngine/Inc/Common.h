@@ -13,6 +13,8 @@
 
 #include <Audio/Inc/Audio.h>
 
+#include <Network/Inc/Network.h>
+
 // rapidjson files
 #include <rapidjson/document.h>
 #include <rapidjson//filereadstream.h>

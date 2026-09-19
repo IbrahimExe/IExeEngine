@@ -19,6 +19,7 @@
 #include "PlayerControllerComponent.h"
 #include "TPSCameraComponent.h"
 #include "ZombieControllerComponent.h"
+#include "NetworkControllerComponent.h"
 
 using namespace IExeEngine;
 
@@ -92,6 +93,10 @@ namespace
         {
             newComponent = gameObject.AddComponent<ZombieControllerComponent>();
         }
+        else if (componentName == "NetworkControllerComponent")
+        {
+            newComponent = gameObject.AddComponent<NetworkControllerComponent>();
+        }
         else
         {
             newComponent = TryMakeComponent(componentName, gameObject);
@@ -156,6 +161,10 @@ namespace
         else if (componentName == "ZombieControllerComponent")
         {
             component = gameObject.GetComponent<ZombieControllerComponent>();
+        }
+        else if (componentName == "NetworkControllerComponent")
+        {
+            component = gameObject.GetComponent<NetworkControllerComponent>();
         }
         else
         {

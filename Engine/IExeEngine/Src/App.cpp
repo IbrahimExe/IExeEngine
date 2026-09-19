@@ -8,6 +8,7 @@ using namespace IExeEngine::Graphics;
 using namespace IExeEngine::Input;
 using namespace IExeEngine::Physics;
 using namespace IExeEngine::Audio;
+using namespace IExeEngine::Network;
 
 void App::Run(const AppConfig& config)
 {
@@ -23,9 +24,14 @@ void App::Run(const AppConfig& config)
 	);
 	auto handle = myWindow.GetWindowHandle();
 	GraphicsSystem::StaticInitialize(handle, false);
+
 	InputSystem::StaticInitialize(handle);
+
+	NetworkManager::StaticInitialize(handle);
+
 	DebugUI::StaticInitialize(handle, false, true);
 	SimpleDraw::StaticInitialize(config.maxVertexCount);
+
 	TextureManager::StaticInitialize(L"../../Assets/Textures");
     ModelManager::StaticInitialize(L"../../Assets/Models");
 
@@ -106,8 +112,9 @@ void App::Run(const AppConfig& config)
     TextureManager::StaticTerminate();
 	DebugUI::StaticTerminate();
 	SimpleDraw::StaticTerminate();
-	GraphicsSystem::StaticTerminate();
+	NetworkManager::StaticTerminate();
 	InputSystem::StaticTerminate();
+	GraphicsSystem::StaticTerminate();
 
 	myWindow.Terminate();
 }

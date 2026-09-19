@@ -17,7 +17,7 @@ void GameState::Initialize()
 
     MeshPX skyBox = MeshBuilder::CreateSkySpherePX(50, 50, 900.0f);
     mSkyBox.meshBuffer.Initialize(skyBox);
-    mSkyBox.diffuseMapId = TextureManager::Get()->LoadTexture(L"BlueBG.jpg");
+    mSkyBox.diffuseMapId = TextureManager::Get()->LoadTexture(L"paper.jpg");
     mSkyBox.transform.position = { 0.0f, 0.0f, 0.0f };
 
     Mesh groundMesh = MeshBuilder::CreatePlane(25, 25, 1.0f);
@@ -28,8 +28,8 @@ void GameState::Initialize()
 	mCharacter.Initialize("Character_01/Character_01.model"); // Lil Timmy
     mCharacter.transform.position = { 0.0f, 0.0f, 0.0f };
 
-    parasite.Initialize("parasite/parasite.model"); // Parasite
-    parasite.transform.position = { -0.5f, 0.0f, 0.9f };
+    //parasite.Initialize("parasite/parasite.model"); // Parasite
+    //parasite.transform.position = { -0.5f, 0.0f, 0.9f };
 
     zombie.Initialize("zombie/zombie.model"); // Zombie
     zombie.transform.position = { 0.5f, 0.0f, 0.6f };
