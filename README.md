@@ -9,9 +9,9 @@
 
 ## 🧩 Overview
 
-This project represents my personal journey into **graphics programming and engine architecture**, developed entirely from scratch over the course of **three months** using **C++ and DirectX 11** inside **Visual Studio**.
+This project represents my personal journey into **software programming, graphics pipelines and engine architecture**, developed entirely from scratch over the course of **a year (and continuing)** using **C++ and DirectX 11** inside **Visual Studio**.
 
-Every component of this engine—from the compilation of C++ source files to rendering 3D geometry and managing camera transformations—was implemented manually to deeply understand how real-time rendering engines operate under the hood.
+Every component of this engine, from the compilation of C++ source files to rendering 3D geometry and managing camera transformations- was implemented manually to deeply understand how real-time rendering engines operate under the hood.
 
 This README serves as an explanatory walkthrough of the topics, concepts, and systems that went into building my proprietary engine, following a natural chronological order:
 
